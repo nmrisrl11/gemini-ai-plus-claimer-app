@@ -1,1080 +1,1579 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="scroll-smooth dark">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google AI Plus Portal — Automated 1-Year Access Link Generator</title>
-  <meta name="description" content="A lightweight, zero-telemetry Windows desktop utility that automates promotional student onboarding and canonical redemption link extraction for 12 months of free Google AI Plus (Gemini Advanced & 2TB Google One).">
-  
-  <!-- OpenGraph / Social Cards -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Google AI Plus Portal — 1-Year Access Generator">
-  <meta property="og:description" content="Automate the 12-month Gemini Advanced & Google AI Plus promotional onboarding flow locally on Windows. Zero telemetry, 100% private, standalone portable executable.">
-  <meta property="og:image" content="./images/app_icon.png">
-  <meta name="twitter:card" content="summary_large_image">
-
-  <!-- Icons -->
-  <link rel="icon" type="image/x-icon" href="./images/app_icon.ico">
-  <link rel="icon" type="image/png" href="./images/app_icon.png">
-
-  <!-- Typography: Inter for clean UI, JetBrains Mono for technical specs & code -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-            mono: ['JetBrains Mono', 'Consolas', 'Courier New', 'monospace'],
-          },
-          colors: {
-            slate: {
-              850: '#131c2e',
-              900: '#0f172a',
-              950: '#090d16',
-            },
-            brand: {
-              DEFAULT: '#0284c7', // Sky-600
-              hover: '#0369a1',   // Sky-700
-              accent: '#38bdf8',  // Sky-400
-              glow: 'rgba(2, 132, 199, 0.15)',
-            }
-          }
-        }
-      }
-    }
-  </script>
-
-  <!-- Custom App Stylesheet -->
-  <link rel="stylesheet" href="./css/style.css">
-</head>
-
-<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand selection:text-white min-h-screen flex flex-col">
-
-  <!-- Sticky Header Navigation -->
-  <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      
-      <!-- App Brand & Logo -->
-      <a href="#" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
-        <div class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 p-1 flex items-center justify-center transition-transform group-hover:scale-105">
-          <img src="./images/app_icon.png" alt="Google AI Plus Portal Logo" class="w-full h-full object-contain" width="36" height="36" style="aspect-ratio: 1 / 1;">
-        </div>
-        <div class="flex flex-col">
-          <span class="font-bold text-sm sm:text-base text-slate-50 tracking-tight group-hover:text-sky-300 transition-colors">
-            Google AI Plus Portal
-          </span>
-          <span class="text-[10px] sm:text-[11px] text-slate-400 hidden sm:block">1-Year Access Automation Utility</span>
-        </div>
-      </a>
-
-      <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300" aria-label="Main Navigation">
-        <a href="#overview" class="hover:text-sky-400 transition-colors">Overview</a>
-        <a href="#how-it-works" class="hover:text-sky-400 transition-colors">How It Works</a>
-        <a href="#features" class="hover:text-sky-400 transition-colors">Features</a>
-        <a href="#requirements" class="hover:text-sky-400 transition-colors">Requirements</a>
-        <a href="#support" class="hover:text-sky-400 transition-colors">Support Dev</a>
-        <a href="#faq" class="hover:text-sky-400 transition-colors">FAQ</a>
-      </nav>
-
-      <!-- Desktop Download Button + Mobile Menu Toggle -->
-      <div class="flex items-center gap-2 sm:gap-3">
-        <a href="#download" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-sm transition-all duration-150">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-          </svg>
-          <span>Download</span>
-        </a>
-
-        <!-- Mobile Menu Toggle Button (visible below lg) -->
-        <button id="mobile-menu-btn" type="button" aria-label="Toggle navigation menu" aria-expanded="false" class="lg:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/80 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400">
-          <svg id="menu-icon-bars" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-          </svg>
-          <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Navigation Drawer / Dropdown -->
-    <div id="mobile-menu" class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-lg px-4 pt-3 pb-5 space-y-2 transition-all duration-200">
-      <nav class="flex flex-col space-y-1 text-sm font-medium text-slate-200" aria-label="Mobile Navigation">
-        <a href="#overview" class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors">Overview</a>
-        <a href="#how-it-works" class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors">How It Works</a>
-        <a href="#features" class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors">Features</a>
-        <a href="#requirements" class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors">Requirements</a>
-        <a href="#support" class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors">Support Dev</a>
-        <a href="#faq" class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors">FAQ</a>
-      </nav>
-
-      <div class="pt-3 border-t border-slate-800/80">
-        <a href="#download" class="mobile-nav-link w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm shadow transition-colors">
-          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
-          </svg>
-          <span>Download Portable .exe</span>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- Hero Section -->
-  <main class="flex-grow">
-    <section class="relative pt-10 pb-14 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24 border-b border-slate-800 overflow-hidden">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <!-- Hero Header -->
-        <div class="text-center max-w-3xl mx-auto">
-          <!-- Separated Clean Badges -->
-          <div class="flex flex-wrap items-center justify-center gap-2 mb-6">
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-medium text-slate-300 shadow-sm">
-              <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-              Windows 10 / 11 64-bit
-            </span>
-            <span class="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-mono text-sky-300 shadow-sm">
-              v1.0.0 Portable
-            </span>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-emerald-500/20 text-[11px] font-medium text-emerald-400 shadow-sm">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              Zero Telemetry
-            </span>
-          </div>
-
-          <!-- Hero Headline -->
-          <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 sm:mb-6">
-            Automate your 1-Year Google AI Plus access.
-            <span class="block text-sky-400 mt-1 sm:mt-2">Locally. Effortlessly.</span>
-          </h1>
-
-          <!-- Hero Description -->
-          <p class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto">
-            A native, privacy-focused Windows utility engineered to automate promotional student onboarding and capture the official 
-            <span class="text-sky-300 font-mono text-xs sm:text-sm">one.google.com/offer/...</span> redemption link in the background.
-          </p>
-
-          <!-- Primary CTA Button -->
-          <div class="flex items-center justify-center mb-6">
-            <a href="#download" class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm sm:text-base transition-all duration-150 border border-sky-400/30 shadow-lg shadow-sky-950/40">
-              <!-- Windows Logo SVG -->
-              <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
-              </svg>
-              <span>Download Portable .exe</span>
-              <span class="text-xs bg-sky-700/80 px-2.5 py-0.5 rounded font-mono text-sky-200">58.5 MB</span>
-            </a>
-          </div>
-
-          <!-- Micro specs under CTA -->
-          <div class="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs text-slate-400">
-            <span class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              No installation needed
-            </span>
-            <span class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              Uses pre-installed Chrome or Edge
-            </span>
-            <span class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-              100% Local credential storage
-            </span>
-          </div>
-        </div>
-
-        <!-- Realistic App UI Mockup (Built with Semantic HTML/CSS matching the real desktop app) -->
-        <div class="mt-12 max-w-4xl mx-auto">
-          <div class="rounded-xl border border-slate-700/80 bg-slate-900 shadow-2xl overflow-hidden">
-            
-            <!-- Window Title Bar with Windows Native Controls -->
-            <div class="bg-slate-950 px-3.5 sm:px-4 py-2 border-b border-slate-800 flex items-center justify-between select-none">
-              <div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
-                <img src="./images/app_icon.png" alt="" class="w-4 h-4 object-contain shrink-0" width="16" height="16">
-                <span class="text-xs font-mono font-medium text-slate-300 truncate">
-                  Google AI Plus (1-Year Access) Portal — v1.0.0
-                </span>
-              </div>
-              <div class="flex items-center gap-3 sm:gap-4 shrink-0 text-slate-400 text-xs font-mono pr-1">
-                <span class="hover:text-white cursor-default select-none">&#9472;</span>
-                <span class="hover:text-white cursor-default select-none text-[11px]">&#9633;</span>
-                <span class="hover:text-rose-400 cursor-default select-none text-sm">&#10005;</span>
-              </div>
-            </div>
-
-            <!-- App Header Banner (matches CustomTkinter fg_color="#0f172a") -->
-            <div class="bg-slate-900 px-4 sm:px-6 py-4 border-b border-slate-800 text-center">
-              <div class="text-base sm:text-lg font-bold text-slate-50 tracking-tight">Google AI Plus — 1-Year Access Portal</div>
-              <div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">Automated 12-Month Gemini Advanced &amp; Google AI Plus Offer Link Generator</div>
-            </div>
-
-            <!-- Mock App Body -->
-            <div class="p-4 sm:p-6 space-y-4 bg-slate-950/60">
-              
-              <!-- Card: Account Profile & Setup (matches CTkFrame #1e293b) -->
-              <div class="rounded-lg border border-slate-800 bg-slate-900 p-3.5 sm:p-4">
-                <div class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800/80 gap-2">
-                  <span class="text-xs sm:text-sm font-bold text-sky-400 truncate">
-                    Account Profile &amp; Setup
-                  </span>
-                  <div class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 text-xs font-medium cursor-default">
-                    <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                    <span>Randomize Info</span>
-                  </div>
-                </div>
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                  <div class="flex items-center gap-2">
-                    <label class="w-24 text-slate-300 shrink-0">First Name:</label>
-                    <div class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono">Advik</div>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <label class="w-24 text-slate-300 shrink-0">Last Name:</label>
-                    <div class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono">Malhotra</div>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <label class="w-24 text-slate-300 shrink-0">Gmail Address:</label>
-                    <div class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-400 font-mono truncate">example@gmail.com</div>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <label class="w-24 text-slate-300 shrink-0">Password:</label>
-                    <div class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono">O7yHp@#dTKEI</div>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <label class="w-24 text-slate-300 shrink-0">Contact (+91):</label>
-                    <div class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono">9679633324</div>
-                  </div>
-                  <div class="hidden sm:block"></div>
-                </div>
-              </div>
-
-              <!-- Action Buttons (Positioned directly under Profile Card, matching the real app layout) -->
-              <div class="flex flex-wrap items-center justify-between gap-3 pt-0.5">
-                <div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
-                  <span class="inline-flex items-center px-4 py-2.5 rounded-lg bg-sky-600 text-white font-bold text-xs shadow-sm">
-                    Get 1-Year Access Link
-                  </span>
-                  <span class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold">
-                    Reset Fields
-                  </span>
-                </div>
-                <span class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold">
-                  Support Dev
-                </span>
-              </div>
-
-              <!-- Visual Stepper Bar (Matching the 3-step lifecycle of the real app) -->
-              <div class="rounded-lg border border-slate-800 bg-slate-900/80 px-4 py-2.5 flex items-center justify-center text-xs font-medium gap-2 sm:gap-6 overflow-x-auto no-scrollbar whitespace-nowrap">
-                <span class="text-sky-400 font-bold flex items-center gap-1.5 shrink-0">
-                  <span class="w-4 h-4 rounded-full bg-sky-500/20 border border-sky-400 text-sky-300 flex items-center justify-center text-[10px]">1</span>
-                  Profile Setup
-                </span>
-                <span class="text-slate-600 shrink-0">──────▶</span>
-                <span class="text-slate-400 flex items-center gap-1.5 shrink-0">
-                  <span class="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-[10px]">2</span>
-                  Email Verification
-                </span>
-                <span class="text-slate-600 shrink-0">──────▶</span>
-                <span class="text-slate-400 flex items-center gap-1.5 shrink-0">
-                  <span class="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-[10px]">3</span>
-                  Access Link Ready
-                </span>
-              </div>
-
-              <!-- Live Activity Feed Card (Matches CustomTkinter Feed Title & Status) -->
-              <div class="rounded-lg border border-slate-800 bg-slate-900 p-3.5 sm:p-4">
-                <div class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-800 text-xs">
-                  <span class="font-bold text-slate-100">Live Activity Feed</span>
-                  <span class="text-emerald-400 flex items-center gap-1.5 font-medium text-[11px]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                    System Ready
-                  </span>
-                </div>
-
-                <div class="rounded bg-slate-950 border border-slate-800/80 p-3 font-mono text-[11px] leading-relaxed text-slate-300 overflow-x-auto">
-                  <div class="text-sky-400/60 border-b border-sky-500/30 my-1"></div>
-                  <div class="text-slate-200 font-bold">  GOOGLE AI PLUS — 1-YEAR ACCESS PROVISIONER</div>
-                  <div class="text-sky-400/60 border-b border-sky-500/30 my-1"></div>
-                  <div class="text-emerald-400 font-medium">  Status: System Ready</div>
-                  <div class="text-slate-400 mt-1.5">  Quick Guide:</div>
-                  <div class="text-slate-400">  1. Review or customize your account profile above.</div>
-                  <div class="text-slate-400">  2. Click "Get 1-Year Access Link" to start provisioning.</div>
-                  <div class="text-slate-400">  3. Enter the 6-digit verification code sent to your email when prompted.</div>
-                  <div class="text-slate-400">  4. Your 1-Year Google AI Plus redemption link will be ready to claim!</div>
-                  <div class="text-sky-400/60 border-b border-sky-500/30 my-1"></div>
-                  <div class="text-slate-300 mt-1">
-                    <span class="text-sky-400">&gt;</span> Awaiting user execution...<span class="term-cursor"></span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- In-App Desktop Window Footer (matching bottom of desktop app) -->
-            <div class="px-4 sm:px-6 py-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
-              <div class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
-                <span>Developed by <span class="text-slate-400">@nmrisrl11</span></span>
-                <span>&bull;</span>
-                <span class="hover:text-slate-300">About</span>
-                <span>&bull;</span>
-                <span class="hover:text-amber-400">Buy Me a Coffee</span>
-              </div>
-              <span class="font-mono text-slate-500 text-[10px] shrink-0">v1.0.0</span>
-            </div>
-
-          </div>
-          <p class="text-center text-xs text-slate-500 mt-3 font-mono">
-            Interactive desktop preview of the packaged portable Windows executable.
-          </p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Value Stats Bar -->
-    <section class="border-b border-slate-800 bg-slate-900/50 py-8 sm:py-10" aria-label="Key Guarantees">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
-          
-          <div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
-            <div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-sky-400 font-mono">12 Months</div>
-            <div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Gemini Advanced Free</div>
-            <div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">Includes 2TB Google One Storage</div>
-          </div>
-
-          <div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
-            <div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-emerald-400 font-mono">100% Local</div>
-            <div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Zero Telemetry</div>
-            <div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">No cloud relays or external logging</div>
-          </div>
-
-          <div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
-            <div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white font-mono">0 MB Bloat</div>
-            <div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">System Browser Engine</div>
-            <div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">Attaches to installed Chrome or Edge</div>
-          </div>
-
-          <div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
-            <div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-sky-300 font-mono">1-Click</div>
-            <div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Canonical Link Grab</div>
-            <div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">Auto-saved to local results folder</div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- Overview & Problem / Solution Section -->
-    <section id="overview" class="py-16 md:py-24 border-b border-slate-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="max-w-3xl mb-12">
-          <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Overview</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2">
-            Why navigate multi-step promotional gateways manually?
-          </h2>
-          <p class="text-slate-300 mt-4 text-base sm:text-lg leading-relaxed">
-            Educational partners periodically offer 12 months of complimentary Google AI Plus subscriptions. 
-            However, claiming them manually requires traversing multi-step profile forms, formatting regional mobile numbers, 
-            handling email confirmation challenges, and unwrapping nested redirect tokens.
-          </p>
-        </div>
-
-        <!-- Problem vs Solution Comparison Table -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          
-          <!-- The Manual Headache -->
-          <div class="rounded-xl border border-rose-900/40 bg-slate-900/90 p-6 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center gap-2 text-rose-400 font-semibold text-sm mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                <span>The Manual Method</span>
-              </div>
-              <ul class="space-y-3 text-sm text-slate-400">
-                <li class="flex items-start gap-2.5">
-                  <span class="text-rose-500 font-bold">&times;</span>
-                  <span>Tedious manual entry of educational records and regional phone numbers.</span>
-                </li>
-                <li class="flex items-start gap-2.5">
-                  <span class="text-rose-500 font-bold">&times;</span>
-                  <span>Switching browser tabs repeatedly to check incoming verification emails.</span>
-                </li>
-                <li class="flex items-start gap-2.5">
-                  <span class="text-rose-500 font-bold">&times;</span>
-                  <span>Session timeouts and fragile authentication redirects that expire midway.</span>
-                </li>
-                <li class="flex items-start gap-2.5">
-                  <span class="text-rose-500 font-bold">&times;</span>
-                  <span>Having to manually bookmark or copy down long redemption query strings.</span>
-                </li>
-              </ul>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-rose-400/80 font-mono">
-              Average manual time: 8–15 minutes of repetitive clicking
-            </div>
-          </div>
-
-          <!-- The Portal Solution -->
-          <div class="rounded-xl border border-sky-500/40 bg-slate-900/90 p-6 flex flex-col justify-between">
-            <div>
-              <div class="flex items-center gap-2 text-sky-400 font-semibold text-sm mb-4">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span>The Google AI Plus Portal Way</span>
-              </div>
-              <ul class="space-y-3 text-sm text-slate-300">
-                <li class="flex items-start gap-2.5">
-                  <span class="text-sky-400 font-bold">&check;</span>
-                  <span>1-click randomized demographic profiles or custom inputs with automatic validation.</span>
-                </li>
-                <li class="flex items-start gap-2.5">
-                  <span class="text-sky-400 font-bold">&check;</span>
-                  <span>Runs headless in the background via Playwright, attaching to your pre-installed browser.</span>
-                </li>
-                <li class="flex items-start gap-2.5">
-                  <span class="text-sky-400 font-bold">&check;</span>
-                  <span>Human-in-the-loop: Prompts cleanly only when your 6-digit OTP email arrives.</span>
-                </li>
-                <li class="flex items-start gap-2.5">
-                  <span class="text-sky-400 font-bold">&check;</span>
-                  <span>Resolves canonical <code class="text-sky-300 bg-slate-800 px-1 py-0.5 rounded text-xs">https://one.google.com/offer/...</code> link and archives to local disk.</span>
-                </li>
-              </ul>
-            </div>
-            <div class="mt-6 pt-4 border-t border-slate-800 text-xs text-emerald-400 font-mono flex items-center justify-between">
-              <span>Average runtime: ~45 seconds</span>
-              <span class="font-bold">Zero Telemetry</span>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- How It Works Section (The 5-Step Pipeline) -->
-    <section id="how-it-works" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/30">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-16">
-          <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Step-by-Step Architecture</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2">
-            The 5-Step Provisioning Pipeline
-          </h2>
-          <p class="text-slate-300 mt-4 text-base leading-relaxed">
-            From initial demographic randomization to canonical Google One redemption in five transparent stages.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          
-          <!-- Step 1 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between">
-            <div>
-              <div class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3">
-                01
-              </div>
-              <h3 class="text-sm font-bold text-white mb-2">Profile Setup</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Enter your target Gmail address or click <span class="text-slate-200">Randomize Info</span> to generate realistic student demographic records.
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500 font-mono">
-              Input validation
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between">
-            <div>
-              <div class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3">
-                02
-              </div>
-              <h3 class="text-sm font-bold text-white mb-2">Headless Engine</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Click <span class="text-slate-200">Get 1-Year Access Link</span>. The app silently navigates the partner registration portal in the background.
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500 font-mono">
-              Playwright Engine
-            </div>
-          </div>
-
-          <!-- Step 3 -->
-          <div class="rounded-xl border border-sky-500/30 bg-slate-850 p-5 flex flex-col justify-between shadow-lg">
-            <div>
-              <div class="w-8 h-8 rounded-lg bg-sky-500 text-white font-mono font-bold flex items-center justify-center text-sm mb-3 shadow">
-                03
-              </div>
-              <h3 class="text-sm font-bold text-white mb-2">Safe OTP Dialog</h3>
-              <p class="text-xs text-slate-300 leading-relaxed">
-                When prompted, enter the 6-digit confirmation code received in your Gmail inbox. Keystroke sanitization protects your input.
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-700/80 text-[11px] text-sky-400 font-mono">
-              Human-in-the-loop
-            </div>
-          </div>
-
-          <!-- Step 4 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between">
-            <div>
-              <div class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3">
-                04
-              </div>
-              <h3 class="text-sm font-bold text-white mb-2">Link Extraction</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Captures the unique Google One claim link, resolving redirects to yield a clean <span class="font-mono text-slate-200">one.google.com/offer/...</span> URL.
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500 font-mono">
-              Canonical URL unwrapping
-            </div>
-          </div>
-
-          <!-- Step 5 -->
-          <div class="rounded-xl border border-emerald-500/30 bg-slate-900 p-5 flex flex-col justify-between sm:col-span-2 lg:col-span-1">
-            <div>
-              <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono font-bold flex items-center justify-center text-sm mb-3">
-                05
-              </div>
-              <h3 class="text-sm font-bold text-white mb-2">Claim &amp; Activate</h3>
-              <p class="text-xs text-slate-400 leading-relaxed">
-                Click to redeem directly on Google One. Account credentials and your permanent URL are archived in the local <span class="font-mono text-slate-200">results/</span> directory.
-              </p>
-            </div>
-            <div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-emerald-400 font-mono">
-              1-Year Activated
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Key Features Grid (Engineered, No AI Slop) -->
-    <section id="features" class="py-16 md:py-24 border-b border-slate-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="max-w-3xl mb-16">
-          <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Engineering Highlights</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2">
-            Built for reliability, privacy, and zero overhead
-          </h2>
-          <p class="text-slate-300 mt-4 text-base leading-relaxed">
-            Engineered as a clean Windows utility using CustomTkinter and Playwright. Every feature is designed with practical desktop integration in mind.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          <!-- Feature 1 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-            <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4">
-              <!-- Box/Package SVG -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-            </div>
-            <h3 class="text-base font-bold text-white mb-2">Zero-Bloat Portable Engine</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              No Python runtime or manual package installs required. Automatically detects and attaches to your system's existing Google Chrome or Microsoft Edge installation, avoiding 400MB browser binary downloads.
-            </p>
-          </div>
-
-          <!-- Feature 2 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4">
-              <!-- Shield SVG -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            </div>
-            <h3 class="text-base font-bold text-white mb-2">100% Local &amp; Private</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              No cloud relays, proxies, or remote APIs. Generated credentials, email addresses, and output URLs are written strictly to the local <code class="text-slate-300 font-mono text-xs">results/</code> folder on your drive and never transmitted externally.
-            </p>
-          </div>
-
-          <!-- Feature 3 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-            <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4">
-              <!-- Link SVG -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-            </div>
-            <h3 class="text-base font-bold text-white mb-2">Canonical Link Extraction</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Unwraps session tokens and authentication redirection wrappers to deliver a clean, permanent <code class="text-sky-300 font-mono text-xs">https://one.google.com/offer/&lt;CODE&gt;</code> URL that can be redeemed anytime in your browser.
-            </p>
-          </div>
-
-          <!-- Feature 4 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-            <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4">
-              <!-- Mail / Split SVG -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            </div>
-            <h3 class="text-base font-bold text-white mb-2">Dual Delivery Architecture</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Handles direct on-screen promotional offers as well as accounts where the partner dispatches activation emails directly to the inbox, providing clear status guidance for both paths.
-            </p>
-          </div>
-
-          <!-- Feature 5 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-            <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4">
-              <!-- Shield / Alert SVG -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-            </div>
-            <h3 class="text-base font-bold text-white mb-2">Smart Error &amp; Challenge Safety</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Proactively detects Cloudflare Turnstile, reCAPTCHA, and gateway stops. Safely pauses execution with clear on-screen diagnostics to protect accounts from lockouts.
-            </p>
-          </div>
-
-          <!-- Feature 6 -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-            <div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4">
-              <!-- Terminal / Bug SVG -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-            </div>
-            <h3 class="text-base font-bold text-white mb-2">Built-in Diagnostics (F12)</h3>
-            <p class="text-sm text-slate-400 leading-relaxed">
-              Includes an integrated testing suite (<kbd class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-xs">F12</kbd>) allowing developers to simulate OTP input flows, gateway rejections, and link extraction states without consuming Gmail accounts.
-            </p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- System Requirements & Google Constraints Section -->
-    <section id="requirements" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/40">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-          
-          <!-- Left: System Requirements -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-5 sm:p-8">
-            <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Specifications</span>
-            <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1 mb-6">
-              System Requirements
-            </h2>
-
-            <div class="divide-y divide-slate-800">
-              <div class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm">
-                <span class="text-slate-400 font-medium">Operating System</span>
-                <span class="text-slate-200 font-mono text-xs bg-slate-800 px-2.5 py-1 rounded self-start sm:self-auto">Windows 10 / 11 (64-bit)</span>
-              </div>
-              <div class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm">
-                <span class="text-slate-400 font-medium">Web Browser</span>
-                <span class="text-slate-200 text-xs">Google Chrome or Microsoft Edge</span>
-              </div>
-              <div class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm">
-                <span class="text-slate-400 font-medium">Python Runtime</span>
-                <span class="text-emerald-400 font-mono text-xs bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded self-start sm:self-auto">
-                  Not required for .exe
-                </span>
-              </div>
-              <div class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm">
-                <span class="text-slate-400 font-medium">Target Account</span>
-                <span class="text-slate-200 text-xs">Standard personal @gmail.com</span>
-              </div>
-              <div class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm">
-                <span class="text-slate-400 font-medium">Application Binary</span>
-                <span class="text-slate-200 font-mono text-xs self-start sm:self-auto">Single-file portable (~58.5 MB)</span>
-              </div>
-            </div>
-
-            <div class="mt-6 p-4 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400 leading-relaxed">
-              <span class="text-sky-400 font-semibold">Native Taskbar Integration:</span> The application registers a dedicated Windows <code class="text-slate-300 font-mono">AppUserModelID</code> with embedded multi-resolution mipmaps (<code class="text-slate-300 font-mono">16x16</code> up to <code class="text-slate-300 font-mono">256x256</code>) so it displays its crisp icon without grouping under generic Python processes.
-            </div>
-          </div>
-
-          <!-- Right: Google Expectations & Reality -->
-          <div class="rounded-xl border border-slate-800 bg-slate-900 p-5 sm:p-8">
-            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Important Notice</span>
-            <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1 mb-6">
-              Google One Expectations &amp; Limits
-            </h2>
-
-            <div class="space-y-4 text-xs sm:text-sm text-slate-300">
-              <div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
-                <div class="font-bold text-white mb-1 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-amber-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-                  <span>$0.00 Billed Today &bull; Payment Method Required</span>
-                </div>
-                <p class="text-slate-400 text-xs leading-relaxed">
-                  Activating any promotional Google One subscription requires linking a valid payment method (credit/debit card, PayPal) to confirm identity and enable renewals. <strong>You are charged $0.00 today</strong>, and auto-renewal can be managed or canceled anytime in Google One account settings.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
-                <div class="font-bold text-white mb-1">Standard Personal Accounts Only</div>
-                <p class="text-slate-400 text-xs leading-relaxed">
-                  Destination accounts must be personal Google accounts in good standing. Accounts with conflicting enterprise Google Workspace domains or active paid Google One memberships may require canceling active plans before promo links can apply.
-                </p>
-              </div>
-
-              <div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
-                <div class="font-bold text-white mb-1">Single-Use Promotional Grants</div>
-                <p class="text-slate-400 text-xs leading-relaxed">
-                  Each extracted link is unique, single-use, and bound to the registration session. Third-party partner quotas and regional rules are maintained independently by upstream providers.
-                </p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Download Section (Core CTA) -->
-    <section id="download" class="py-14 sm:py-20 md:py-24 border-b border-slate-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12">
-          <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Download Center</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2">
-            Get Google AI Plus Portal v1.0.0
-          </h2>
-          <p class="text-slate-300 mt-3 sm:mt-4 text-sm sm:text-base leading-relaxed">
-            Download the official standalone portable executable for Windows 10/11 (64-bit).
-          </p>
-        </div>
-
-        <!-- Release Card -->
-        <div class="max-w-3xl mx-auto rounded-2xl border border-sky-500/40 bg-slate-900/90 shadow-2xl p-5 sm:p-8 mb-8 sm:mb-10">
-          
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-5 sm:gap-6 pb-6 border-b border-slate-800">
-            <div class="flex items-center gap-3 sm:gap-4">
-              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-slate-950 border border-slate-700 p-2 flex items-center justify-center shrink-0">
-                <img src="./images/app_icon.png" alt="Portal App Icon" class="w-full h-full object-contain" width="48" height="48">
-              </div>
-              <div>
-                <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
-                  <h3 class="text-base sm:text-lg font-bold text-white">Google AI Plus Portal</h3>
-                  <span class="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30">v1.0.0</span>
-                  <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Stable Release</span>
-                </div>
-                <div class="text-xs text-slate-400 mt-1">
-                  Windows 10 / 11 64-bit &bull; Single Portable Executable &bull; ~58.5 MB
-                </div>
-              </div>
-            </div>
-
-            <!-- Download Button linking to the release repository -->
-            <div class="flex flex-col gap-1.5 w-full sm:w-auto">
-              <a id="btn-download-exe" href="#download" class="release-link w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-sm tracking-wide shadow-md transition-all duration-150">
-                <svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
-                </svg>
-                <span>Download for Windows</span>
-              </a>
-              <span class="text-[11px] text-center text-slate-400">Direct standalone .exe</span>
-            </div>
-          </div>
-
-          <!-- File Verification / Checksum Block -->
-          <div class="pt-6 space-y-3 sm:space-y-4">
-            <div class="text-xs font-semibold uppercase tracking-wider text-slate-400">
-              Binary Integrity &amp; SHA-256 Checksum
-            </div>
-            
-            <div class="bg-slate-950 border border-slate-800 rounded-lg p-3 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div class="text-slate-300 break-all select-all text-[11px] sm:text-xs leading-relaxed">
-                <span class="text-slate-500 select-none font-semibold">SHA256: </span>
-                <span id="checksum-val">3778FAAEAE423C199F1DA88E1DAF20E3FA2A3048C9880DE25B66A68FB3EB3E55</span>
-              </div>
-              <button id="btn-copy-checksum" type="button" aria-label="Copy SHA256 checksum to clipboard" class="self-start sm:self-center shrink-0 inline-flex items-center gap-1.5 px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-sans transition-colors">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                <span class="copy-text">Copy Hash</span>
-              </button>
-            </div>
-
-            <!-- Verify instruction in PowerShell -->
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] text-slate-500 font-mono">
-              <span>Verify in PowerShell: <code class="text-slate-400 break-all">Get-FileHash "Google AI Plus Portal v1.0.0.exe"</code></span>
-              <a href="#download" class="release-link text-sky-400 hover:underline self-start sm:self-auto">
-                Release Repository &rarr;
-              </a>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Application Execution & Usage Modes -->
-        <div class="max-w-3xl mx-auto">
-          <div class="border border-slate-800 rounded-xl bg-slate-900 overflow-hidden">
-            <div class="border-b border-slate-800 px-4 sm:px-6 py-3.5 flex items-center justify-between">
-              <span class="text-xs font-bold text-slate-300 uppercase tracking-wider">Application Usage Modes</span>
-              <span class="text-xs text-slate-500 font-mono">Portable Binary</span>
-            </div>
-
-            <!-- Tab Buttons -->
-            <div class="border-b border-slate-800 bg-slate-950/60 px-2 sm:px-4 flex overflow-x-auto no-scrollbar whitespace-nowrap scroll-smooth gap-1 sm:gap-2 text-xs font-medium" role="tablist">
-              <button type="button" role="tab" aria-selected="true" data-tab="tab-gui" class="tab-btn px-3.5 sm:px-4 py-2.5 text-sky-400 border-b-2 border-sky-400 font-semibold transition-colors shrink-0">
-                Standalone GUI (Default)
-              </button>
-              <button type="button" role="tab" aria-selected="false" data-tab="tab-cli" class="tab-btn px-3.5 sm:px-4 py-2.5 text-slate-400 hover:text-slate-200 border-b-2 border-transparent transition-colors shrink-0">
-                Headless CLI Execution
-              </button>
-              <button type="button" role="tab" aria-selected="false" data-tab="tab-shortcuts" class="tab-btn px-3.5 sm:px-4 py-2.5 text-slate-400 hover:text-slate-200 border-b-2 border-transparent transition-colors shrink-0">
-                Hotkeys &amp; Diagnostics
-              </button>
-            </div>
-
-            <!-- Tab Content 1: GUI Mode -->
-            <div id="tab-gui" class="tab-pane p-4 sm:p-5 font-mono text-xs text-slate-300 space-y-3">
-              <div class="text-slate-400 text-[11px]">Run the standalone executable with zero installation or setup:</div>
-              <div class="bg-slate-950 border border-slate-800 rounded-lg p-3 relative group">
-                <pre class="overflow-x-auto text-sky-300 leading-relaxed pr-12 text-[11px] sm:text-xs"># Double-click in Windows Explorer, or execute from PowerShell / Command Prompt:
-.\Google AI Plus Portal v1.0.0.exe</pre>
-                <button type="button" aria-label="Copy command" onclick="copySnippet(this, '.\\Google AI Plus Portal v1.0.0.exe')" class="absolute top-2.5 right-2.5 px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-sans">
-                  Copy
-                </button>
-              </div>
-              <p class="text-[11px] text-slate-500">
-                Runs completely portable from any folder, Desktop, or USB drive. Automatically connects to system-installed Google Chrome or Microsoft Edge.
-              </p>
-            </div>
-
-            <!-- Tab Content 2: CLI Mode -->
-            <div id="tab-cli" class="tab-pane hidden p-4 sm:p-5 font-mono text-xs text-slate-300 space-y-3">
-              <div class="text-slate-400 text-[11px]">Automate directly from terminal without launching the GUI:</div>
-              <div class="bg-slate-950 border border-slate-800 rounded-lg p-3 relative group">
-                <pre class="overflow-x-auto text-sky-300 leading-relaxed pr-12 text-[11px] sm:text-xs">.\Google AI Plus Portal v1.0.0.exe --cli --email "target@gmail.com" --password "YourSecret123!" --headless</pre>
-                <button type="button" aria-label="Copy command" onclick="copySnippet(this, '.\\Google AI Plus Portal v1.0.0.exe --cli --email \"target@gmail.com\" --password \"YourSecret123!\" --headless')" class="absolute top-2.5 right-2.5 px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-sans">
-                  Copy
-                </button>
-              </div>
-              <p class="text-[11px] text-slate-500">
-                Optional terminal flags: <code class="text-slate-400">--first-name</code>, <code class="text-slate-400">--last-name</code>, <code class="text-slate-400">--phone</code>.
-              </p>
-            </div>
-
-            <!-- Tab Content 3: Shortcuts & Diagnostics -->
-            <div id="tab-shortcuts" class="tab-pane hidden p-4 sm:p-5 font-mono text-xs text-slate-300 space-y-3">
-              <div class="text-slate-400 text-[11px]">Built-in keyboard controls and developer diagnostics:</div>
-              <div class="bg-slate-950 border border-slate-800 rounded-lg p-3 space-y-2 text-xs">
-                <div class="flex items-center justify-between text-slate-300">
-                  <span>Help &amp; Expectations Modal</span>
-                  <kbd class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-sky-400">F1</kbd>
-                </div>
-                <div class="flex items-center justify-between text-slate-300">
-                  <span>Diagnostics &amp; Simulation Suite</span>
-                  <kbd class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-sky-400">F12</kbd>
-                </div>
-                <div class="flex items-center justify-between text-slate-300">
-                  <span>Alternative Diagnostics Shortcut</span>
-                  <kbd class="px-2 py-0.5 rounded bg-slate-800 border border-slate-700 text-sky-400">Ctrl + Shift + D</kbd>
-                </div>
-              </div>
-              <p class="text-[11px] text-slate-500">
-                Simulate verification loops, gateway error handlers, and link extraction banners without consuming Gmail accounts.
-              </p>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Support Developer Section (Authentic to app modal) -->
-    <section id="support" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/30">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="max-w-2xl mx-auto text-center">
-          <span class="text-xs font-bold uppercase tracking-wider text-amber-400">Support the Dev</span>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
-            Buy Me a Coffee
-          </h2>
-          <p class="text-slate-300 mt-3 text-base">
-            Saved you some time? Buying a coffee won't hurt.<br>
-            <span class="text-slate-400 text-sm">Totally optional, but always appreciated!</span>
-          </p>
-
-          <!-- QR Codes Card -->
-          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
-            
-            <!-- Buy Me A Coffee QR -->
-            <div class="p-5 rounded-xl border border-slate-800 bg-slate-900 flex flex-col items-center">
-              <span class="text-xs font-bold text-amber-400 mb-3 flex items-center gap-1.5">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"/></svg>
-                <span>Buy Me a Coffee</span>
-              </span>
-              <div class="w-40 h-40 rounded-lg bg-white p-2 flex items-center justify-center border border-slate-700">
-                <img src="./images/qrcode-bmc.png" alt="Buy Me A Coffee QR Code" class="w-full h-full object-contain" width="160" height="160">
-              </div>
-              <span class="text-[11px] text-slate-500 font-mono mt-3">Scan via Camera or BMC app</span>
-            </div>
-
-            <!-- GCash QR -->
-            <div class="p-5 rounded-xl border border-slate-800 bg-slate-900 flex flex-col items-center">
-              <span class="text-xs font-bold text-sky-400 mb-3 flex items-center gap-1.5">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                <span>GCash (Direct)</span>
-              </span>
-              <div class="w-40 h-40 rounded-lg bg-white p-2 flex items-center justify-center border border-slate-700">
-                <img src="./images/qrcode-gcash.JPG" alt="GCash QR Code" class="w-full h-full object-contain" width="160" height="160">
-              </div>
-              <span class="text-[11px] text-slate-500 font-mono mt-3">Scan via GCash App</span>
-            </div>
-
-          </div>
-
-          <div class="mt-6 text-xs text-slate-500">
-            Developer: <a href="https://github.com/nmrisrl11" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline">@nmrisrl11</a> &bull; Desktop automation craft
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section id="faq" class="py-16 md:py-24 border-b border-slate-800">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div class="text-center mb-16">
-          <span class="text-xs font-bold uppercase tracking-wider text-sky-400">Frequently Asked Questions</span>
-          <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2">
-            Clear answers to common questions
-          </h2>
-        </div>
-
-        <div class="space-y-4">
-          
-          <!-- Q1 -->
-          <details class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors">
-            <summary class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white">
-              <span>Is my Google account and password secure?</span>
-              <span class="text-slate-400 group-open:rotate-180 transition-transform">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </span>
-            </summary>
-            <p class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3">
-              Yes, 100%. The application operates completely locally on your computer. It makes no outbound connections to external relays, servers, or analytics services. All credentials and resulting links are stored solely in the local <code class="text-slate-300 font-mono text-xs">results/</code> folder on your machine.
-            </p>
-          </details>
-
-          <!-- Q2 -->
-          <details class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors">
-            <summary class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white">
-              <span>Why does the tool prompt for a 6-digit OTP code?</span>
-              <span class="text-slate-400 group-open:rotate-180 transition-transform">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </span>
-            </summary>
-            <p class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3">
-              During promotional onboarding, the educational partner sends a 6-digit email confirmation code to your target Gmail to verify mailbox ownership. The app halts cleanly and opens an OTP verification dialog with digit filtering and paste sanitization. Once you submit the code, automation resumes immediately.
-            </p>
-          </details>
-
-          <!-- Q3 -->
-          <details class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors">
-            <summary class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white">
-              <span>Why does Google require a credit card or PayPal during activation?</span>
-              <span class="text-slate-400 group-open:rotate-180 transition-transform">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </span>
-            </summary>
-            <p class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3">
-              This is a standard Google One subscription requirement. Google uses a linked payment method for identity verification and continuous renewal setup. <strong>You are billed $0.00 today</strong> for the entire 12-month promotional period. You can easily cancel auto-renewal in your Google account settings at any point before the 12 months conclude.
-            </p>
-          </details>
-
-          <!-- Q4 -->
-          <details class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors">
-            <summary class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white">
-              <span>What if a Cloudflare or reCAPTCHA verification challenge appears?</span>
-              <span class="text-slate-400 group-open:rotate-180 transition-transform">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </span>
-            </summary>
-            <p class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3">
-              The engine proactively monitors for interstitial challenges. If one occurs, automation safely pauses to prevent lockouts, allowing you to resolve the prompt in the browser before continuing.
-            </p>
-          </details>
-
-          <!-- Q5 -->
-          <details class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors">
-            <summary class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white">
-              <span>Do I need to install Python, Node, or Playwright browser binaries?</span>
-              <span class="text-slate-400 group-open:rotate-180 transition-transform">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-              </span>
-            </summary>
-            <p class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3">
-              No. When using the standalone portable executable (<code class="text-slate-300 font-mono text-xs">Google AI Plus Portal v1.0.0.exe</code>), all dependencies are compiled into the binary. It attaches directly to your pre-installed Google Chrome or Microsoft Edge browser.
-            </p>
-          </details>
-
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 text-xs py-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-      
-      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-        <div class="flex items-center gap-3">
-          <div class="w-7 h-7 rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 p-0.5 flex items-center justify-center">
-            <img src="./images/app_icon.png" alt="Portal Logo" class="w-full h-full object-contain" width="28" height="28">
-          </div>
-          <span class="font-bold text-white text-sm">Google AI Plus Portal</span>
-          <span class="text-slate-600">&bull;</span>
-          <span class="text-sky-400 font-mono text-xs">v1.0.0</span>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-6 text-slate-400">
-          <a href="#overview" class="hover:text-white transition-colors">Overview</a>
-          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
-          <a href="#features" class="hover:text-white transition-colors">Features</a>
-          <a href="#requirements" class="hover:text-white transition-colors">Requirements</a>
-          <a href="#download" class="hover:text-white transition-colors">Download</a>
-          <a href="https://github.com/nmrisrl11" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Developer Profile</a>
-        </div>
-      </div>
-
-      <!-- Legal Disclaimer & Non-Affiliation -->
-      <div class="p-4 rounded-xl border border-slate-800/80 bg-slate-900/40 text-[11px] leading-relaxed text-slate-500 space-y-1.5">
-        <p class="font-semibold text-slate-400">Disclaimer &amp; Non-Affiliation Notice:</p>
-        <p>
-          This software is an independent desktop automation utility provided strictly for convenience, personal educational testing, and research. 
-          This project is <strong>NOT affiliated with, sponsored by, or endorsed by Google LLC, Alphabet Inc., or Internshala</strong>.
-        </p>
-        <p>
-          Google, Google AI, Google One, and Gemini are registered trademarks of Google LLC. Internshala is a registered trademark of Scholiverse Educare Private Limited. All product and company names are trademarks or registered trademarks of their respective holders.
-        </p>
-      </div>
-
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-900 text-[11px] text-slate-500">
-        <div>
-          &copy; 2026 nmrisrl11. Built with precision for the developer and student community.
-        </div>
-        <div class="flex items-center gap-4">
-          <span class="text-emerald-500/80">&bull; 100% Local Execution</span>
-          <span>&bull; Zero Tracking</span>
-          <a href="#" class="text-slate-400 hover:text-white transition-colors">Back to top &uarr;</a>
-        </div>
-      </div>
-
-    </div>
-  </footer>
-
-  <!-- Interactive JavaScript Application Script -->
-  <script src="./js/app.js"></script>
-
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Google AI Plus Portal — Automated 1-Year Access Link Generator</title>
+		<meta
+			name="description"
+			content="A lightweight, zero-telemetry Windows desktop utility that automates promotional student onboarding and canonical redemption link extraction for 12 months of free Google AI Plus (Gemini Advanced & 2TB Google One)."
+		/>
+
+		<!-- OpenGraph / Social Cards -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="Google AI Plus Portal — 1-Year Access Generator" />
+		<meta
+			property="og:description"
+			content="Automate the 12-month Gemini Advanced & Google AI Plus promotional onboarding flow locally on Windows. Zero telemetry, 100% private, standalone portable executable."
+		/>
+		<meta property="og:image" content="./images/app_icon.png" />
+		<meta name="twitter:card" content="summary_large_image" />
+
+		<!-- Icons -->
+		<link rel="icon" type="image/x-icon" href="./images/app_icon.ico" />
+		<link rel="icon" type="image/png" href="./images/app_icon.png" />
+
+		<!-- Typography: Inter for clean UI, JetBrains Mono for technical specs & code -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Tailwind CSS CDN -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				darkMode: "class",
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: [
+								"Inter",
+								"-apple-system",
+								"BlinkMacSystemFont",
+								"Segoe UI",
+								"Roboto",
+								"sans-serif",
+							],
+							mono: ["JetBrains Mono", "Consolas", "Courier New", "monospace"],
+						},
+						colors: {
+							slate: {
+								850: "#131c2e",
+								900: "#0f172a",
+								950: "#090d16",
+							},
+							brand: {
+								DEFAULT: "#0284c7", // Sky-600
+								hover: "#0369a1", // Sky-700
+								accent: "#38bdf8", // Sky-400
+								glow: "rgba(2, 132, 199, 0.15)",
+							},
+						},
+					},
+				},
+			};
+		</script>
+
+		<!-- Custom App Stylesheet -->
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+
+	<body
+		class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand selection:text-white min-h-screen flex flex-col"
+	>
+		<!-- Sticky Header Navigation -->
+		<header class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-slate-800">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+				<!-- App Brand & Logo -->
+				<a href="#" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+					<div
+						class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 p-1 flex items-center justify-center transition-transform group-hover:scale-105"
+					>
+						<img
+							src="./images/app_icon.png"
+							alt="Google AI Plus Portal Logo"
+							class="w-full h-full object-contain"
+							width="36"
+							height="36"
+							style="aspect-ratio: 1 / 1"
+						/>
+					</div>
+					<div class="flex flex-col">
+						<span
+							class="font-bold text-sm sm:text-base text-slate-50 tracking-tight group-hover:text-sky-300 transition-colors"
+						>
+							Google AI Plus Portal
+						</span>
+						<span class="text-[10px] sm:text-[11px] text-slate-400 hidden sm:block"
+							>1-Year Access Automation Utility</span
+						>
+					</div>
+				</a>
+
+				<!-- Desktop Nav Links -->
+				<nav
+					class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300"
+					aria-label="Main Navigation"
+				>
+					<a href="#overview" class="hover:text-sky-400 transition-colors">Overview</a>
+					<a href="#how-it-works" class="hover:text-sky-400 transition-colors">How It Works</a>
+					<a href="#features" class="hover:text-sky-400 transition-colors">Features</a>
+					<a href="#requirements" class="hover:text-sky-400 transition-colors">Requirements</a>
+					<a href="#support" class="hover:text-sky-400 transition-colors">Support Dev</a>
+					<a href="#faq" class="hover:text-sky-400 transition-colors">FAQ</a>
+				</nav>
+
+				<!-- Desktop Download Button + Mobile Menu Toggle -->
+				<div class="flex items-center gap-2 sm:gap-3">
+					<a
+						href="https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/latest"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="release-link hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-sm transition-all duration-150"
+					>
+						<svg
+							class="w-4 h-4"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+							aria-hidden="true"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+							></path>
+						</svg>
+						<span>Download</span>
+					</a>
+
+					<!-- Mobile Menu Toggle Button (visible below lg) -->
+					<button
+						id="mobile-menu-btn"
+						type="button"
+						aria-label="Toggle navigation menu"
+						aria-expanded="false"
+						class="lg:hidden inline-flex items-center justify-center p-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/80 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400"
+					>
+						<svg
+							id="menu-icon-bars"
+							class="w-5 h-5 block"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 6h16M4 12h16M4 18h16"
+							/>
+						</svg>
+						<svg
+							id="menu-icon-close"
+							class="w-5 h-5 hidden"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M6 18L18 6M6 6l12 12"
+							/>
+						</svg>
+					</button>
+				</div>
+			</div>
+
+			<!-- Mobile Navigation Drawer / Dropdown -->
+			<div
+				id="mobile-menu"
+				class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-lg px-4 pt-3 pb-5 space-y-2 transition-all duration-200"
+			>
+				<nav
+					class="flex flex-col space-y-1 text-sm font-medium text-slate-200"
+					aria-label="Mobile Navigation"
+				>
+					<a
+						href="#overview"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>Overview</a
+					>
+					<a
+						href="#how-it-works"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>How It Works</a
+					>
+					<a
+						href="#features"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>Features</a
+					>
+					<a
+						href="#requirements"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>Requirements</a
+					>
+					<a
+						href="#support"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>Support Dev</a
+					>
+					<a
+						href="#faq"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>FAQ</a
+					>
+				</nav>
+
+				<div class="pt-3 border-t border-slate-800/80">
+					<a
+						href="https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/latest"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="release-link mobile-nav-link w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm shadow transition-colors"
+					>
+						<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+							<path
+								d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"
+							/>
+						</svg>
+						<span>Download Portable .exe</span>
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<!-- Hero Section -->
+		<main class="flex-grow">
+			<section
+				class="relative pt-10 pb-14 sm:pt-16 sm:pb-20 md:pt-20 md:pb-24 border-b border-slate-800 overflow-hidden"
+			>
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<!-- Hero Header -->
+					<div class="text-center max-w-3xl mx-auto">
+						<!-- Separated Clean Badges -->
+						<div class="flex flex-wrap items-center justify-center gap-2 mb-6">
+							<span
+								class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-medium text-slate-300 shadow-sm"
+							>
+								<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+								Windows 10 / 11 64-bit
+							</span>
+							<span
+								class="inline-flex items-center px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-mono text-sky-300 shadow-sm"
+							>
+								v1.0.0 Portable
+							</span>
+							<span
+								class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-emerald-500/20 text-[11px] font-medium text-emerald-400 shadow-sm"
+							>
+								<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+								Zero Telemetry
+							</span>
+						</div>
+
+						<!-- Hero Headline -->
+						<h1
+							class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 sm:mb-6"
+						>
+							Automate your 1-Year Google AI Plus access.
+							<span class="block text-sky-400 mt-1 sm:mt-2">Locally. Effortlessly.</span>
+						</h1>
+
+						<!-- Hero Description -->
+						<p
+							class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto"
+						>
+							A native, privacy-focused Windows utility engineered to automate promotional student
+							onboarding and capture the official
+							<span class="text-sky-300 font-mono text-xs sm:text-sm"
+								>one.google.com/offer/...</span
+							>
+							redemption link in the background.
+						</p>
+
+						<!-- Primary CTA Button -->
+						<div class="flex items-center justify-center mb-6">
+							<a
+								id="btn-download-hero"
+								href="https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/latest"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="release-link w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm sm:text-base transition-all duration-150 border border-sky-400/30 shadow-lg shadow-sky-950/40"
+							>
+								<!-- Windows Logo SVG -->
+								<svg class="w-5 h-5 fill-current shrink-0" viewBox="0 0 24 24" aria-hidden="true">
+									<path
+										d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"
+									/>
+								</svg>
+								<span>Download Portable .exe</span>
+								<span class="text-xs bg-sky-700/80 px-2.5 py-0.5 rounded font-mono text-sky-200"
+									>58.5 MB</span
+								>
+							</a>
+						</div>
+
+						<!-- Micro specs under CTA -->
+						<div
+							class="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs text-slate-400"
+						>
+							<span class="flex items-center gap-1.5">
+								<svg
+									class="w-4 h-4 text-emerald-400"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M5 13l4 4L19 7"
+									/>
+								</svg>
+								No installation needed
+							</span>
+							<span class="flex items-center gap-1.5">
+								<svg
+									class="w-4 h-4 text-emerald-400"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M5 13l4 4L19 7"
+									/>
+								</svg>
+								Uses pre-installed Chrome or Edge
+							</span>
+							<span class="flex items-center gap-1.5">
+								<svg
+									class="w-4 h-4 text-emerald-400"
+									fill="none"
+									stroke="currentColor"
+									viewBox="0 0 24 24"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M5 13l4 4L19 7"
+									/>
+								</svg>
+								100% Local credential storage
+							</span>
+						</div>
+					</div>
+
+					<!-- Realistic App UI Mockup (Built with Semantic HTML/CSS matching the real desktop app) -->
+					<div class="mt-12 max-w-4xl mx-auto">
+						<div
+							class="rounded-xl border border-slate-700/80 bg-slate-900 shadow-2xl overflow-hidden"
+						>
+							<!-- Window Title Bar with Windows Native Controls -->
+							<div
+								class="bg-slate-950 px-3.5 sm:px-4 py-2 border-b border-slate-800 flex items-center justify-between select-none"
+							>
+								<div class="flex items-center gap-2 sm:gap-2.5 min-w-0">
+									<img
+										src="./images/app_icon.png"
+										alt=""
+										class="w-4 h-4 object-contain shrink-0"
+										width="16"
+										height="16"
+									/>
+									<span class="text-xs font-mono font-medium text-slate-300 truncate">
+										Google AI Plus (1-Year Access) Portal — v1.0.0
+									</span>
+								</div>
+								<div
+									class="flex items-center gap-3 sm:gap-4 shrink-0 text-slate-400 text-xs font-mono pr-1"
+								>
+									<span class="hover:text-white cursor-default select-none">&#9472;</span>
+									<span class="hover:text-white cursor-default select-none text-[11px]"
+										>&#9633;</span
+									>
+									<span class="hover:text-rose-400 cursor-default select-none text-sm"
+										>&#10005;</span
+									>
+								</div>
+							</div>
+
+							<!-- App Header Banner (matches CustomTkinter fg_color="#0f172a") -->
+							<div class="bg-slate-900 px-4 sm:px-6 py-4 border-b border-slate-800 text-center">
+								<div class="text-base sm:text-lg font-bold text-slate-50 tracking-tight">
+									Google AI Plus — 1-Year Access Portal
+								</div>
+								<div class="text-[11px] sm:text-xs text-slate-400 mt-0.5">
+									Automated 12-Month Gemini Advanced &amp; Google AI Plus Offer Link Generator
+								</div>
+							</div>
+
+							<!-- Mock App Body -->
+							<div class="p-4 sm:p-6 space-y-4 bg-slate-950/60">
+								<!-- Card: Account Profile & Setup (matches CTkFrame #1e293b) -->
+								<div class="rounded-lg border border-slate-800 bg-slate-900 p-3.5 sm:p-4">
+									<div
+										class="flex items-center justify-between pb-3 mb-3 border-b border-slate-800/80 gap-2"
+									>
+										<span class="text-xs sm:text-sm font-bold text-sky-400 truncate">
+											Account Profile &amp; Setup
+										</span>
+										<div
+											class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 text-xs font-medium cursor-default"
+										>
+											<svg
+												class="w-3.5 h-3.5 text-slate-400"
+												fill="none"
+												stroke="currentColor"
+												viewBox="0 0 24 24"
+											>
+												<path
+													stroke-linecap="round"
+													stroke-linejoin="round"
+													stroke-width="2"
+													d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+												/>
+											</svg>
+											<span>Randomize Info</span>
+										</div>
+									</div>
+
+									<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+										<div class="flex items-center gap-2">
+											<label class="w-24 text-slate-300 shrink-0">First Name:</label>
+											<div
+												class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono"
+											>
+												Advik
+											</div>
+										</div>
+										<div class="flex items-center gap-2">
+											<label class="w-24 text-slate-300 shrink-0">Last Name:</label>
+											<div
+												class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono"
+											>
+												Malhotra
+											</div>
+										</div>
+										<div class="flex items-center gap-2">
+											<label class="w-24 text-slate-300 shrink-0">Gmail Address:</label>
+											<div
+												class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-400 font-mono truncate"
+											>
+												example@gmail.com
+											</div>
+										</div>
+										<div class="flex items-center gap-2">
+											<label class="w-24 text-slate-300 shrink-0">Password:</label>
+											<div
+												class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono"
+											>
+												O7yHp@#dTKEI
+											</div>
+										</div>
+										<div class="flex items-center gap-2">
+											<label class="w-24 text-slate-300 shrink-0">Contact (+91):</label>
+											<div
+												class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono"
+											>
+												9679633324
+											</div>
+										</div>
+										<div class="hidden sm:block"></div>
+									</div>
+								</div>
+
+								<!-- Action Buttons (Positioned directly under Profile Card, matching the real app layout) -->
+								<div class="flex flex-wrap items-center justify-between gap-3 pt-0.5">
+									<div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
+										<span
+											class="inline-flex items-center px-4 py-2.5 rounded-lg bg-sky-600 text-white font-bold text-xs shadow-sm"
+										>
+											Get 1-Year Access Link
+										</span>
+										<span
+											class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold"
+										>
+											Reset Fields
+										</span>
+									</div>
+									<span
+										class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 text-xs font-semibold"
+									>
+										Support Dev
+									</span>
+								</div>
+
+								<!-- Visual Stepper Bar (Matching the 3-step lifecycle of the real app) -->
+								<div
+									class="rounded-lg border border-slate-800 bg-slate-900/80 px-4 py-2.5 flex items-center justify-center text-xs font-medium gap-2 sm:gap-6 overflow-x-auto no-scrollbar whitespace-nowrap"
+								>
+									<span class="text-sky-400 font-bold flex items-center gap-1.5 shrink-0">
+										<span
+											class="w-4 h-4 rounded-full bg-sky-500/20 border border-sky-400 text-sky-300 flex items-center justify-center text-[10px]"
+											>1</span
+										>
+										Profile Setup
+									</span>
+									<span class="text-slate-600 shrink-0">──────▶</span>
+									<span class="text-slate-400 flex items-center gap-1.5 shrink-0">
+										<span
+											class="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-[10px]"
+											>2</span
+										>
+										Email Verification
+									</span>
+									<span class="text-slate-600 shrink-0">──────▶</span>
+									<span class="text-slate-400 flex items-center gap-1.5 shrink-0">
+										<span
+											class="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-[10px]"
+											>3</span
+										>
+										Access Link Ready
+									</span>
+								</div>
+
+								<!-- Live Activity Feed Card (Matches CustomTkinter Feed Title & Status) -->
+								<div class="rounded-lg border border-slate-800 bg-slate-900 p-3.5 sm:p-4">
+									<div
+										class="flex items-center justify-between pb-2.5 mb-2.5 border-b border-slate-800 text-xs"
+									>
+										<span class="font-bold text-slate-100">Live Activity Feed</span>
+										<span
+											class="text-emerald-400 flex items-center gap-1.5 font-medium text-[11px]"
+										>
+											<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+											System Ready
+										</span>
+									</div>
+
+									<div
+										class="rounded bg-slate-950 border border-slate-800/80 p-3 font-mono text-[11px] leading-relaxed text-slate-300 overflow-x-auto"
+									>
+										<div class="text-sky-400/60 border-b border-sky-500/30 my-1"></div>
+										<div class="text-slate-200 font-bold">
+											GOOGLE AI PLUS — 1-YEAR ACCESS PROVISIONER
+										</div>
+										<div class="text-sky-400/60 border-b border-sky-500/30 my-1"></div>
+										<div class="text-emerald-400 font-medium">Status: System Ready</div>
+										<div class="text-slate-400 mt-1.5">Quick Guide:</div>
+										<div class="text-slate-400">
+											1. Review or customize your account profile above.
+										</div>
+										<div class="text-slate-400">
+											2. Click "Get 1-Year Access Link" to start provisioning.
+										</div>
+										<div class="text-slate-400">
+											3. Enter the 6-digit verification code sent to your email when prompted.
+										</div>
+										<div class="text-slate-400">
+											4. Your 1-Year Google AI Plus redemption link will be ready to claim!
+										</div>
+										<div class="text-sky-400/60 border-b border-sky-500/30 my-1"></div>
+										<div class="text-slate-300 mt-1">
+											<span class="text-sky-400">&gt;</span> Awaiting user execution...<span
+												class="term-cursor"
+											></span>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<!-- In-App Desktop Window Footer (matching bottom of desktop app) -->
+							<div
+								class="px-4 sm:px-6 py-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500"
+							>
+								<div
+									class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap"
+								>
+									<span>Developed by <span class="text-slate-400">@nmrisrl11</span></span>
+									<span>&bull;</span>
+									<span class="hover:text-slate-300">About</span>
+									<span>&bull;</span>
+									<span class="hover:text-amber-400">Buy Me a Coffee</span>
+								</div>
+								<span class="font-mono text-slate-500 text-[10px] shrink-0">v1.0.0</span>
+							</div>
+						</div>
+						<p class="text-center text-xs text-slate-500 mt-3 font-mono">
+							Interactive desktop preview of the packaged portable Windows executable.
+						</p>
+					</div>
+				</div>
+			</section>
+
+			<!-- Value Stats Bar -->
+			<section
+				class="border-b border-slate-800 bg-slate-900/50 py-8 sm:py-10"
+				aria-label="Key Guarantees"
+			>
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
+						<div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
+							<div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-sky-400 font-mono">
+								12 Months
+							</div>
+							<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
+								Gemini Advanced Free
+							</div>
+							<div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+								Includes 2TB Google One Storage
+							</div>
+						</div>
+
+						<div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
+							<div
+								class="text-xl sm:text-2xl md:text-3xl font-extrabold text-emerald-400 font-mono"
+							>
+								100% Local
+							</div>
+							<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Zero Telemetry</div>
+							<div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+								No cloud relays or external logging
+							</div>
+						</div>
+
+						<div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
+							<div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white font-mono">
+								0 MB Bloat
+							</div>
+							<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
+								System Browser Engine
+							</div>
+							<div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+								Attaches to installed Chrome or Edge
+							</div>
+						</div>
+
+						<div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
+							<div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-sky-300 font-mono">
+								1-Click
+							</div>
+							<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
+								Canonical Link Grab
+							</div>
+							<div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+								Auto-saved to local results folder
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Overview & Problem / Solution Section -->
+			<section id="overview" class="py-16 md:py-24 border-b border-slate-800">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="max-w-3xl mb-12">
+						<span class="text-xs font-bold uppercase tracking-wider text-sky-400">Overview</span>
+						<h2
+							class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2"
+						>
+							Why navigate multi-step promotional gateways manually?
+						</h2>
+						<p class="text-slate-300 mt-4 text-base sm:text-lg leading-relaxed">
+							Educational partners periodically offer 12 months of complimentary Google AI Plus
+							subscriptions. However, claiming them manually requires traversing multi-step profile
+							forms, formatting regional mobile numbers, handling email confirmation challenges, and
+							unwrapping nested redirect tokens.
+						</p>
+					</div>
+
+					<!-- Problem vs Solution Comparison Table -->
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<!-- The Manual Headache -->
+						<div
+							class="rounded-xl border border-rose-900/40 bg-slate-900/90 p-6 flex flex-col justify-between"
+						>
+							<div>
+								<div class="flex items-center gap-2 text-rose-400 font-semibold text-sm mb-4">
+									<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M6 18L18 6M6 6l12 12"
+										/>
+									</svg>
+									<span>The Manual Method</span>
+								</div>
+								<ul class="space-y-3 text-sm text-slate-400">
+									<li class="flex items-start gap-2.5">
+										<span class="text-rose-500 font-bold">&times;</span>
+										<span
+											>Tedious manual entry of educational records and regional phone numbers.</span
+										>
+									</li>
+									<li class="flex items-start gap-2.5">
+										<span class="text-rose-500 font-bold">&times;</span>
+										<span
+											>Switching browser tabs repeatedly to check incoming verification
+											emails.</span
+										>
+									</li>
+									<li class="flex items-start gap-2.5">
+										<span class="text-rose-500 font-bold">&times;</span>
+										<span
+											>Session timeouts and fragile authentication redirects that expire
+											midway.</span
+										>
+									</li>
+									<li class="flex items-start gap-2.5">
+										<span class="text-rose-500 font-bold">&times;</span>
+										<span
+											>Having to manually bookmark or copy down long redemption query strings.</span
+										>
+									</li>
+								</ul>
+							</div>
+							<div class="mt-6 pt-4 border-t border-slate-800 text-xs text-rose-400/80 font-mono">
+								Average manual time: 8–15 minutes of repetitive clicking
+							</div>
+						</div>
+
+						<!-- The Portal Solution -->
+						<div
+							class="rounded-xl border border-sky-500/40 bg-slate-900/90 p-6 flex flex-col justify-between"
+						>
+							<div>
+								<div class="flex items-center gap-2 text-sky-400 font-semibold text-sm mb-4">
+									<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M5 13l4 4L19 7"
+										/>
+									</svg>
+									<span>The Google AI Plus Portal Way</span>
+								</div>
+								<ul class="space-y-3 text-sm text-slate-300">
+									<li class="flex items-start gap-2.5">
+										<span class="text-sky-400 font-bold">&check;</span>
+										<span
+											>1-click randomized demographic profiles or custom inputs with automatic
+											validation.</span
+										>
+									</li>
+									<li class="flex items-start gap-2.5">
+										<span class="text-sky-400 font-bold">&check;</span>
+										<span
+											>Runs headless in the background via Playwright, attaching to your
+											pre-installed browser.</span
+										>
+									</li>
+									<li class="flex items-start gap-2.5">
+										<span class="text-sky-400 font-bold">&check;</span>
+										<span
+											>Human-in-the-loop: Prompts cleanly only when your 6-digit OTP email
+											arrives.</span
+										>
+									</li>
+									<li class="flex items-start gap-2.5">
+										<span class="text-sky-400 font-bold">&check;</span>
+										<span
+											>Resolves canonical
+											<code class="text-sky-300 bg-slate-800 px-1 py-0.5 rounded text-xs"
+												>https://one.google.com/offer/...</code
+											>
+											link and archives to local disk.</span
+										>
+									</li>
+								</ul>
+							</div>
+							<div
+								class="mt-6 pt-4 border-t border-slate-800 text-xs text-emerald-400 font-mono flex items-center justify-between"
+							>
+								<span>Average runtime: ~45 seconds</span>
+								<span class="font-bold">Zero Telemetry</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- How It Works Section (The 5-Step Pipeline) -->
+			<section id="how-it-works" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/30">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="text-center max-w-3xl mx-auto mb-16">
+						<span class="text-xs font-bold uppercase tracking-wider text-sky-400"
+							>Step-by-Step Architecture</span
+						>
+						<h2
+							class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2"
+						>
+							The 5-Step Provisioning Pipeline
+						</h2>
+						<p class="text-slate-300 mt-4 text-base leading-relaxed">
+							From initial demographic randomization to canonical Google One redemption in five
+							transparent stages.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+						<!-- Step 1 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between"
+						>
+							<div>
+								<div
+									class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3"
+								>
+									01
+								</div>
+								<h3 class="text-sm font-bold text-white mb-2">Profile Setup</h3>
+								<p class="text-xs text-slate-400 leading-relaxed">
+									Enter your target Gmail address or click
+									<span class="text-slate-200">Randomize Info</span> to generate realistic student
+									demographic records.
+								</p>
+							</div>
+							<div
+								class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500 font-mono"
+							>
+								Input validation
+							</div>
+						</div>
+
+						<!-- Step 2 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between"
+						>
+							<div>
+								<div
+									class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3"
+								>
+									02
+								</div>
+								<h3 class="text-sm font-bold text-white mb-2">Headless Engine</h3>
+								<p class="text-xs text-slate-400 leading-relaxed">
+									Click <span class="text-slate-200">Get 1-Year Access Link</span>. The app silently
+									navigates the partner registration portal in the background.
+								</p>
+							</div>
+							<div
+								class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500 font-mono"
+							>
+								Playwright Engine
+							</div>
+						</div>
+
+						<!-- Step 3 -->
+						<div
+							class="rounded-xl border border-sky-500/30 bg-slate-850 p-5 flex flex-col justify-between shadow-lg"
+						>
+							<div>
+								<div
+									class="w-8 h-8 rounded-lg bg-sky-500 text-white font-mono font-bold flex items-center justify-center text-sm mb-3 shadow"
+								>
+									03
+								</div>
+								<h3 class="text-sm font-bold text-white mb-2">Safe OTP Dialog</h3>
+								<p class="text-xs text-slate-300 leading-relaxed">
+									When prompted, enter the 6-digit confirmation code received in your Gmail inbox.
+									Keystroke sanitization protects your input.
+								</p>
+							</div>
+							<div
+								class="mt-4 pt-3 border-t border-slate-700/80 text-[11px] text-sky-400 font-mono"
+							>
+								Human-in-the-loop
+							</div>
+						</div>
+
+						<!-- Step 4 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between"
+						>
+							<div>
+								<div
+									class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3"
+								>
+									04
+								</div>
+								<h3 class="text-sm font-bold text-white mb-2">Link Extraction</h3>
+								<p class="text-xs text-slate-400 leading-relaxed">
+									Captures the unique Google One claim link, resolving redirects to yield a clean
+									<span class="font-mono text-slate-200">one.google.com/offer/...</span> URL.
+								</p>
+							</div>
+							<div
+								class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-500 font-mono"
+							>
+								Canonical URL unwrapping
+							</div>
+						</div>
+
+						<!-- Step 5 -->
+						<div
+							class="rounded-xl border border-emerald-500/30 bg-slate-900 p-5 flex flex-col justify-between sm:col-span-2 lg:col-span-1"
+						>
+							<div>
+								<div
+									class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono font-bold flex items-center justify-center text-sm mb-3"
+								>
+									05
+								</div>
+								<h3 class="text-sm font-bold text-white mb-2">Claim &amp; Activate</h3>
+								<p class="text-xs text-slate-400 leading-relaxed">
+									Click to redeem directly on Google One. Account credentials and your permanent URL
+									are archived in the local
+									<span class="font-mono text-slate-200">results/</span> directory.
+								</p>
+							</div>
+							<div
+								class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-emerald-400 font-mono"
+							>
+								1-Year Activated
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Key Features Grid (Engineered, No AI Slop) -->
+			<section id="features" class="py-16 md:py-24 border-b border-slate-800">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="max-w-3xl mb-16">
+						<span class="text-xs font-bold uppercase tracking-wider text-sky-400"
+							>Engineering Highlights</span
+						>
+						<h2
+							class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2"
+						>
+							Built for reliability, privacy, and zero overhead
+						</h2>
+						<p class="text-slate-300 mt-4 text-base leading-relaxed">
+							Engineered as a clean Windows utility using CustomTkinter and Playwright. Every
+							feature is designed with practical desktop integration in mind.
+						</p>
+					</div>
+
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<!-- Feature 1 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors"
+						>
+							<div
+								class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
+							>
+								<!-- Box/Package SVG -->
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-base font-bold text-white mb-2">Zero-Bloat Portable Engine</h3>
+							<p class="text-sm text-slate-400 leading-relaxed">
+								No Python runtime or manual package installs required. Automatically detects and
+								attaches to your system's existing Google Chrome or Microsoft Edge installation,
+								avoiding 400MB browser binary downloads.
+							</p>
+						</div>
+
+						<!-- Feature 2 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors"
+						>
+							<div
+								class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4"
+							>
+								<!-- Shield SVG -->
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-base font-bold text-white mb-2">100% Local &amp; Private</h3>
+							<p class="text-sm text-slate-400 leading-relaxed">
+								No cloud relays, proxies, or remote APIs. Generated credentials, email addresses,
+								and output URLs are written strictly to the local
+								<code class="text-slate-300 font-mono text-xs">results/</code> folder on your drive
+								and never transmitted externally.
+							</p>
+						</div>
+
+						<!-- Feature 3 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors"
+						>
+							<div
+								class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
+							>
+								<!-- Link SVG -->
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-base font-bold text-white mb-2">Canonical Link Extraction</h3>
+							<p class="text-sm text-slate-400 leading-relaxed">
+								Unwraps session tokens and authentication redirection wrappers to deliver a clean,
+								permanent
+								<code class="text-sky-300 font-mono text-xs"
+									>https://one.google.com/offer/&lt;CODE&gt;</code
+								>
+								URL that can be redeemed anytime in your browser.
+							</p>
+						</div>
+
+						<!-- Feature 4 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors"
+						>
+							<div
+								class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
+							>
+								<!-- Mail / Split SVG -->
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-base font-bold text-white mb-2">Dual Delivery Architecture</h3>
+							<p class="text-sm text-slate-400 leading-relaxed">
+								Handles direct on-screen promotional offers as well as accounts where the partner
+								dispatches activation emails directly to the inbox, providing clear status guidance
+								for both paths.
+							</p>
+						</div>
+
+						<!-- Feature 5 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors"
+						>
+							<div
+								class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
+							>
+								<!-- Shield / Alert SVG -->
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-base font-bold text-white mb-2">
+								Smart Error &amp; Challenge Safety
+							</h3>
+							<p class="text-sm text-slate-400 leading-relaxed">
+								Proactively detects Cloudflare Turnstile, reCAPTCHA, and gateway stops. Safely
+								pauses execution with clear on-screen diagnostics to protect accounts from lockouts.
+							</p>
+						</div>
+
+						<!-- Feature 6 -->
+						<div
+							class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors"
+						>
+							<div
+								class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
+							>
+								<!-- Terminal / Bug SVG -->
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+									/>
+								</svg>
+							</div>
+							<h3 class="text-base font-bold text-white mb-2">Built-in Diagnostics (F12)</h3>
+							<p class="text-sm text-slate-400 leading-relaxed">
+								Includes an integrated testing suite (<kbd
+									class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-xs"
+									>F12</kbd
+								>) allowing developers to simulate OTP input flows, gateway rejections, and link
+								extraction states without consuming Gmail accounts.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- System Requirements & Google Constraints Section -->
+			<section id="requirements" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/40">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+						<!-- Left: System Requirements -->
+						<div class="rounded-xl border border-slate-800 bg-slate-900 p-5 sm:p-8">
+							<span class="text-xs font-bold uppercase tracking-wider text-sky-400"
+								>Specifications</span
+							>
+							<h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1 mb-6">
+								System Requirements
+							</h2>
+
+							<div class="divide-y divide-slate-800">
+								<div
+									class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
+								>
+									<span class="text-slate-400 font-medium">Operating System</span>
+									<span
+										class="text-slate-200 font-mono text-xs bg-slate-800 px-2.5 py-1 rounded self-start sm:self-auto"
+										>Windows 10 / 11 (64-bit)</span
+									>
+								</div>
+								<div
+									class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
+								>
+									<span class="text-slate-400 font-medium">Web Browser</span>
+									<span class="text-slate-200 text-xs">Google Chrome or Microsoft Edge</span>
+								</div>
+								<div
+									class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
+								>
+									<span class="text-slate-400 font-medium">Python Runtime</span>
+									<span
+										class="text-emerald-400 font-mono text-xs bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded self-start sm:self-auto"
+									>
+										Not required for .exe
+									</span>
+								</div>
+								<div
+									class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
+								>
+									<span class="text-slate-400 font-medium">Target Account</span>
+									<span class="text-slate-200 text-xs">Standard personal @gmail.com</span>
+								</div>
+								<div
+									class="py-2.5 sm:py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
+								>
+									<span class="text-slate-400 font-medium">Application Binary</span>
+									<span class="text-slate-200 font-mono text-xs self-start sm:self-auto"
+										>Single-file portable (~58.5 MB)</span
+									>
+								</div>
+							</div>
+
+							<div
+								class="mt-6 p-4 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400 leading-relaxed"
+							>
+								<span class="text-sky-400 font-semibold">Native Taskbar Integration:</span> The
+								application registers a dedicated Windows
+								<code class="text-slate-300 font-mono">AppUserModelID</code> with embedded
+								multi-resolution mipmaps (<code class="text-slate-300 font-mono">16x16</code> up to
+								<code class="text-slate-300 font-mono">256x256</code>) so it displays its crisp icon
+								without grouping under generic Python processes.
+							</div>
+						</div>
+
+						<!-- Right: Google Expectations & Reality -->
+						<div class="rounded-xl border border-slate-800 bg-slate-900 p-5 sm:p-8">
+							<span class="text-xs font-bold uppercase tracking-wider text-amber-400"
+								>Important Notice</span
+							>
+							<h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1 mb-6">
+								Google One Expectations &amp; Limits
+							</h2>
+
+							<div class="space-y-4 text-xs sm:text-sm text-slate-300">
+								<div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
+									<div class="font-bold text-white mb-1 flex items-center gap-2">
+										<svg
+											class="w-4 h-4 text-amber-400 shrink-0"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												stroke-linecap="round"
+												stroke-linejoin="round"
+												stroke-width="2"
+												d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+											/>
+										</svg>
+										<span>$0.00 Billed Today &bull; Payment Method Required</span>
+									</div>
+									<p class="text-slate-400 text-xs leading-relaxed">
+										Activating any promotional Google One subscription requires linking a valid
+										payment method (credit/debit card, PayPal) to confirm identity and enable
+										renewals. <strong>You are charged $0.00 today</strong>, and auto-renewal can be
+										managed or canceled anytime in Google One account settings.
+									</p>
+								</div>
+
+								<div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
+									<div class="font-bold text-white mb-1">Standard Personal Accounts Only</div>
+									<p class="text-slate-400 text-xs leading-relaxed">
+										Destination accounts must be personal Google accounts in good standing. Accounts
+										with conflicting enterprise Google Workspace domains or active paid Google One
+										memberships may require canceling active plans before promo links can apply.
+									</p>
+								</div>
+
+								<div class="p-4 rounded-lg bg-slate-950 border border-slate-800">
+									<div class="font-bold text-white mb-1">Single-Use Promotional Grants</div>
+									<p class="text-slate-400 text-xs leading-relaxed">
+										Each extracted link is unique, single-use, and bound to the registration
+										session. Third-party partner quotas and regional rules are maintained
+										independently by upstream providers.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Support Developer Section (Authentic to app modal) -->
+			<section id="support" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/30">
+				<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="max-w-2xl mx-auto text-center">
+						<span class="text-xs font-bold uppercase tracking-wider text-amber-400"
+							>Support the Dev</span
+						>
+						<h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
+							Buy Me a Coffee
+						</h2>
+						<p class="text-slate-300 mt-3 text-base">
+							Saved you some time? Buying a coffee won't hurt.<br />
+							<span class="text-slate-400 text-sm">Totally optional, but always appreciated!</span>
+						</p>
+
+						<!-- QR Codes Card -->
+						<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
+							<!-- Buy Me A Coffee QR -->
+							<div
+								class="p-5 rounded-xl border border-slate-800 bg-slate-900 flex flex-col items-center"
+							>
+								<span class="text-xs font-bold text-amber-400 mb-3 flex items-center gap-1.5">
+									<svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+										<path
+											d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"
+										/>
+									</svg>
+									<span>Buy Me a Coffee</span>
+								</span>
+								<div
+									class="w-40 h-40 rounded-lg bg-white p-2 flex items-center justify-center border border-slate-700"
+								>
+									<img
+										src="./images/qrcode-bmc.png"
+										alt="Buy Me A Coffee QR Code"
+										class="w-full h-full object-contain"
+										width="160"
+										height="160"
+									/>
+								</div>
+								<span class="text-[11px] text-slate-500 font-mono mt-3"
+									>Scan via Camera or BMC app</span
+								>
+							</div>
+
+							<!-- GCash QR -->
+							<div
+								class="p-5 rounded-xl border border-slate-800 bg-slate-900 flex flex-col items-center"
+							>
+								<span class="text-xs font-bold text-sky-400 mb-3 flex items-center gap-1.5">
+									<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+										/>
+									</svg>
+									<span>GCash (Direct)</span>
+								</span>
+								<div
+									class="w-40 h-40 rounded-lg bg-white p-2 flex items-center justify-center border border-slate-700"
+								>
+									<img
+										src="./images/qrcode-gcash.JPG"
+										alt="GCash QR Code"
+										class="w-full h-full object-contain"
+										width="160"
+										height="160"
+									/>
+								</div>
+								<span class="text-[11px] text-slate-500 font-mono mt-3">Scan via GCash App</span>
+							</div>
+						</div>
+
+						<div class="mt-6 text-xs text-slate-500">
+							Developer:
+							<a
+								href="https://github.com/nmrisrl11"
+								target="_blank"
+								rel="noopener noreferrer"
+								class="text-sky-400 hover:underline"
+								>@nmrisrl11</a
+							>
+							&bull; Desktop automation craft
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- FAQ Section -->
+			<section id="faq" class="py-16 md:py-24 border-b border-slate-800">
+				<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div class="text-center mb-16">
+						<span class="text-xs font-bold uppercase tracking-wider text-sky-400"
+							>Frequently Asked Questions</span
+						>
+						<h2
+							class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2"
+						>
+							Clear answers to common questions
+						</h2>
+					</div>
+
+					<div class="space-y-4">
+						<!-- Q1 -->
+						<details
+							class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+						>
+							<summary
+								class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+							>
+								<span>Is my Google account and password secure?</span>
+								<span class="text-slate-400 group-open:rotate-180 transition-transform">
+									<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
+								</span>
+							</summary>
+							<p
+								class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+							>
+								Yes, 100%. The application operates completely locally on your computer. It makes no
+								outbound connections to external relays, servers, or analytics services. All
+								credentials and resulting links are stored solely in the local
+								<code class="text-slate-300 font-mono text-xs">results/</code> folder on your
+								machine.
+							</p>
+						</details>
+
+						<!-- Q2 -->
+						<details
+							class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+						>
+							<summary
+								class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+							>
+								<span>Why does the tool prompt for a 6-digit OTP code?</span>
+								<span class="text-slate-400 group-open:rotate-180 transition-transform">
+									<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
+								</span>
+							</summary>
+							<p
+								class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+							>
+								During promotional onboarding, the educational partner sends a 6-digit email
+								confirmation code to your target Gmail to verify mailbox ownership. The app halts
+								cleanly and opens an OTP verification dialog with digit filtering and paste
+								sanitization. Once you submit the code, automation resumes immediately.
+							</p>
+						</details>
+
+						<!-- Q3 -->
+						<details
+							class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+						>
+							<summary
+								class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+							>
+								<span>Why does Google require a credit card or PayPal during activation?</span>
+								<span class="text-slate-400 group-open:rotate-180 transition-transform">
+									<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
+								</span>
+							</summary>
+							<p
+								class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+							>
+								This is a standard Google One subscription requirement. Google uses a linked payment
+								method for identity verification and continuous renewal setup.
+								<strong>You are billed $0.00 today</strong> for the entire 12-month promotional
+								period. You can easily cancel auto-renewal in your Google account settings at any
+								point before the 12 months conclude.
+							</p>
+						</details>
+
+						<!-- Q4 -->
+						<details
+							class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+						>
+							<summary
+								class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+							>
+								<span>What if a Cloudflare or reCAPTCHA verification challenge appears?</span>
+								<span class="text-slate-400 group-open:rotate-180 transition-transform">
+									<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
+								</span>
+							</summary>
+							<p
+								class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+							>
+								The engine proactively monitors for interstitial challenges. If one occurs,
+								automation safely pauses to prevent lockouts, allowing you to resolve the prompt in
+								the browser before continuing.
+							</p>
+						</details>
+
+						<!-- Q5 -->
+						<details
+							class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+						>
+							<summary
+								class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+							>
+								<span>Do I need to install Python, Node, or Playwright browser binaries?</span>
+								<span class="text-slate-400 group-open:rotate-180 transition-transform">
+									<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M19 9l-7 7-7-7"
+										/>
+									</svg>
+								</span>
+							</summary>
+							<p
+								class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+							>
+								No. When using the standalone portable executable (<code
+									class="text-slate-300 font-mono text-xs"
+									>Google AI Plus Portal v1.0.0.exe</code
+								>), all dependencies are compiled into the binary. It attaches directly to your
+								pre-installed Google Chrome or Microsoft Edge browser.
+							</p>
+						</details>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<!-- Footer -->
+		<footer class="bg-slate-950 border-t border-slate-800 text-slate-400 text-xs py-12">
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+				<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+					<div class="flex items-center gap-3">
+						<div
+							class="w-7 h-7 rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 p-0.5 flex items-center justify-center"
+						>
+							<img
+								src="./images/app_icon.png"
+								alt="Portal Logo"
+								class="w-full h-full object-contain"
+								width="28"
+								height="28"
+							/>
+						</div>
+						<span class="font-bold text-white text-sm">Google AI Plus Portal</span>
+						<span class="text-slate-600">&bull;</span>
+						<span class="text-sky-400 font-mono text-xs">v1.0.0</span>
+					</div>
+
+					<div class="flex flex-wrap items-center gap-6 text-slate-400">
+						<a href="#overview" class="hover:text-white transition-colors">Overview</a>
+						<a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+						<a href="#features" class="hover:text-white transition-colors">Features</a>
+						<a href="#requirements" class="hover:text-white transition-colors">Requirements</a>
+						<a
+							href="https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/latest"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="release-link hover:text-white transition-colors"
+							>Download</a
+						>
+						<a
+							href="https://github.com/nmrisrl11"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="hover:text-white transition-colors"
+							>Developer Profile</a
+						>
+					</div>
+				</div>
+
+				<!-- Legal Disclaimer & Non-Affiliation -->
+				<div
+					class="p-4 rounded-xl border border-slate-800/80 bg-slate-900/40 text-[11px] leading-relaxed text-slate-500 space-y-1.5"
+				>
+					<p class="font-semibold text-slate-400">Disclaimer &amp; Non-Affiliation Notice:</p>
+					<p>
+						This software is an independent desktop automation utility provided strictly for
+						convenience, personal educational testing, and research. This project is
+						<strong
+							>NOT affiliated with, sponsored by, or endorsed by Google LLC, Alphabet Inc., or
+							Internshala</strong
+						>.
+					</p>
+					<p>
+						Google, Google AI, Google One, and Gemini are registered trademarks of Google LLC.
+						Internshala is a registered trademark of Scholiverse Educare Private Limited. All
+						product and company names are trademarks or registered trademarks of their respective
+						holders.
+					</p>
+				</div>
+
+				<div
+					class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-900 text-[11px] text-slate-500"
+				>
+					<div>
+						&copy; 2026 nmrisrl11. Built with precision for the developer and student community.
+					</div>
+					<div class="flex items-center gap-4">
+						<span class="text-emerald-500/80">&bull; 100% Local Execution</span>
+						<span>&bull; Zero Tracking</span>
+						<a href="#" class="text-slate-400 hover:text-white transition-colors"
+							>Back to top &uarr;</a
+						>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Interactive JavaScript Application Script -->
+		<script src="./js/app.js"></script>
+	</body>
 </html>
