@@ -1,0 +1,5 @@
+# robots.txt for Google AI Plus Portal
+User-agent: *
+Allow: /
+
+Sitemap: https://gemini-ai-plus-claimer.vercel.app/sitemap.xml
