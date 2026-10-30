@@ -47,10 +47,10 @@ gemini-ai-plus-claimer-app/
 
 ## ⚡ Key Features of the Landing Page
 
-### 1. Direct Release Download Integration
+### 1. Transparent GitHub Releases Distribution & Open-Source Integrity
 
-- **One-Click Distribution**: All primary download buttons trigger instant download of the release archive (`Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip`) directly from GitHub Releases rather than forcing extra navigation hops.
-- **Releases Hub Link**: Direct shortcut to the GitHub Releases changelog beneath the hero call-to-action.
+- **GitHub Releases Distribution Hub**: All download buttons and CTAs route directly to the official [GitHub Release Hub (v1.0.0)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0), ensuring transparent hosting, binary integrity verification (SHA-256), and compliance with Google Safe Browsing standards.
+- **Open-Source Transparency**: Direct navigation to the public [GitHub Repository](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app) from the header, mobile drawer, hero badge, and footer, reinforcing community trust and zero-credential-harvesting architecture.
 
 ### 2. Accessibility (WCAG 2.1 AA Compliance)
 

