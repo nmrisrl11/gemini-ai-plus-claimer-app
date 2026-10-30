@@ -17,6 +17,7 @@ Official landing page and release distribution portal for **Google AI Plus Porta
 
 ```
 gemini-ai-plus-claimer-app/
+├── 404.html          # Custom, restrained 404 error page matching homepage UI
 ├── index.html          # Semantic, accessible landing page (Tailwind CSS CDN)
 ├── robots.txt          # Search engine crawler directives & sitemap reference
 ├── sitemap.xml         # XML sitemap for SEO discovery
@@ -70,6 +71,13 @@ gemini-ai-plus-claimer-app/
 
 - Integrated **Vercel Web Analytics** (`/_vercel/insights/script.js`) for privacy-friendly traffic analysis.
 - Integrated **Vercel Speed Insights** (`/_vercel/speed-insights/script.js`) for real-user Core Web Vitals monitoring (LCP, FID, CLS).
+
+### 5. Custom 404 Error Page & Universal Routing
+
+- **Design Alignment**: Built with restrained typography, matching the slate dark palette (`#090d16`), full-fidelity sticky navbar, and legal footer for consistent branding.
+- **Dual-Environment Support**: Features an inline environment-aware `<base>` fallback and JavaScript link adapter (`js/app.js`) that supports both local offline testing (`file://`) and live Vercel deployments (`http://` / `https://`).
+- **Layout Shift Elimination**: Employs `scrollbar-gutter: stable; overflow-y: scroll;` in `css/style.css` so transitioning between the full-height landing page and 404 error page causes zero horizontal jitter.
+- **Search Engine Friendly**: Tagged with `<meta name="robots" content="noindex, follow" />` and excluded in `robots.txt` / `sitemap.xml` to prevent dead links from polluting search indices.
 
 ---
 

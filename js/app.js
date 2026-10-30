@@ -100,3 +100,18 @@ function copySnippet(btn, text) {
 		}, 2000);
 	});
 }
+
+// Environment Link Adapter:
+// When hosted on a web server (http/https), route "index.html" links to site root "/"
+// so navigation works seamlessly from any 404 path depth.
+// When testing locally (file:// protocol), relative links are preserved.
+if (window.location.protocol !== "file:") {
+	document.querySelectorAll('a[href^="index.html"]').forEach((link) => {
+		const target = link.getAttribute("href");
+		if (target === "index.html") {
+			link.setAttribute("href", "/");
+		} else if (target.startsWith("index.html#")) {
+			link.setAttribute("href", "/" + target.substring("index.html".length));
+		}
+	});
+}

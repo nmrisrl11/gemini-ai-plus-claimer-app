@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>404: Page Not Found — Google AI Plus Portal</title>
+		<meta
+			name="description"
+			content="The page you requested could not be found. Return to the Google AI Plus Portal homepage or download the standalone Windows utility."
+		/>
+		<meta name="robots" content="noindex, follow" />
+		<meta name="theme-color" content="#090d16" />
+		<meta name="color-scheme" content="dark" />
+
+		<!-- Base URL fallback: sets root base for live web deployments (so assets & links resolve even from nested 404 paths), while preserving relative paths for local file:// testing -->
+		<script>
+			if (window.location.protocol !== "file:") {
+				document.write('<base href="/" />');
+			}
+		</script>
+
+		<!-- Icons -->
+		<link rel="icon" type="image/x-icon" href="./images/app_icon.ico" />
+		<link rel="icon" type="image/png" href="./images/app_icon.png" />
+		<link rel="apple-touch-icon" href="./images/app_icon.png" />
+
+		<!-- Typography: Inter & JetBrains Mono -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Tailwind CSS CDN -->
+		<script src="https://cdn.tailwindcss.com"></script>
+		<script>
+			tailwind.config = {
+				darkMode: "class",
+				theme: {
+					extend: {
+						fontFamily: {
+							sans: [
+								"Inter",
+								"-apple-system",
+								"BlinkMacSystemFont",
+								"Segoe UI",
+								"Roboto",
+								"sans-serif",
+							],
+							mono: ["JetBrains Mono", "Consolas", "Courier New", "monospace"],
+						},
+						colors: {
+							slate: {
+								850: "#131c2e",
+								900: "#0f172a",
+								950: "#090d16",
+							},
+							brand: {
+								DEFAULT: "#0284c7",
+								hover: "#0369a1",
+								accent: "#38bdf8",
+								glow: "rgba(2, 132, 199, 0.15)",
+							},
+						},
+					},
+				},
+			};
+		</script>
+
+		<!-- Custom App Stylesheet -->
+		<link rel="stylesheet" href="./css/style.css" />
+
+		<!-- Vercel Web Analytics -->
+		<script>
+			window.va =
+				window.va ||
+				function () {
+					(window.vaq = window.vaq || []).push(arguments);
+				};
+		</script>
+		<script defer src="/_vercel/insights/script.js"></script>
+
+		<!-- Vercel Speed Insights -->
+		<script>
+			window.si =
+				window.si ||
+				function () {
+					(window.siq = window.siq || []).push(arguments);
+				};
+		</script>
+		<script defer src="/_vercel/speed-insights/script.js"></script>
+	</head>
+
+	<body
+		class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-brand selection:text-white min-h-screen flex flex-col"
+	>
+		<!-- Accessible Skip Navigation Link (WCAG 2.4.1) -->
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-sky-600 focus:text-white focus:text-xs sm:focus:text-sm focus:font-semibold focus:rounded-lg focus:shadow-xl focus:outline-none focus:ring-2 focus:ring-sky-300 transition-transform"
+		>
+			Skip to main content
+		</a>
+
+		<!-- Sticky Header Navigation (Exact Match with Homepage) -->
+		<header
+			role="banner"
+			class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-slate-800"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+				<!-- App Brand & Logo -->
+				<a href="index.html" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
+					<div
+						class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 p-1 flex items-center justify-center transition-transform group-hover:scale-105"
+					>
+						<img
+							src="./images/app_icon.png"
+							alt="Google AI Plus Portal Logo"
+							class="w-full h-full object-contain"
+							width="36"
+							height="36"
+							loading="eager"
+							fetchpriority="high"
+							style="aspect-ratio: 1 / 1"
+						/>
+					</div>
+					<div class="flex flex-col">
+						<span
+							class="font-bold text-sm sm:text-base text-slate-50 tracking-tight group-hover:text-sky-300 transition-colors"
+						>
+							Google AI Plus Portal
+						</span>
+						<span class="text-[10px] sm:text-[11px] text-slate-400 hidden sm:block"
+							>1-Year Access Automation Utility</span
+						>
+					</div>
+				</a>
+
+				<!-- Desktop Nav Links -->
+				<nav
+					class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300"
+					aria-label="Main Navigation"
+				>
+					<a href="index.html#overview" class="hover:text-sky-400 transition-colors">Overview</a>
+					<a href="index.html#how-it-works" class="hover:text-sky-400 transition-colors"
+						>How It Works</a
+					>
+					<a href="index.html#features" class="hover:text-sky-400 transition-colors">Features</a>
+					<a href="index.html#requirements" class="hover:text-sky-400 transition-colors"
+						>Requirements</a
+					>
+					<a href="index.html#support" class="hover:text-sky-400 transition-colors">Support Dev</a>
+					<a href="index.html#faq" class="hover:text-sky-400 transition-colors">FAQ</a>
+				</nav>
+
+				<!-- Desktop Download Button + Mobile Menu Toggle -->
+				<div class="flex items-center gap-2 sm:gap-3">
+					<a
+						href="https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip"
+						class="direct-download-link hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-sm transition-all duration-150"
+					>
+						<svg
+							focusable="false"
+							class="w-4 h-4"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+							aria-hidden="true"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+							></path>
+						</svg>
+						<span>Download</span>
+					</a>
+
+					<!-- Mobile Menu Toggle Button (visible below lg) -->
+					<button
+						id="mobile-menu-btn"
+						type="button"
+						aria-label="Toggle navigation menu"
+						aria-expanded="false"
+						aria-controls="mobile-menu"
+						class="lg:hidden inline-flex items-center justify-center p-2.5 min-h-[44px] min-w-[44px] rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/80 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400"
+					>
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							id="menu-icon-bars"
+							class="w-5 h-5 block"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M4 6h16M4 12h16M4 18h16"
+							/>
+						</svg>
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							id="menu-icon-close"
+							class="w-5 h-5 hidden"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M6 18L18 6M6 6l12 12"
+							/>
+						</svg>
+					</button>
+				</div>
+			</div>
+
+			<!-- Mobile Navigation Drawer / Dropdown -->
+			<div
+				id="mobile-menu"
+				class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-lg px-4 pt-3 pb-5 space-y-2 transition-all duration-200"
+			>
+				<nav
+					class="flex flex-col space-y-1 text-sm font-medium text-slate-200"
+					aria-label="Mobile Navigation"
+				>
+					<a
+						href="index.html#overview"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>Overview</a
+					>
+					<a
+						href="index.html#how-it-works"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>How It Works</a
+					>
+					<a
+						href="index.html#features"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>Features</a
+					>
+					<a
+						href="index.html#requirements"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>Requirements</a
+					>
+					<a
+						href="index.html#support"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>Support Dev</a
+					>
+					<a
+						href="index.html#faq"
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						>FAQ</a
+					>
+				</nav>
+
+				<div class="pt-3 border-t border-slate-800/80">
+					<a
+						href="https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip"
+						class="direct-download-link mobile-nav-link w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm shadow transition-colors"
+					>
+						<svg
+							focusable="false"
+							class="w-4 h-4 fill-current"
+							viewBox="0 0 24 24"
+							aria-hidden="true"
+						>
+							<path
+								d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"
+							/>
+						</svg>
+						<span>Download Portable App</span>
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<!-- Main 404 Section: Clean, Centered & Restrained -->
+		<main
+			id="main-content"
+			tabindex="-1"
+			class="flex-grow flex items-center justify-center px-4 py-20 sm:py-28 focus:outline-none"
+		>
+			<div class="max-w-md w-full text-center space-y-6">
+				<!-- Status Badge -->
+				<div class="inline-flex items-center justify-center">
+					<span
+						class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-xs font-mono text-sky-400 shadow-sm"
+					>
+						<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
+						Error 404
+					</span>
+				</div>
+
+				<!-- Bold 404 Number -->
+				<div
+					class="font-mono text-7xl sm:text-8xl md:text-9xl font-black text-white tracking-tight select-none"
+				>
+					404
+				</div>
+
+				<!-- Short, Clear Copywriting -->
+				<div class="space-y-2">
+					<h1 class="text-xl sm:text-2xl font-bold text-white tracking-tight">Page not found</h1>
+					<p class="text-slate-400 text-sm leading-relaxed max-w-sm mx-auto">
+						Sorry, the page you're looking for doesn't exist or has been moved.
+					</p>
+				</div>
+
+				<!-- Action Buttons -->
+				<div class="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+					<a
+						href="index.html"
+						class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition-all duration-150 shadow-sm"
+					>
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							class="w-4 h-4"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M10 19l-7-7m0 0l7-7m-7 7h18"
+							/>
+						</svg>
+						<span>Back to Homepage</span>
+					</a>
+				</div>
+			</div>
+		</main>
+
+		<!-- Footer (Exact Match with Homepage) -->
+		<footer
+			role="contentinfo"
+			class="bg-slate-950 border-t border-slate-800 text-slate-400 text-xs py-12"
+		>
+			<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+				<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+					<div class="flex items-center gap-3">
+						<div
+							class="w-7 h-7 rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 p-0.5 flex items-center justify-center"
+						>
+							<img
+								src="./images/app_icon.png"
+								alt="Google AI Plus Portal Logo"
+								class="w-full h-full object-contain"
+								width="28"
+								height="28"
+								loading="lazy"
+								decoding="async"
+							/>
+						</div>
+						<span class="font-bold text-white text-sm">Google AI Plus Portal</span>
+						<span class="text-slate-600">&bull;</span>
+						<span class="text-sky-400 font-mono text-xs">v1.0.0</span>
+					</div>
+
+					<nav
+						aria-label="Footer Navigation"
+						class="flex flex-wrap items-center gap-6 text-slate-400"
+					>
+						<a href="index.html#overview" class="hover:text-white transition-colors">Overview</a>
+						<a href="index.html#how-it-works" class="hover:text-white transition-colors"
+							>How It Works</a
+						>
+						<a href="index.html#features" class="hover:text-white transition-colors">Features</a>
+						<a href="index.html#requirements" class="hover:text-white transition-colors"
+							>Requirements</a
+						>
+						<a
+							href="https://github.com/nmrisrl11"
+							target="_blank"
+							rel="noopener noreferrer"
+							class="hover:text-white transition-colors"
+							>Developer Profile<span class="sr-only"> (opens in a new tab)</span></a
+						>
+					</nav>
+				</div>
+
+				<!-- Legal Disclaimer & Non-Affiliation -->
+				<div
+					class="p-4 rounded-xl border border-slate-800/80 bg-slate-900/40 text-[11px] leading-relaxed text-slate-400 space-y-1.5"
+				>
+					<p class="font-semibold text-slate-400">Disclaimer &amp; Non-Affiliation Notice:</p>
+					<p>
+						This software is an independent desktop automation utility provided strictly for
+						convenience, personal educational testing, and research. This project is
+						<strong
+							>NOT affiliated with, sponsored by, or endorsed by Google LLC, Alphabet Inc., or
+							Internshala</strong
+						>.
+					</p>
+					<p>
+						Google, Google AI, Google One, and Gemini are registered trademarks of Google LLC.
+						Internshala is a registered trademark of Scholiverse Educare Private Limited. All
+						product and company names are trademarks or registered trademarks of their respective
+						holders.
+					</p>
+				</div>
+
+				<div
+					class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-900 text-[11px] text-slate-400"
+				>
+					<div>
+						&copy; 2026 nmrisrl11. Built with precision for the developer and student community.
+					</div>
+					<div class="flex items-center gap-4">
+						<span class="text-emerald-500/80">&bull; 100% Local Execution</span>
+						<span>&bull; Zero Tracking</span>
+						<a href="#" class="text-slate-400 hover:text-white transition-colors"
+							>Back to top &uarr;</a
+						>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Live region announcer for assistive technologies (WCAG 4.1.3 Status Messages) -->
+		<div id="a11y-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+		<!-- Interactive JavaScript Application Script -->
+		<script src="./js/app.js"></script>
+	</body>
+</html>

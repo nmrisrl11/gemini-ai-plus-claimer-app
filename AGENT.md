@@ -40,6 +40,7 @@
 gemini-ai-plus-claimer-app/
 ├── AGENT.md            # You are here: comprehensive AI agent context and architecture
 ├── README.md           # User-facing repository overview, quickstart, and binary checksums
+├── 404.html            # Custom 404 error page (dual file:// and http/https routing)
 ├── CHANGELOG.md        # Semantic Versioning change log (Keep a Changelog format)
 ├── index.html          # Core landing page (SEO, semantic markup, SVG icons, schema)
 ├── robots.txt          # Crawler instructions referencing canonical sitemap
@@ -123,6 +124,14 @@ gemini-ai-plus-claimer-app/
 ### 10. Footer (`<footer role="contentinfo">`)
 
 - Navigation links wrapped in `<nav aria-label="Footer Navigation">`, developer profile, Back to top link, and thorough legal disclaimers.
+
+### 11. Custom 404 Error Page (`404.html`)
+
+- **Restrained Branding**: Matches the exact header navigation and uniform footer of `index.html`.
+- **Status Badge**: Glowing cyan `Error 404` status pill.
+- **Copywriting**: Clean, concise copy ("Page not found") without overwhelming marketing sections.
+- **Actions**: Two focused call-to-action buttons: "Back to Homepage" and "Download App".
+- **Robots Directive**: Marked with `<meta name="robots" content="noindex, follow" />` to safeguard SEO integrity.
 
 ---
 
@@ -224,7 +233,23 @@ The `<head>` contains official HTML snippets:
 
 ---
 
-## 9. 🛠️ Instructions for Future AI Agents
+## 9. 🛡️ 404 Architecture, Uniformity & Routing Rules
+
+1. **Native Vercel 404 Serving**:
+   - Vercel automatically matches unmatched requests (e.g., `/test` or `/broken/path`) and serves `/404.html` with an HTTP `404 Not Found` status without changing the browser URL.
+2. **Dual-Environment Link Resolution**:
+   - In `<head>` of `404.html`, an inline script checks `window.location.protocol`. If not `file:`, it injects `<base href="/" />` so that assets (CSS, images, icons, scripts) load from the root domain even from deeply nested 404 paths (e.g. `/foo/bar/bad`).
+   - In `js/app.js`, an environment link adapter dynamically routes relative `index.html#...` anchors to root `/#...` on web servers, while preserving relative links when double-clicking `404.html` locally via `file://`.
+3. **Footer Uniformity & Border Boundary**:
+   - The boundary between page content and the footer must always be a **single 1px line**.
+   - `<section id="faq">` in `index.html` has NO bottom border (`border-b`), allowing the footer's `<footer class="border-t border-slate-800">` to act as the sole divider.
+   - The copyright row must strictly use `text-[11px] text-slate-400` across both `index.html` and `404.html` for uniform rendering and WCAG 2.1 AA contrast compliance.
+4. **Layout Shift Elimination**:
+   - `css/style.css` enforces `html { overflow-y: scroll; scrollbar-gutter: stable; }`. This reserves the vertical scrollbar track across both the long landing page and the short 404 page, preventing navbar horizontal jitter.
+
+---
+
+## 10. 🛠️ Instructions for Future AI Agents
 
 When working on this repository:
 

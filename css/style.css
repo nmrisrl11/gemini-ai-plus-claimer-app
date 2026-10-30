@@ -3,6 +3,12 @@
    Matches desktop app styling, restrained scrollbars, focus states & animations
    ========================================================================== */
 
+/* Always reserve vertical scrollbar track to prevent cross-page layout shift */
+html {
+	overflow-y: scroll;
+	scrollbar-gutter: stable;
+}
+
 /* Sleek restrained scrollbar matching desktop slate styling */
 ::-webkit-scrollbar {
 	width: 10px;
