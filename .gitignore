@@ -5,8 +5,10 @@ Desktop.ini
 $RECYCLE.BIN/
 .DS_Store
 
-# Editor directories and files
-.vscode/
+# Editor directories and files (keep project settings, ignore user state)
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
 .idea/
 *.sublime-project
 *.sublime-workspace

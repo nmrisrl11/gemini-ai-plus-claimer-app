@@ -1,0 +1,11 @@
+# Dependencies & Builds
+node_modules/
+dist/
+build/
+
+# Media & Assets
+images/
+
+# System & Cache
+.git/
+.cache/

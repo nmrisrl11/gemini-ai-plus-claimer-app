@@ -5,55 +5,56 @@
 
 /* Sleek restrained scrollbar matching desktop slate styling */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+	width: 10px;
+	height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #090d16;
+	background: #090d16;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
-  border-radius: 5px;
-  border: 2px solid #090d16;
+	background: #1e293b;
+	border-radius: 5px;
+	border: 2px solid #090d16;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+	background: #334155;
 }
 
 /* Subtle hairline focus ring */
 *:focus-visible {
-  outline: 2px solid #38bdf8;
-  outline-offset: 2px;
+	outline: 2px solid #38bdf8;
+	outline-offset: 2px;
 }
 
 /* Hide horizontal scrollbar for touch tab scrolling */
 .no-scrollbar::-webkit-scrollbar {
-  display: none;
+	display: none;
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+	-ms-overflow-style: none;
+	scrollbar-width: none;
 }
 
 /* Terminal blinking cursor */
 .term-cursor {
-  display: inline-block;
-  width: 8px;
-  height: 15px;
-  vertical-align: middle;
-  background: #38bdf8;
-  animation: blink 1s step-end infinite;
+	display: inline-block;
+	width: 8px;
+	height: 15px;
+	vertical-align: middle;
+	background: #38bdf8;
+	animation: blink 1s step-end infinite;
 }
 
 @keyframes blink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
 }
