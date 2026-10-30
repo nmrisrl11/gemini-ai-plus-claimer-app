@@ -1,6 +1,6 @@
 /**
  * Google AI Plus Portal — Interactive Landing Page Script
- * Handles direct executable downloads, mobile navigation, and clipboard copy.
+ * Handles release distribution routing, mobile navigation, and clipboard copy.
  */
 
 // Configuration Object

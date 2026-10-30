@@ -6,7 +6,7 @@
 [![WCAG 2.1 AA Compliant](https://img.shields.io/badge/accessibility-WCAG%202.1%20AA-10b981?style=flat-square)](https://www.w3.org/WAI/WCAG21/quickref/)
 [![Telemetry: Zero](<https://img.shields.io/badge/telemetry-Zero%20(100%25%20Local)-10b981?style=flat-square>)](#-privacy--local-execution)
 
-Official landing page and release distribution portal for **Google AI Plus Portal** — a lightweight, zero-telemetry Windows desktop utility engineered to automate promotional student onboarding and capture the canonical Google One offer link (`https://one.google.com/offer/...`) for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
+Official landing page and release distribution portal for **Google AI Plus Portal** — a lightweight, zero-telemetry Windows desktop utility engineered to automate promotional student onboarding and capture the canonical official Google One offer link for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
 
 🌐 **Live Web Hub**: [https://gemini-ai-plus-claimer.vercel.app](https://gemini-ai-plus-claimer.vercel.app/)  
 📦 **Official Release (v1.0.0)**: [https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0)
@@ -50,7 +50,7 @@ gemini-ai-plus-claimer-app/
 ### 1. Transparent GitHub Releases Distribution & Open-Source Integrity
 
 - **GitHub Releases Distribution Hub**: All download buttons and CTAs route directly to the official [GitHub Release Hub (v1.0.0)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0), ensuring transparent hosting, binary integrity verification (SHA-256), and compliance with Google Safe Browsing standards.
-- **Open-Source Transparency**: Direct navigation to the public [GitHub Repository](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app) from the header, mobile drawer, hero badge, and footer, reinforcing community trust and zero-credential-harvesting architecture.
+- **Open-Source Transparency**: Prominent [GitHub Repository](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app) verification badge directly on the hero section, reinforcing community trust, verifiable source code, and zero-credential-harvesting architecture.
 
 ### 2. Accessibility (WCAG 2.1 AA Compliance)
 

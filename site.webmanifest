@@ -1,7 +1,7 @@
 {
 	"name": "Google AI Plus Portal",
 	"short_name": "AI Plus Portal",
-	"description": "Automated 1-Year Google AI Plus & Gemini Advanced Access Generator",
+	"description": "Automated 1-Year Google AI Plus & Gemini Advanced Access Utility",
 	"start_url": "/",
 	"display": "standalone",
 	"background_color": "#090d16",
