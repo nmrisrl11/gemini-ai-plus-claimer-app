@@ -4,22 +4,34 @@
  */
 
 // Configuration Object
-// Points to the public release repository where portable binaries are hosted:
+// Points to the public release repository and direct asset downloads:
 const CONFIG = {
-  RELEASE_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases",
-  RELEASE_EXE_DIRECT: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/latest",
+  // Direct file download URL — initiates immediate file download in browser
+  DIRECT_DOWNLOAD_URL:
+    "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Gemini%20AI%20Plus%20for%201-Year%20Automated%20Claimer%20by%20nmrisrl11.zip",
+  // Alternative standalone exe URL:
+  DIRECT_EXE_URL:
+    "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Google%20AI%20Plus%20Portal%20v1.0.0.exe",
+  // Releases hub page:
+  RELEASES_URL:
+    "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases",
+  RELEASE_TAG_URL:
+    "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0",
   DEVELOPER_PROFILE: "https://github.com/nmrisrl11",
   VERSION: "v1.0.0",
-  FILE_NAME: "Google AI Plus Portal v1.0.0.exe",
-  SHA256: "3778FAAEAE423C199F1DA88E1DAF20E3FA2A3048C9880DE25B66A68FB3EB3E55",
 };
 
-// Wire all release download buttons directly to latest release asset
-document.querySelectorAll(".release-link").forEach((link) => {
-  if (CONFIG.RELEASE_EXE_DIRECT) {
-    link.href = CONFIG.RELEASE_EXE_DIRECT;
-  } else if (CONFIG.RELEASE_URL) {
-    link.href = CONFIG.RELEASE_URL;
+// Wire all direct download buttons
+document.querySelectorAll(".direct-download-link").forEach((link) => {
+  if (CONFIG.DIRECT_DOWNLOAD_URL) {
+    link.href = CONFIG.DIRECT_DOWNLOAD_URL;
+  }
+});
+
+// Wire releases page links
+document.querySelectorAll(".releases-link").forEach((link) => {
+  if (CONFIG.RELEASES_URL) {
+    link.href = CONFIG.RELEASES_URL;
   }
 });
 
