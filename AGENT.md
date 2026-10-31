@@ -11,7 +11,7 @@
 - **Type**: High-conversion, accessible, zero-telemetry landing page & distribution hub
 - **Production URL**: [https://gemini-ai-plus-claimer.vercel.app](https://gemini-ai-plus-claimer.vercel.app/)
 - **Distribution Repository (Public)**: [https://github.com/nmrisrl11/gemini-ai-plus-claimer-app](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app)
-- **Underlying Desktop Software**: A standalone, native Windows 10/11 (64-bit) portable executable (`~58.5 MB`) that automates promotional student onboarding and captures canonical official Google One offer links for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
+- **Underlying Desktop Software**: A standalone, native Windows 10/11 (64-bit) portable executable that automates promotional student onboarding and captures canonical official Google One offer links for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
 - **CRITICAL REPOSITORY BOUNDARY**:
   - `gemini-ai-plus-claimer-app` is the **PUBLIC** static landing page and compiled release distribution repository.
   - The actual Python automation source code is located in a **SEPARATE PRIVATE REPOSITORY** (`gemini-ai-plus-claimer`).
@@ -78,7 +78,7 @@ gemini-ai-plus-claimer-app/
 
 ### 2. Hero Section
 
-- **Status Badges**: `Windows 10 / 11 64-bit`, `v1.0.0 Portable`, and `Zero Telemetry`.
+- **Status Badges**: `Windows 10 / 11 64-bit`, `v1.0.1 Portable`, and `Zero Telemetry`.
 - **Primary Headline**: _"Automate your 1-Year Google AI Plus access. Locally. Effortlessly."_
 - **Primary CTA**: Large Sky-600 button wired to direct `.zip` release asset.
 - **Release History Link**: Subtitle link to view all releases on GitHub (`releases-link`).
@@ -86,7 +86,7 @@ gemini-ai-plus-claimer-app/
 
 ### 3. Desktop Application UI Mockup (`role="region" aria-label="Desktop application interface preview"`)
 
-- **Responsive Titlebar**: Displays short title `Google AI Plus Portal` on mobile (`< sm`), expanding to `Google AI Plus (1-Year Access) Portal — v1.0.0` on desktop (`≥ sm`). Visual window minimize/maximize/close icons marked `aria-hidden="true"`.
+- **Responsive Titlebar**: Displays short title `Google AI Plus Portal` on mobile (`< sm`), expanding to `Google AI Plus (1-Year Access) Portal — v1.0.1` on desktop (`≥ sm`). Visual window minimize/maximize/close icons marked `aria-hidden="true"`.
 - **Account Setup Panel**: Simulated inputs for target Gmail and demographic info with a "Randomize Info" action button.
 - **Execution Readout**: Visual progress indicator bar, pipeline status steps, and a live terminal log box with a blinking cyan cursor (`.term-cursor`).
 
@@ -110,7 +110,7 @@ gemini-ai-plus-claimer-app/
 ### 7. Specifications & Expectations Grid (`#requirements`)
 
 - Two symmetrically balanced cards using `flex flex-col justify-between`:
-  - **System Requirements**: OS (Win 10/11), Browser (Chrome/Edge), Python (Not required for `.exe`), Account type (Personal Gmail), Package (~58.5 MB), and Native Taskbar AppUserModelID note.
+  - **System Requirements**: OS (Win 10/11), Browser (Chrome/Edge), Python (Not required for `.exe`), Account type (Personal Gmail), Package (Standalone portable), and Native Taskbar AppUserModelID note.
   - **Google One Expectations & Limits**: Explains the Google One `$0.00 Billed Today` identity verification payment method requirement, personal account eligibility, and single-use promo link rules.
 
 ### 8. Support Developer / Coffee (`#support`)
@@ -137,27 +137,31 @@ gemini-ai-plus-claimer-app/
 
 ## 5. 🔗 Release & Direct Download Architecture
 
-- **Release Tag URL**: `https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0`
-- **Release Archive Filename**: `Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip`
-- **CRITICAL GOTCHA**: When uploading releases to GitHub via the web UI, GitHub automatically replaces spaces with dots (`.`). Therefore, direct download links must target:
-  ```
-  https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/download/v1.0.0/Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip
-  ```
+- **Release Tag URL**: `https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1`
+- **Release Archive Filename**: `Google AI Plus Portal v1.0.1 by nmrisrl11.zip`
+- **Application Binary Filename**: `Google AI Plus Portal v1.0.1.exe`
+- **Binary SHA-256 Checksum**: `05D5D3B04C192BC90D2F835F7FC741FCC702E16A38B26FC7C5836D3AE7E7EE28`
 - **Repository Visibility Rule**: The repository `gemini-ai-plus-claimer-app` **MUST REMAIN PUBLIC**. If set to private, any anonymous visitor clicking download will receive a GitHub `404 Not Found` error.
-- **Centralized Configuration in `js/app.js`**:
+- **Centralized Configuration in `js/app.js` (Single Source of Truth)**:
   ```javascript
   const CONFIG = {
-  	DIRECT_DOWNLOAD_URL:
-  		"https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0",
-  	RELEASES_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases",
-  	RELEASE_TAG_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0",
-  	GITHUB_REPO: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app",
-  	DEVELOPER_PROFILE: "https://github.com/nmrisrl11",
-  	VERSION: "v1.0.0",
+  	VERSION: "v1.0.1",
+  	REPO_URL: "https://github.com/nmrisrl11/gemini-ai-plus-claimer-app",
+  	get DIRECT_DOWNLOAD_URL() {
+  		return `${this.REPO_URL}/releases/tag/${this.VERSION}`;
+  	},
+  	get RELEASES_URL() {
+  		return `${this.REPO_URL}/releases`;
+  	},
+  	get LATEST_RELEASE_URL() {
+  		return `${this.REPO_URL}/releases/latest`;
+  	},
   };
   ```
-  Any element with class `.direct-download-link` or `.releases-link` automatically adopts these URLs on load.
-  > **Safe Browsing & Trust Design**: Download buttons route directly to the official GitHub Release hub (`https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0`) instead of direct binary streams, ensuring automated security crawlers (Google Safe Browsing, SmartScreen) verify the transparent open-source hosting origin.
+  - **Dynamic Link Wiring**: Any element with `.direct-download-link` or `.releases-link` automatically adopts these URLs on load. In static HTML, buttons use the resilient permanent fallback `https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/latest`.
+  - **Dynamic Version Wiring**: Any element with `.app-version-text` automatically synchronizes with `CONFIG.VERSION` on load, removing hardcoded version strings across all pages and layouts.
+  - **Dynamic Schema Synchronization**: Dynamically updates `softwareVersion` and `downloadUrl` inside `<script id="app-schema">`.
+  > **Safe Browsing & Trust Design**: Download buttons route transparently to official GitHub Releases instead of direct binary streams, ensuring automated security crawlers verify the open-source hosting origin.
 
 ---
 

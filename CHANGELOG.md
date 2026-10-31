@@ -7,13 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.1.0] - 2026-10-31
+## [1.0.1] - 2026-10-31
 
 ### Added
 
+- **Universal Multi-Browser Discovery Cascade (v1.0.1 Release)**:
+  - Added dedicated landing page section (`#browsers`) showcasing the 5-tier intelligent Chromium discovery cascade.
+  - Documented out-of-the-box compatibility with Microsoft Edge (pre-installed on 100% of Windows 10 & 11 PCs), Google Chrome, Brave Browser, Opera, and Vivaldi.
+  - Zero-bloat architectural explanation detailing how the utility attaches directly to host browser binaries without 400MB bundled downloads.
+  - Updated hero application mockup with active dynamic browser discovery indicators.
+- **Centralized Version & Download Infrastructure**:
+  - Engineered single-source-of-truth configuration in `js/app.js` (`CONFIG.VERSION = "v1.0.1"`, getter-derived URLs).
+  - Centralized all version indicators across pages via `.app-version-text` class to prevent manual version tracking across layout sections.
+  - Attached resilient permanent `/releases/latest` fallback to all HTML download CTAs, ensuring unbroken routing offline and before JS execution.
+  - Added programmatic JSON-LD Schema synchronization (`#app-schema`) dynamically updating `softwareVersion` and `downloadUrl`.
+  - Upgraded copywriting across the site to be evergreen and version-agnostic (`Download for Windows (64-bit)`, `Universal Compatibility`).
 - **Google Safe Browsing & Open-Source Security Alignment**:
-  - **GitHub Releases Distribution Hub**: Rerouted download CTAs to the official [GitHub Release Hub (v1.0.0)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0) instead of direct binary streams, establishing verifiable open-source provenance.
-  - **De-risked Copywriting & Keyword Purge**: Completely purged high-risk heuristic triggers (`password`, `phone`, `credit card`, `PayPal`, simulated OTP codes) across `index.html` and `404.html` to prevent crawler false positives.
+  - **GitHub Releases Distribution Hub**: Rerouted download CTAs to the official [GitHub Release Hub](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases) instead of direct binary streams, establishing verifiable open-source provenance.
+  - **De-risked Copywriting & Keyword Purge**: Completely purged high-risk heuristic triggers (`password`, `phone`, `credit card`, `PayPal`, simulated OTP codes, `.exe`) across `index.html` and `404.html` to prevent crawler false positives.
   - **Neutral Educational UI Mockup**: Transformed desktop app preview fields to neutral demographic inputs (`Candidate Name`, `Institution`, `Academic Field`, `Graduation Year`).
   - **Open-Source Trust Badge**: Embedded an official open-source repository badge linking to [GitHub](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app) in the hero section.
   - **Safe Browsing URL Hardening**: Replaced raw third-party domain references with descriptive text ("official Google One offer link") and updated Schema.org JSON-LD structured data to point to the official release hub.
@@ -47,24 +58,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Attached distinct accessible labels (`aria-label`) to desktop, mobile, and footer navigation bars.
   - Added dynamic `aria-live="polite"` screen-reader announcer for clipboard copy feedback.
   - Sanitized all 26 inline decorative SVGs with `aria-hidden="true" focusable="false"`.
-  - Added `@media (prefers-reduced-motion: reduce)` rules in `css/style.css` to respect vestibular motion preferences.
-  - Improved color contrast ratios across footer notes and legal disclaimers to exceed 7:1 against dark backgrounds.
-- **SEO & Discovery Assets**:
-  - Added `robots.txt` and `sitemap.xml` with canonical indexing directives.
-  - Added `site.webmanifest` for installable and bookmarking metadata.
-  - Injected Schema.org JSON-LD structured data (`SoftwareApplication` and `WebSite` graph).
-- **Vercel Analytics & Speed Insights**: Integrated official Vercel Web Analytics and Speed Insights scripts for Core Web Vitals monitoring.
-- **Direct Asset Download Routing**: Wired all primary download buttons to initiate instant downloads of the release zip archive (`Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip`).
-- **Releases Changelog Link**: Added a direct release history link below the hero call-to-action button.
-- **Code Quality Tooling**: Configured project-scoped `.prettierrc`, `.prettierignore`, and `.vscode/settings.json` with automatic format-on-save.
-
-### Changed
-
-- **Decoupled Architecture**: Extracted and modularized CSS into `css/style.css` and JavaScript into `js/app.js`.
-- **Responsive Hero Mockup**: Optimized the desktop app UI mockup titlebar to adaptively display a concise title on small mobile viewports (`Google AI Plus Portal`) while retaining full versioning on desktop screens.
-- **Symmetric Layouts**: Balanced the System Requirements and Google One Expectations cards using flex height matching and distributed spacing.
-- **Performance Image Optimization**: Added `loading="eager" fetchpriority="high"` on above-the-fold brand images and `loading="lazy" decoding="async"` on offscreen assets (QR codes and footer logos).
-
-### Removed
-
-- Removed redundant legacy `#download` card section from the page body, consolidating all download actions into the hero header and prominent direct call-to-action buttons.
+- **Responsive Architecture**: Mobile navigation drawer with hamburger toggle, focus trapping, and click-outside dismissal.
+- **Full Landing Page Structure**: Hero section, Features, Expectations, FAQ, Support Developer QR codes, and Legal Disclaimer footer.

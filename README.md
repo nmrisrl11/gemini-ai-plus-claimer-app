@@ -2,14 +2,14 @@
 
 [![Live Deployment: Vercel](https://img.shields.io/badge/deployment-Vercel-000000?style=flat-square&logo=vercel)](https://gemini-ai-plus-claimer.vercel.app/)
 [![Platform: Windows 10 / 11](<https://img.shields.io/badge/platform-Windows%2010%20%2F%2011%20(64--bit)-0284c7?style=flat-square&logo=windows>)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases)
-[![Version: v1.0.0](https://img.shields.io/badge/release-v1.0.0-38bdf8?style=flat-square&logo=github)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0)
+[![Version: v1.0.1](https://img.shields.io/badge/release-v1.0.1-38bdf8?style=flat-square&logo=github)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1)
 [![WCAG 2.1 AA Compliant](https://img.shields.io/badge/accessibility-WCAG%202.1%20AA-10b981?style=flat-square)](https://www.w3.org/WAI/WCAG21/quickref/)
 [![Telemetry: Zero](<https://img.shields.io/badge/telemetry-Zero%20(100%25%20Local)-10b981?style=flat-square>)](#-privacy--local-execution)
 
 Official landing page and release distribution portal for **Google AI Plus Portal** — a lightweight, zero-telemetry Windows desktop utility engineered to automate promotional student onboarding and capture the canonical official Google One offer link for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
 
 🌐 **Live Web Hub**: [https://gemini-ai-plus-claimer.vercel.app](https://gemini-ai-plus-claimer.vercel.app/)  
-📦 **Official Release (v1.0.0)**: [https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0)
+📦 **Official Release (v1.0.1)**: [https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1)
 
 ---
 
@@ -47,9 +47,19 @@ gemini-ai-plus-claimer-app/
 
 ## ⚡ Key Features of the Landing Page
 
-### 1. Transparent GitHub Releases Distribution & Open-Source Integrity
+### 1. Universal Multi-Browser Engine (New in v1.0.1)
 
-- **GitHub Releases Distribution Hub**: All download buttons and CTAs route directly to the official [GitHub Release Hub (v1.0.0)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.0), ensuring transparent hosting, binary integrity verification (SHA-256), and compliance with Google Safe Browsing standards.
+- **Intelligent 5-Tier Discovery Cascade**: Detects and binds to existing Chromium browsers on the user's PC:
+  1. Google Chrome channel (`chrome`)
+  2. Microsoft Edge channel (`msedge` — pre-installed on 100% of Windows 10 & 11 PCs)
+  3. Direct scan for Brave Browser, Google Chrome, Microsoft Edge, Opera, and Vivaldi
+  4. Local Playwright cache (`%LOCALAPPDATA%\ms-playwright`)
+  5. Unbundled fallback
+- **Zero-Bloat Guarantee**: Runs out-of-the-box without downloading or bundling 400MB browser runtimes.
+
+### 2. Transparent GitHub Releases Distribution & Open-Source Integrity
+
+- **GitHub Releases Distribution Hub**: All download buttons and CTAs route directly to the official [GitHub Release Hub (v1.0.1)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1), ensuring transparent hosting, binary integrity verification (SHA-256), and compliance with Google Safe Browsing standards.
 - **Open-Source Transparency**: Prominent [GitHub Repository](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app) verification badge directly on the hero section, reinforcing community trust, verifiable source code, and zero-credential-harvesting architecture.
 
 ### 2. Accessibility (WCAG 2.1 AA Compliance)
@@ -92,21 +102,21 @@ The landing page is optimized for instant static hosting on Vercel with zero bui
 
 ---
 
-## 📦 Release Package Details (v1.0.0)
+## 📦 Release Package Details (v1.0.1)
 
 | Attribute              | Specification                                                      |
 | :--------------------- | :----------------------------------------------------------------- |
-| **Release Version**    | `v1.0.0` (Stable)                                                  |
-| **Release Archive**    | `Gemini.AI.Plus.for.1-Year.Automated.Claimer.by.nmrisrl11.zip`     |
-| **Application Binary** | `Google AI Plus Portal v1.0.0.exe`                                 |
+| **Release Version**    | `v1.0.1` (Stable)                                                  |
+| **Release Archive**    | `Google AI Plus Portal v1.0.1 by nmrisrl11.zip`                    |
+| **Application Binary** | `Google AI Plus Portal v1.0.1.exe`                                 |
 | **Target OS**          | Windows 10 / Windows 11 (64-bit)                                   |
-| **Binary Size**        | ~58.5 MB (Single portable `.exe`)                                  |
-| **SHA-256 Checksum**   | `3778FAAEAE423C199F1DA88E1DAF20E3FA2A3048C9880DE25B66A68FB3EB3E55` |
+| **Package Type**       | Single portable binary (Zero installation)                         |
+| **SHA-256 Checksum**   | `05D5D3B04C192BC90D2F835F7FC741FCC702E16A38B26FC7C5836D3AE7E7EE28` |
 
 ### Checksum Verification in PowerShell:
 
 ```powershell
-Get-FileHash "Google AI Plus Portal v1.0.0.exe" -Algorithm SHA256
+Get-FileHash "Google AI Plus Portal v1.0.1.exe" -Algorithm SHA256
 ```
 
 ---
