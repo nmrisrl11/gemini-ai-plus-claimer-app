@@ -11,7 +11,7 @@
 - **Type**: High-conversion, accessible, zero-telemetry landing page & distribution hub
 - **Production URL**: [https://gemini-ai-plus-claimer.vercel.app](https://gemini-ai-plus-claimer.vercel.app/)
 - **Distribution Repository (Public)**: [https://github.com/nmrisrl11/gemini-ai-plus-claimer-app](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app)
-- **Underlying Desktop Software**: A standalone, native Windows 10/11 (64-bit) portable executable (`~58.5 MB`) that automates promotional student onboarding and captures canonical official Google One offer links for 12 months of free Gemini Advanced and 2TB cloud storage.
+- **Underlying Desktop Software**: A standalone, native Windows 10/11 (64-bit) portable executable (`~58.5 MB`) that automates promotional student onboarding and captures canonical official Google One offer links for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
 - **CRITICAL REPOSITORY BOUNDARY**:
   - `gemini-ai-plus-claimer-app` is the **PUBLIC** static landing page and compiled release distribution repository.
   - The actual Python automation source code is located in a **SEPARATE PRIVATE REPOSITORY** (`gemini-ai-plus-claimer`).
@@ -101,7 +101,7 @@ gemini-ai-plus-claimer-app/
   2. Headless Chrome/Edge Automation Engine
   3. Safe Native OTP Prompt Dialog
   4. Canonical Link Extraction & Token Resolution
-  5. One-Click Google One Claim & Activation
+  5. One-Click Google One Access & Activation
 
 ### 6. Architectural Pillars (`#features`)
 

@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Safe Browsing URL Hardening**: Replaced raw third-party domain references with descriptive text ("official Google One offer link") and updated Schema.org JSON-LD structured data to point to the official release hub.
   - **Search Console Ownership Verification**: Added Google Search Console verification meta tag for ownership validation and expedited review.
   - **Terminology De-risking**: Replaced "Generator" with "Utility" across metadata, titles, and manifest to prevent scam heuristic flags.
+  - **Marketing Vocabulary Sanitization**: Purged incentive keywords (`claim`, `free`, `redeem`) in favor of neutral application terms (`access`, `activate`, `promotional tier`) to avert social-engineering heuristic flags.
 - **Custom 404 Error Page (`404.html`)**: Created a clean, restrained, high-performance 404 error page adhering to the dark slate visual identity, typography, sticky header, and legal footer of the homepage.
 - **Universal Dual-Environment Link Adapter**:
   - Injected an inline `<base>` URL fallback in `404.html` that dynamically points to site root `/` on live web hosts (Vercel) while safely preserving relative paths for offline `file://` desktop testing.
