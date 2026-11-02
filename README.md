@@ -111,7 +111,8 @@ The landing page is optimized for instant static hosting on Vercel with zero bui
 | **Application Binary** | `Google AI Plus Portal v1.0.1.exe`                                 |
 | **Target OS**          | Windows 10 / Windows 11 (64-bit)                                   |
 | **Package Type**       | Single portable binary (Zero installation)                         |
-| **SHA-256 Checksum**   | `05D5D3B04C192BC90D2F835F7FC741FCC702E16A38B26FC7C5836D3AE7E7EE28` |
+| **Binary SHA-256**     | `803F5ACCE69119A96D667CC38FB48B8B5A7BDC2040C1E3C1EE98DEA0F8118605` |
+| **Archive SHA-256**    | `487A8A9AF27C22B1B76792617014E25F0E7F6B0CA12CAB8D83168DF95AF6646C` |
 
 ### Checksum Verification in PowerShell:
 

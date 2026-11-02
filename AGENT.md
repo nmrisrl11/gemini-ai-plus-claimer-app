@@ -140,7 +140,8 @@ gemini-ai-plus-claimer-app/
 - **Release Tag URL**: `https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1`
 - **Release Archive Filename**: `Google AI Plus Portal v1.0.1 by nmrisrl11.zip`
 - **Application Binary Filename**: `Google AI Plus Portal v1.0.1.exe`
-- **Binary SHA-256 Checksum**: `05D5D3B04C192BC90D2F835F7FC741FCC702E16A38B26FC7C5836D3AE7E7EE28`
+- **Binary SHA-256 Checksum**: `803F5ACCE69119A96D667CC38FB48B8B5A7BDC2040C1E3C1EE98DEA0F8118605`
+- **Archive SHA-256 Checksum**: `487A8A9AF27C22B1B76792617014E25F0E7F6B0CA12CAB8D83168DF95AF6646C`
 - **Repository Visibility Rule**: The repository `gemini-ai-plus-claimer-app` **MUST REMAIN PUBLIC**. If set to private, any anonymous visitor clicking download will receive a GitHub `404 Not Found` error.
 - **Centralized Configuration in `js/app.js` (Single Source of Truth)**:
   ```javascript
