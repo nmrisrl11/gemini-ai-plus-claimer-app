@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Dynamic Scroll-Responsive Pill Navbar**:
+  - Implemented dynamic shrinking floating pill navbar on scroll with hysteresis deadband (`SCROLL_ACTIVATE_PX = 50`, `SCROLL_DEACTIVATE_PX = 20`) eliminating threshold chatter and visual flicker.
+  - Engineered smooth gliding animation for the segmented nav track to the right side of the pill while desktop actions collapse (`opacity-0 scale-92 max-w-0`).
+  - Applied the concentric nested corner radius formula ($R_{\text{inner}} = R_{\text{outer}} - \text{Inset}$) with $R_{\text{outer}} = 20\text{px}$, $8\text{px}$ insets, and $R_{\text{inner}} = 12\text{px}$ across logo box, nav track, and mobile menu button for symmetrical edge alignment.
 - **Comprehensive Tech Stack & Tooling Architecture Documentation**:
   - Added dedicated tech stack matrices and architectural rationale in `README.md` and `AGENT.md` covering Astro 5, Tailwind CSS v4 (@tailwindcss/vite), Biome 2.6.4, Lucide Icons (@lucide/astro), TypeScript, and Vercel edge delivery.
 - **Lucide Icon System Migration**:
@@ -31,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Mobile Menu Horizontal Layout Bug**: Resolved layout issue where the mobile navigation drawer rendered side-by-side with the navbar by adding `flex-col items-center` to `<header>`, ensuring clean vertical stacking.
 - **FAQ Chevron Double-Rotation Bug**: Fixed 360° rotation issue where `<details>` chevron rotated back to pointing down upon opening due to stacked rotation CSS rules.
 - **Accessibility & Form Field Audit**: Replaced 5 decorative `<label>` tags with `<span>` in `Hero.astro` desktop application preview mockup, resolving Chrome DevTools _"No label associated with a form field"_ errors.
 - **Missing Inline Whitespace in Astro Render**: Added explicit spaces around inline `<code>` and `<span>` elements across all sections to eliminate collapsed word rendering.

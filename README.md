@@ -92,6 +92,7 @@ gemini-ai-plus-claimer-app/
 
 ### 1. Modern De-Slopped Design System & Typed Constants Architecture
 
+- **Dynamic Scroll-Responsive Pill Navbar**: Symmetrically aligned floating navbar that contracts into an elevated dock on scroll with concentric nested corner radii ($R_{\text{outer}} = 20\text{px}$, $R_{\text{inner}} = 12\text{px}$), smoothly gliding navigation tabs to the edge with tight $8\text{px}$ insets while desktop actions collapse without flicker.
 - **Lucide Icon Integration**: Powered by `@lucide/astro` with uniform stroke widths and accessible SVG labeling across all UI components.
 - **Separation of Concerns**: 100% of landing page copy, specifications, and pipeline stages are decoupled into typed TypeScript constants in `src/constants/` (_kebab-case_).
 - **Restrained Dark Theme**: Minimalist dark slate palette (`#090d16`) with subtle `slate-800` borders, eliminating noisy gradients and badge spam.

@@ -33,3 +33,4 @@ yarn-error.log*
 # Executables and builds (binary releases should be uploaded via GitHub Releases, not git tree)
 *.exe
 build/
+temp/

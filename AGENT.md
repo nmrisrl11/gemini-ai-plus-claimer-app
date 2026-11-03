@@ -148,10 +148,15 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
 
 ### 1. Header & Navigation (`Navbar.astro`)
 
+- **Dynamic Scroll-Responsive Pill**:
+  - Top State (`scrollY <= 20px`): Full `max-w-7xl` width, `h-16`, subtle border, brand subtitle visible, right actions (GitHub, Support, Download) expanded.
+  - Scrolled State (`scrollY > 50px`): Contracts to `max-w-3xl` (48rem / 768px), `h-14`, elevated slate border, backdrop blur, and shadow. Desktop right actions collapse (`opacity-0 scale-92 max-w-0`), allowing the segmented nav track to smoothly glide to the right side with an exact $8\text{px}$ inset.
+  - **Flicker-Free Hysteresis Deadband**: Enters scrolled state at $50\text{px}$ and returns to top state at $20\text{px}$, preventing boundary chatter.
+  - **Concentric Nested Radius Formula**: $R_{\text{outer}} = 20\text{px}$, inset $= 8\text{px}$, inner radius $R_{\text{inner}} = 12\text{px}$ ($20 - 8 = 12$) across logo box, segmented nav track, and mobile button for symmetrical UI alignment.
 - **Brand Identity**: Logo tile with subtle scale transition.
 - **Desktop Navigation**: Links driven by `src/constants/navigation.ts`.
 - **Direct Download CTA**: Desktop-visible button pointing to `CONFIG.DIRECT_DOWNLOAD_URL`.
-- **Mobile Hamburger**: Accessible `<button id="mobile-menu-btn">` with `aria-controls="mobile-menu"`, `aria-expanded="false"`, `min-h-[44px] min-w-[44px]`, toggles mobile drawer with auto-close on navigation or <kbd>Esc</kbd>.
+- **Mobile Menu**: Header structured with `flex flex-col items-center` ensuring the mobile drawer vertically stacks directly below the navbar pill. Accessible `<button id="mobile-menu-btn">` with `aria-controls="mobile-menu"`, `aria-expanded="false"`, toggles mobile drawer with auto-close on navigation or <kbd>Esc</kbd>.
 
 ### 2. Hero Section (`Hero.astro` + `src/constants/hero.ts`)
 
