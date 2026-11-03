@@ -1,5 +1,29 @@
 ---
+import {
+	Check as CheckIcon,
+	Cpu as CpuIcon,
+	ExternalLink as ExternalLinkIcon,
+	Link2 as Link2Icon,
+	RefreshCw as RefreshCwIcon,
+	ShieldCheck as ShieldCheckIcon,
+	Sparkles as SparklesIcon,
+} from "@lucide/astro";
 import { CONFIG } from "../config";
+import {
+	HERO_MICRO_SPECS,
+	KEY_GUARANTEES,
+	MOCK_PROFILE_FIELDS,
+	MOCK_STEPPER_STEPS,
+	MOCK_TERMINAL_GUIDE_STEPS,
+} from "../constants/hero";
+import WindowsIcon from "./icons/WindowsIcon.astro";
+
+const GUARANTEE_ICONS = {
+	sparkles: SparklesIcon,
+	shield: ShieldCheckIcon,
+	cpu: CpuIcon,
+	link: Link2Icon,
+} as const;
 ---
 
 <!-- Hero Section -->
@@ -10,34 +34,6 @@ import { CONFIG } from "../config";
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<!-- Hero Header -->
 		<div class="text-center max-w-3xl mx-auto">
-			<!-- Clean Badges -->
-			<div class="flex flex-wrap items-center justify-center gap-2 mb-6">
-				<a
-					href={CONFIG.REPO_URL}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700/80 text-[11px] font-medium text-slate-300 transition-colors shadow-sm"
-				>
-					<svg
-						class="w-3.5 h-3.5 fill-current text-slate-300"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-						focusable="false"
-					>
-						<path
-							d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"
-						/>
-					</svg>
-					<span>Open Source on GitHub</span>
-				</a>
-				<span
-					class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-medium text-slate-300 shadow-sm"
-				>
-					<span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-					Windows 10 / 11 64-bit
-				</span>
-			</div>
-
 			<!-- Hero Headline -->
 			<h1
 				class="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight mb-4 sm:mb-6"
@@ -50,7 +46,7 @@ import { CONFIG } from "../config";
 			<p
 				class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed mb-6 sm:mb-8 max-w-2xl mx-auto"
 			>
-				An independent, open-source Windows automation tool engineered to streamline student
+				An independent Windows automation utility engineered to streamline student
 				educational onboarding and capture promotional Google One redemption links locally in
 				your browser.
 			</p>
@@ -64,17 +60,8 @@ import { CONFIG } from "../config";
 					rel="noopener noreferrer"
 					class="direct-download-link w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-semibold text-sm sm:text-base transition-all duration-150 border border-sky-500/30 shadow-lg shadow-sky-950/40 focus:outline-none focus:ring-2 focus:ring-sky-400"
 				>
-					<!-- Windows Logo SVG -->
-					<svg
-						focusable="false"
-						class="w-5 h-5 fill-current shrink-0"
-						viewBox="0 0 24 24"
-						aria-hidden="true"
-					>
-						<path
-							d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"
-						/>
-					</svg>
+					<!-- Windows Logo -->
+					<WindowsIcon class="w-5 h-5 fill-current shrink-0" />
 					<span>Download for Windows (64-bit)</span>
 				</a>
 				<a
@@ -84,21 +71,7 @@ import { CONFIG } from "../config";
 					class="releases-link inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-sky-300 transition-colors font-medium group"
 				>
 					<span>View all releases &amp; changelog<span class="sr-only"> (opens in a new tab)</span></span>
-					<svg
-						aria-hidden="true"
-						focusable="false"
-						class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 text-slate-400 group-hover:text-sky-300"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-						/>
-					</svg>
+					<ExternalLinkIcon class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 text-slate-400 group-hover:text-sky-300" />
 				</a>
 			</div>
 
@@ -106,60 +79,14 @@ import { CONFIG } from "../config";
 			<div
 				class="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs text-slate-400"
 			>
-				<span class="flex items-center gap-1.5">
-					<svg
-						aria-hidden="true"
-						focusable="false"
-						class="w-4 h-4 text-emerald-400"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M5 13l4 4L19 7"
-						/>
-					</svg>
-					No installation needed
-				</span>
-				<span class="flex items-center gap-1.5">
-					<svg
-						aria-hidden="true"
-						focusable="false"
-						class="w-4 h-4 text-emerald-400"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M5 13l4 4L19 7"
-						/>
-					</svg>
-					Uses pre-installed Chrome or Edge
-				</span>
-				<span class="flex items-center gap-1.5">
-					<svg
-						aria-hidden="true"
-						focusable="false"
-						class="w-4 h-4 text-emerald-400"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
-					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M5 13l4 4L19 7"
-						/>
-					</svg>
-					100% Local execution
-				</span>
+				{
+					HERO_MICRO_SPECS.map((spec) => (
+						<span class="flex items-center gap-1.5">
+							<CheckIcon class="w-4 h-4 text-emerald-400" />
+							{spec}
+						</span>
+					))
+				}
 			</div>
 		</div>
 
@@ -221,66 +148,24 @@ import { CONFIG } from "../config";
 							<div
 								class="shrink-0 inline-flex items-center gap-1.5 px-3 py-1 rounded bg-slate-800 border border-slate-700 text-slate-300 text-xs font-medium cursor-default"
 							>
-								<svg
-									aria-hidden="true"
-									focusable="false"
-									class="w-3.5 h-3.5 text-slate-400"
-									fill="none"
-									stroke="currentColor"
-									viewBox="0 0 24 24"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-									/>
-								</svg>
+								<RefreshCwIcon class="w-3.5 h-3.5 text-slate-400" />
 								<span>Randomize Info</span>
 							</div>
 						</div>
 
 						<div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-							<div class="flex items-center gap-2">
-								<label class="w-28 text-slate-300 shrink-0">Candidate Name:</label>
-								<div
-									class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono"
-								>
-									Advik Malhotra
-								</div>
-							</div>
-							<div class="flex items-center gap-2">
-								<label class="w-28 text-slate-300 shrink-0">Institution:</label>
-								<div
-									class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono"
-								>
-									Engineering Institute
-								</div>
-							</div>
-							<div class="flex items-center gap-2">
-								<label class="w-28 text-slate-300 shrink-0">Academic Field:</label>
-								<div
-									class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono truncate"
-								>
-									Computer Science
-								</div>
-							</div>
-							<div class="flex items-center gap-2">
-								<label class="w-28 text-slate-300 shrink-0">Graduation Year:</label>
-								<div
-									class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono"
-								>
-									2026
-								</div>
-							</div>
-							<div class="flex items-center gap-2">
-								<label class="w-28 text-slate-300 shrink-0">Automation Engine:</label>
-								<div
-									class="w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono"
-								>
-									Auto Cascade (Chrome/Edge/Brave)
-								</div>
-							</div>
+							{
+								MOCK_PROFILE_FIELDS.map((field) => (
+									<div class="flex items-center gap-2">
+										<span class="w-28 text-slate-300 shrink-0">{field.label}</span>
+										<div
+											class={`w-full bg-slate-950 border border-slate-700/80 rounded px-3 py-1.5 text-slate-200 font-mono ${field.truncate ? "truncate" : ""}`}
+										>
+											{field.value}
+										</div>
+									</div>
+								))
+							}
 							<div class="hidden sm:block"></div>
 						</div>
 					</div>
@@ -311,29 +196,27 @@ import { CONFIG } from "../config";
 					<div
 						class="rounded-lg border border-slate-800 bg-slate-900/80 px-4 py-2.5 flex items-center justify-center text-xs font-medium gap-2 sm:gap-6 overflow-x-auto no-scrollbar whitespace-nowrap"
 					>
-						<span class="text-sky-400 font-bold flex items-center gap-1.5 shrink-0">
-							<span
-								class="w-4 h-4 rounded-full bg-sky-500/20 border border-sky-400 text-sky-300 flex items-center justify-center text-[10px]"
-								>1</span
-							>
-							Profile Setup
-						</span>
-						<span class="text-slate-600 shrink-0">──────▶</span>
-						<span class="text-slate-400 flex items-center gap-1.5 shrink-0">
-							<span
-								class="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-[10px]"
-								>2</span
-							>
-							Email Verification
-						</span>
-						<span class="text-slate-600 shrink-0">──────▶</span>
-						<span class="text-slate-400 flex items-center gap-1.5 shrink-0">
-							<span
-								class="w-4 h-4 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center text-[10px]"
-								>3</span
-							>
-							Access Link Ready
-						</span>
+						{
+							MOCK_STEPPER_STEPS.map((item, idx) => (
+								<>
+									{idx > 0 && <span class="text-slate-600 shrink-0">──────▶</span>}
+									<span
+										class={`flex items-center gap-1.5 shrink-0 ${item.active ? "text-sky-400 font-bold" : "text-slate-400"}`}
+									>
+										<span
+											class={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] ${
+												item.active
+													? "bg-sky-500/20 border border-sky-400 text-sky-300"
+													: "bg-slate-800 border border-slate-700 text-slate-400"
+											}`}
+										>
+											{item.step}
+										</span>
+										{item.label}
+									</span>
+								</>
+							))
+						}
 					</div>
 
 					<!-- Live Activity Feed Card -->
@@ -360,18 +243,11 @@ import { CONFIG } from "../config";
 							<div class="text-sky-400/60 border-b border-sky-500/30 my-1"></div>
 							<div class="text-emerald-400 font-medium">Status: System Ready</div>
 							<div class="text-slate-400 mt-1.5">Quick Guide:</div>
-							<div class="text-slate-400">
-								1. Review or customize your account profile above.
-							</div>
-							<div class="text-slate-400">
-								2. Click "Get 1-Year Access Link" to start provisioning.
-							</div>
-							<div class="text-slate-400">
-								3. Complete the email confirmation step when prompted by the browser.
-							</div>
-							<div class="text-slate-400">
-								4. Your 1-Year Google AI Plus activation link will be ready to use!
-							</div>
+							{
+								MOCK_TERMINAL_GUIDE_STEPS.map((step) => (
+									<div class="text-slate-400">{step}</div>
+								))
+							}
 							<div class="text-sky-400/60 border-b border-sky-500/30 my-1"></div>
 							<div class="text-slate-300 mt-1">
 								<span class="text-sky-400">&gt;</span> Awaiting user execution...<span
@@ -405,57 +281,38 @@ import { CONFIG } from "../config";
 	</div>
 </section>
 
-<!-- Value Stats Bar -->
+<!-- Key Guarantees Spec Bar -->
 <section
-	class="border-b border-slate-800 bg-slate-900/50 py-8 sm:py-10"
+	class="border-b border-slate-800 bg-slate-950/40 py-6 sm:py-8"
 	aria-label="Key Guarantees"
 >
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 text-center">
-			<div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
-				<div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-sky-400 font-mono">
-					12 Months
-				</div>
-				<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
-					Gemini Advanced Access
-				</div>
-				<div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
-					Includes 2TB Google One Storage
-				</div>
-			</div>
-
-			<div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
-				<div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-emerald-400 font-mono">
-					100% Local
-				</div>
-				<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Zero Telemetry</div>
-				<div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
-					No cloud relays or external logging
-				</div>
-			</div>
-
-			<div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
-				<div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-white font-mono">
-					0 MB Bloat
-				</div>
-				<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
-					System Browser Engine
-				</div>
-				<div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
-					Attaches to installed Chrome or Edge
-				</div>
-			</div>
-
-			<div class="p-3 sm:p-4 rounded-xl border border-slate-800 bg-slate-900/80">
-				<div class="text-xl sm:text-2xl md:text-3xl font-extrabold text-sky-300 font-mono">
-					1-Click
-				</div>
-				<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
-					Canonical Link Grab
-				</div>
-				<div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
-					Auto-saved to local results folder
-				</div>
+		<div
+			class="rounded-xl border border-slate-800/80 bg-slate-900/50 overflow-hidden shadow-sm"
+		>
+			<div
+				class="grid grid-cols-1 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-slate-800/80"
+			>
+				{
+					KEY_GUARANTEES.map((item) => {
+						const IconComponent = GUARANTEE_ICONS[item.icon];
+						return (
+							<div class="flex items-center gap-3.5 px-4 py-3.5 sm:px-5 sm:py-4 hover:bg-slate-800/30 transition-colors">
+								<div class="w-9 h-9 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0">
+									<IconComponent class="w-4 h-4" />
+								</div>
+								<div class="min-w-0">
+									<div class="text-xs sm:text-sm font-bold text-white tracking-tight">
+										{item.title}
+									</div>
+									<div class="text-[11px] sm:text-xs text-slate-400 truncate">
+										{item.description}
+									</div>
+								</div>
+							</div>
+						);
+					})
+				}
 			</div>
 		</div>
 	</div>

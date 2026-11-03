@@ -1,3 +1,22 @@
+---
+import {
+	AppWindow as AppWindowIcon,
+	ChevronRight as ChevronRightIcon,
+	Globe as GlobeIcon,
+	Info as InfoIcon,
+	ShieldCheck as ShieldCheckIcon,
+	Zap as ZapIcon,
+} from "@lucide/astro";
+import { BROWSER_TIERS, CASCADE_STEPS } from "../constants/browsers";
+
+const BROWSER_ICONS = {
+	globe: GlobeIcon,
+	"shield-check": ShieldCheckIcon,
+	zap: ZapIcon,
+	"app-window": AppWindowIcon,
+} as const;
+---
+
 <!-- Multi-Browser Compatibility Section -->
 <section
 	id="browsers"
@@ -25,228 +44,86 @@
 		</div>
 
 		<!-- Browser Cards Grid -->
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-			<!-- Card 1: Google Chrome -->
-			<div
-				class="rounded-xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 flex flex-col justify-between hover:border-slate-700 transition-colors"
-			>
-				<div>
-					<div class="flex items-center justify-between mb-4">
-						<div
-							class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center"
-						>
-							<svg
-								aria-hidden="true"
-								focusable="false"
-								class="w-5 h-5"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<circle cx="12" cy="12" r="10" stroke-width="2" />
-								<circle cx="12" cy="12" r="4" stroke-width="2" />
-								<path
-									stroke-linecap="round"
-									stroke-width="2"
-									d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10"
-								/>
-							</svg>
-						</div>
-						<span
-							class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20"
-							>Tier 1 • Primary</span
-						>
-					</div>
-					<h3 class="text-base font-bold text-white mb-1.5">Google Chrome</h3>
-					<p class="text-xs text-slate-400 leading-relaxed">
-						Direct headless connection via standard Chrome distribution channels for maximum
-						execution speed.
-					</p>
-				</div>
-				<div
-					class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400"
-				>
-					Channel: <span class="text-slate-300">chrome</span>
-				</div>
-			</div>
+		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+			{
+				BROWSER_TIERS.map((tier) => {
+					const IconComponent = BROWSER_ICONS[tier.icon];
+					return (
+						<div class="group relative rounded-xl border border-slate-800 bg-slate-900/60 p-5 sm:p-6 flex flex-col justify-between hover:border-slate-700 hover:bg-slate-900/90 transition-all">
+							<div>
+								<div class="flex items-center justify-between mb-4">
+									<div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center group-hover:border-sky-500/40 group-hover:bg-sky-500/15 transition-all">
+										<IconComponent class="w-5 h-5" />
+									</div>
+									<div class="flex items-center gap-1.5">
+										<span class="font-mono text-xs font-bold text-sky-400">
+											T{tier.tier}
+										</span>
+										<span class="text-slate-600 text-xs" aria-hidden="true">
+											&bull;
+										</span>
+										<span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded bg-slate-950 border border-slate-800 group-hover:border-slate-700 transition-colors">
+											{tier.tierBadge}
+										</span>
+									</div>
+								</div>
+								<h3 class="text-base font-bold text-white mb-2 tracking-tight group-hover:text-sky-300 transition-colors">
+									{tier.name}
+								</h3>
+								<p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+									{tier.description}
+								</p>
+							</div>
 
-			<!-- Card 2: Microsoft Edge -->
-			<div
-				class="rounded-xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 flex flex-col justify-between hover:border-slate-700 transition-colors"
-			>
-				<div>
-					<div class="flex items-center justify-between mb-4">
-						<div
-							class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center"
-						>
-							<svg
-								aria-hidden="true"
-								focusable="false"
-								class="w-5 h-5"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-								/>
-							</svg>
+							<div class="mt-5 pt-3.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+								<span class="text-slate-500 uppercase tracking-wider text-[10px]">
+									{tier.engineLabel}
+								</span>
+								<span class="text-slate-300">
+									{tier.engineValue}
+								</span>
+							</div>
 						</div>
-						<span
-							class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
-							>Tier 2 • Built-in</span
-						>
-					</div>
-					<h3 class="text-base font-bold text-white mb-1.5">Microsoft Edge</h3>
-					<p class="text-xs text-slate-400 leading-relaxed">
-						Pre-installed on 100% of Windows 10 &amp; 11 PCs. Guarantees the portal runs out
-						of the box with zero downloads.
-					</p>
-				</div>
-				<div
-					class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400"
-				>
-					Channel: <span class="text-slate-300">msedge</span>
-				</div>
-			</div>
-
-			<!-- Card 3: Brave Browser -->
-			<div
-				class="rounded-xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 flex flex-col justify-between hover:border-slate-700 transition-colors"
-			>
-				<div>
-					<div class="flex items-center justify-between mb-4">
-						<div
-							class="w-10 h-10 rounded-lg bg-orange-500/10 border border-orange-500/20 text-orange-400 flex items-center justify-center"
-						>
-							<svg
-								aria-hidden="true"
-								focusable="false"
-								class="w-5 h-5"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M13 10V3L4 14h7v7l9-11h-7z"
-								/>
-							</svg>
-						</div>
-						<span
-							class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-orange-500/10 text-orange-400 border border-orange-500/20"
-							>Tier 3 • Privacy</span
-						>
-					</div>
-					<h3 class="text-base font-bold text-white mb-1.5">Brave Browser</h3>
-					<p class="text-xs text-slate-400 leading-relaxed">
-						Deep path resolution for privacy-first developers running Brave as their default
-						Windows browser.
-					</p>
-				</div>
-				<div
-					class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400"
-				>
-					Detection: <span class="text-slate-300">Brave Application</span>
-				</div>
-			</div>
-
-			<!-- Card 4: Opera & Vivaldi -->
-			<div
-				class="rounded-xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 flex flex-col justify-between hover:border-slate-700 transition-colors"
-			>
-				<div>
-					<div class="flex items-center justify-between mb-4">
-						<div
-							class="w-10 h-10 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 flex items-center justify-center"
-						>
-							<svg
-								aria-hidden="true"
-								focusable="false"
-								class="w-5 h-5"
-								fill="none"
-								stroke="currentColor"
-								viewBox="0 0 24 24"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M4 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6z"
-								/>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									stroke-width="2"
-									d="M4 10h16M10 4v16"
-								/>
-							</svg>
-						</div>
-						<span
-							class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
-							>Tier 4 • Extended</span
-						>
-					</div>
-					<h3 class="text-base font-bold text-white mb-1.5">Opera &amp; Vivaldi</h3>
-					<p class="text-xs text-slate-400 leading-relaxed">
-						Automatic user and program directory scanning for Chromium-powered community
-						browsers.
-					</p>
-				</div>
-				<div
-					class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] font-mono text-slate-400"
-				>
-					Scanning: <span class="text-slate-300">Auto-Detected</span>
-				</div>
-			</div>
+					);
+				})
+			}
 		</div>
 
-		<!-- Bottom Architecture Explanation Banner -->
+		<!-- Bottom Architecture Explanation Banner (Visual Sequential Cascade) -->
 		<div
-			class="mt-8 p-4 sm:p-6 rounded-xl border border-slate-800/80 bg-slate-900/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+			class="mt-8 p-5 sm:p-6 rounded-2xl border border-slate-800/80 bg-slate-900/40 relative overflow-hidden"
 		>
-			<div class="flex items-start gap-3.5">
-				<div
-					class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5"
-				>
-					<svg
-						aria-hidden="true"
-						focusable="false"
-						class="w-4 h-4"
-						fill="none"
-						stroke="currentColor"
-						viewBox="0 0 24 24"
+			<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+				<div class="flex items-start gap-3.5 max-w-xl">
+					<div
+						class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center shrink-0 mt-0.5"
 					>
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-						/>
-					</svg>
-				</div>
-				<div>
-					<div class="text-sm font-semibold text-white">How the Discovery Cascade Works</div>
-					<div class="text-xs text-slate-400 mt-0.5 leading-relaxed">
-						The portal tests Chrome first &rarr; falls back to pre-installed Edge &rarr;
-						searches direct executable paths for Brave, Opera &amp; Vivaldi &rarr; inspects
-						Playwright cache. If you have any modern Windows computer, it works right out of
-						the box.
+						<InfoIcon class="w-4 h-4" />
+					</div>
+					<div>
+						<h4 class="text-sm font-semibold text-white">How the Discovery Cascade Operates</h4>
+						<p class="text-xs text-slate-400 mt-1 leading-relaxed">
+							The portal executes an automated 5-tier fallback sequence. It detects and binds to your pre-installed Windows Chromium browser without requiring Python environments or external downloads.
+						</p>
 					</div>
 				</div>
-			</div>
-			<div class="shrink-0 flex items-center gap-2 self-end sm:self-center">
-				<span
-					class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[11px] font-medium text-emerald-400"
-				>
-					<span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-					0MB Extra Downloads
-				</span>
+
+				<!-- Visual Step Sequence -->
+				<div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+					{
+						CASCADE_STEPS.map((step, idx) => (
+							<div class="flex items-center gap-2">
+								<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-950 border border-slate-800 text-slate-300">
+									<span class="text-sky-400 text-[10px] font-bold">{step.step}</span>
+									<span>{step.label}</span>
+								</span>
+								{idx < CASCADE_STEPS.length - 1 && (
+									<ChevronRightIcon class="w-3.5 h-3.5 text-slate-600 shrink-0" />
+								)}
+							</div>
+						))
+					}
+				</div>
 			</div>
 		</div>
 	</div>

@@ -1,5 +1,14 @@
 ---
+import {
+	Download as DownloadIcon,
+	Heart as HeartIcon,
+	Menu as MenuIcon,
+	X as XIcon,
+} from "@lucide/astro";
 import { CONFIG } from "../config";
+import { MOBILE_EXTRA_ITEMS, NAV_ITEMS, SCROLLSPY_SECTIONS } from "../constants/navigation";
+import GithubIcon from "./icons/GithubIcon.astro";
+import WindowsIcon from "./icons/WindowsIcon.astro";
 
 const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
 const prefix = isHome ? "" : "/";
@@ -7,9 +16,9 @@ const prefix = isHome ? "" : "/";
 
 <header
 	role="banner"
-	class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/90 border-b border-slate-800"
+	class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/85 border-b border-slate-800/80 transition-colors"
 >
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
 		<!-- App Brand & Logo -->
 		<a href="/" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
 			<div
@@ -32,49 +41,63 @@ const prefix = isHome ? "" : "/";
 				>
 					Google AI Plus Portal
 				</span>
-				<span class="text-[10px] sm:text-[11px] text-slate-400 hidden sm:block"
+				<span class="text-[10px] sm:text-[11px] text-slate-400 hidden xl:block"
 					>1-Year Access Automation Utility</span
 				>
 			</div>
 		</a>
 
-		<!-- Desktop Nav Links -->
+		<!-- Desktop Segmented Control Nav with Dynamic Map -->
 		<nav
-			class="hidden lg:flex items-center gap-6 text-sm font-medium text-slate-300"
+			class="hidden lg:flex items-center p-1 rounded-xl bg-slate-900/90 border border-slate-800 shadow-inner"
 			aria-label="Main Navigation"
 		>
-			<a href={`${prefix}#overview`} class="hover:text-sky-400 transition-colors">Overview</a>
-			<a href={`${prefix}#how-it-works`} class="hover:text-sky-400 transition-colors">How It Works</a>
-			<a href={`${prefix}#features`} class="hover:text-sky-400 transition-colors">Features</a>
-			<a href={`${prefix}#browsers`} class="hover:text-sky-400 transition-colors">Browsers</a>
-			<a href={`${prefix}#requirements`} class="hover:text-sky-400 transition-colors">Requirements</a>
-			<a href={`${prefix}#support`} class="hover:text-sky-400 transition-colors">Support Dev</a>
-			<a href={`${prefix}#faq`} class="hover:text-sky-400 transition-colors">FAQ</a>
+			<div class="flex items-center gap-1" id="nav-segmented-track">
+				{
+					NAV_ITEMS.map((item) => (
+						<a
+							href={`${prefix}${item.href}`}
+							data-section={item.section}
+							class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
+						>
+							{item.label}
+						</a>
+					))
+				}
+			</div>
 		</nav>
 
-		<!-- Desktop Download Button + Mobile Menu Toggle -->
-		<div class="flex items-center gap-2 sm:gap-3">
+		<!-- Right Actions: GitHub + Support Dev + Download CTA + Mobile Hamburger -->
+		<div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+			<!-- GitHub Repository Link -->
+			<a
+				href={CONFIG.REPO_URL}
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="GitHub Repository"
+				class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
+			>
+				<GithubIcon class="w-4 h-4" />
+				<span class="hidden lg:inline">GitHub</span>
+			</a>
+
+			<!-- Support Dev Link -->
+			<a
+				href={`${prefix}#support`}
+				class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
+			>
+				<HeartIcon class="w-3.5 h-3.5 text-rose-500 fill-current" />
+				<span class="hidden xl:inline">Support</span>
+			</a>
+
+			<!-- Primary Download CTA -->
 			<a
 				href={CONFIG.LATEST_RELEASE_URL}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="direct-download-link hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-sky-700 hover:bg-sky-600 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-sm transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
 			>
-				<svg
-					focusable="false"
-					class="w-4 h-4"
-					fill="none"
-					stroke="currentColor"
-					viewBox="0 0 24 24"
-					aria-hidden="true"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
-					></path>
-				</svg>
+				<DownloadIcon class="w-4 h-4" />
 				<span>Download</span>
 			</a>
 
@@ -87,43 +110,13 @@ const prefix = isHome ? "" : "/";
 				aria-controls="mobile-menu"
 				class="lg:hidden inline-flex items-center justify-center p-2.5 min-h-[44px] min-w-[44px] rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/80 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400"
 			>
-				<svg
-					aria-hidden="true"
-					focusable="false"
-					id="menu-icon-bars"
-					class="w-5 h-5 block"
-					fill="none"
-					stroke="currentColor"
-					viewBox="0 0 24 24"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M4 6h16M4 12h16M4 18h16"
-					/>
-				</svg>
-				<svg
-					aria-hidden="true"
-					focusable="false"
-					id="menu-icon-close"
-					class="w-5 h-5 hidden"
-					fill="none"
-					stroke="currentColor"
-					viewBox="0 0 24 24"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M6 18L18 6M6 6l12 12"
-					/>
-				</svg>
+				<MenuIcon id="menu-icon-bars" class="w-5 h-5 block" />
+				<XIcon id="menu-icon-close" class="w-5 h-5 hidden" />
 			</button>
 		</div>
 	</div>
 
-	<!-- Mobile Navigation Drawer / Dropdown -->
+	<!-- Mobile Navigation Drawer / Dropdown with Dynamic Map -->
 	<div
 		id="mobile-menu"
 		class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-lg px-4 pt-3 pb-5 space-y-2 transition-all duration-200"
@@ -132,41 +125,28 @@ const prefix = isHome ? "" : "/";
 			class="flex flex-col space-y-1 text-sm font-medium text-slate-200"
 			aria-label="Mobile Navigation"
 		>
-			<a
-				href={`${prefix}#overview`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-				>Overview</a
-			>
-			<a
-				href={`${prefix}#how-it-works`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-				>How It Works</a
-			>
-			<a
-				href={`${prefix}#features`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-				>Features</a
-			>
-			<a
-				href={`${prefix}#browsers`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-				>Browsers</a
-			>
-			<a
-				href={`${prefix}#requirements`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-				>Requirements</a
-			>
-			<a
-				href={`${prefix}#support`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-				>Support Dev</a
-			>
-			<a
-				href={`${prefix}#faq`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-				>FAQ</a
-			>
+			{
+				NAV_ITEMS.map((item) => (
+					<a
+						href={`${prefix}${item.href}`}
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+					>
+						{item.label}
+					</a>
+				))
+			}
+			{
+				MOBILE_EXTRA_ITEMS.map((item) => (
+					<a
+						href={item.external ? item.href : `${prefix}${item.href}`}
+						target={item.external ? "_blank" : undefined}
+						rel={item.external ? "noopener noreferrer" : undefined}
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-slate-900 hover:text-white transition-colors"
+					>
+						{item.label}
+					</a>
+				))
+			}
 		</nav>
 
 		<div class="pt-3 border-t border-slate-800/80">
@@ -176,23 +156,14 @@ const prefix = isHome ? "" : "/";
 				rel="noopener noreferrer"
 				class="direct-download-link mobile-nav-link w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-semibold text-sm shadow transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400"
 			>
-				<svg
-					focusable="false"
-					class="w-4 h-4 fill-current"
-					viewBox="0 0 24 24"
-					aria-hidden="true"
-				>
-					<path
-						d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"
-					/>
-				</svg>
+				<WindowsIcon class="w-4 h-4" />
 				<span>Download Portable App</span>
 			</a>
 		</div>
 	</div>
 </header>
 
-<script is:inline>
+<script is:inline define:vars={{ scrollspySections: SCROLLSPY_SECTIONS }}>
 	// Mobile Drawer Navigation toggle logic
 	const mobileMenuBtn = document.getElementById("mobile-menu-btn");
 	const mobileMenu = document.getElementById("mobile-menu");
@@ -235,5 +206,104 @@ const prefix = isHome ? "" : "/";
 				mobileMenuBtn.focus();
 			}
 		});
+	}
+
+	// Scrollspy for Segmented Track (DOMContentLoaded safe, high accuracy)
+	function initScrollspy() {
+		const sections = scrollspySections;
+		const navTabs = document.querySelectorAll(".nav-tab");
+		if (!navTabs.length) return;
+
+		const activeClasses = [
+			"bg-slate-800",
+			"text-white",
+			"font-semibold",
+			"shadow-sm",
+			"border-slate-700/80",
+		];
+		const inactiveClasses = ["text-slate-400", "font-medium", "border-transparent"];
+
+		function setActiveTab(activeKey) {
+			navTabs.forEach((tab) => {
+				const target = tab.getAttribute("data-section");
+				if (target === activeKey) {
+					tab.classList.add(...activeClasses);
+					tab.classList.remove(...inactiveClasses);
+					tab.setAttribute("aria-current", "page");
+				} else {
+					tab.classList.remove(...activeClasses);
+					tab.classList.add(...inactiveClasses);
+					tab.removeAttribute("aria-current");
+				}
+			});
+		}
+
+		// Click activation (instant visual feedback)
+		navTabs.forEach((tab) => {
+			tab.addEventListener("click", () => {
+				const target = tab.getAttribute("data-section");
+				if (target) setActiveTab(target);
+			});
+		});
+
+		let isTicking = false;
+		function updateOnScroll() {
+			const scrollY = window.scrollY;
+			const viewportHeight = window.innerHeight;
+			const docHeight = document.documentElement.scrollHeight;
+
+			// If reached the very bottom of the page, highlight FAQ
+			if (scrollY + viewportHeight >= docHeight - 80) {
+				setActiveTab("faq");
+				return;
+			}
+
+			// Header offset buffer
+			const headerOffset = 140;
+			const currentY = scrollY + headerOffset;
+
+			// Check first section top
+			const firstSection = document.getElementById("how-it-works");
+			if (firstSection && currentY < firstSection.offsetTop) {
+				setActiveTab("");
+				return;
+			}
+
+			// Scan backwards to find the current active section
+			let activeKey = "";
+			for (let i = sections.length - 1; i >= 0; i--) {
+				const item = sections[i];
+				const el = document.getElementById(item.id);
+				if (el && currentY >= el.offsetTop) {
+					activeKey = item.tabKey;
+					break;
+				}
+			}
+
+			setActiveTab(activeKey);
+		}
+
+		window.addEventListener(
+			"scroll",
+			() => {
+				if (!isTicking) {
+					window.requestAnimationFrame(() => {
+						updateOnScroll();
+						isTicking = false;
+					});
+					isTicking = true;
+				}
+			},
+			{ passive: true },
+		);
+
+		// Initial check on page load
+		updateOnScroll();
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initScrollspy);
+	} else {
+		initScrollspy();
 	}
 </script>

@@ -69,7 +69,7 @@ const schemaData = {
 		<meta name="description" content={description} />
 		<meta
 			name="keywords"
-			content="Google AI Plus, Gemini Advanced, Google One, 1-Year Access, Automation, Windows Utility, Open Source, Student Onboarding, Portable App"
+			content="Google AI Plus, Gemini Advanced, Google One, 1-Year Access, Automation, Windows Utility, Desktop Automation, Student Onboarding, Portable App"
 		/>
 		<meta name="author" content="nmrisrl11" />
 		{noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow" />}
@@ -101,8 +101,9 @@ const schemaData = {
 
 		<!-- Icons -->
 		<link rel="icon" type="image/x-icon" href="/images/app_icon.ico" />
-		<link rel="icon" type="image/png" href="/images/app_icon.png" />
-		<link rel="apple-touch-icon" href="/images/app_icon.png" />
+		<link rel="icon" type="image/png" sizes="192x192" href="/images/app_icon_192.png" />
+		<link rel="icon" type="image/png" sizes="512x512" href="/images/app_icon.png" />
+		<link rel="apple-touch-icon" href="/images/app_icon_192.png" />
 
 		<!-- JSON-LD Structured Data: SoftwareApplication & WebSite -->
 		<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />

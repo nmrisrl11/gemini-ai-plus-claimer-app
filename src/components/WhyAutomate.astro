@@ -1,4 +1,9 @@
-<!-- Overview & Problem / Solution Section -->
+---
+import { Check as CheckIcon, X as XIcon } from "@lucide/astro";
+import { COMPARISON_ROWS, COMPARISON_SUMMARY } from "../constants/why-automate";
+---
+
+<!-- Overview & Problem / Solution Comparison Matrix -->
 <section class="py-16 md:py-24 border-b border-slate-800">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="max-w-3xl mb-12">
@@ -9,109 +14,122 @@
 				Why navigate multi-step promotional gateways manually?
 			</h2>
 			<p class="text-slate-300 mt-4 text-base sm:text-lg leading-relaxed">
-				Educational partners periodically offer 12 months of complimentary Google AI Plus
-				subscriptions. However, claiming them manually requires traversing multi-step profile
-				forms, formatting regional mobile numbers, handling email confirmation challenges, and
-				unwrapping nested redirect tokens.
+				Educational partners periodically offer 12 months of promotional Google AI Plus
+				access. However, navigating the registration manually requires traversing multi-step profile
+				forms, formatting regional mobile numbers, completing email confirmation steps, and
+				resolving nested referral links.
 			</p>
 		</div>
 
-		<!-- Problem vs Solution Comparison Table -->
-		<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-			<!-- The Manual Method -->
+		<!-- Unified Comparison Matrix -->
+		<div
+			class="rounded-xl border border-slate-800/80 bg-slate-900/50 overflow-hidden shadow-sm"
+		>
+			<!-- Desktop Column Header Bar (hidden on mobile, visible md+) -->
 			<div
-				class="rounded-xl border border-rose-900/40 bg-slate-900/90 p-6 flex flex-col justify-between"
+				class="hidden md:grid md:grid-cols-2 divide-x divide-slate-800/80 bg-slate-950/80 border-b border-slate-800/80"
 			>
-				<div>
-					<div class="flex items-center gap-2 text-rose-400 font-semibold text-sm mb-4">
-						<svg
-							aria-hidden="true"
-							focusable="false"
-							class="w-5 h-5"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						</svg>
-						<span>The Manual Method</span>
+				<!-- Manual Method Column Header -->
+				<div class="px-5 py-3.5 flex items-center justify-between">
+					<div class="flex items-center gap-2">
+						<span class="w-2 h-2 rounded-full bg-slate-500"></span>
+						<span class="font-bold text-sm text-slate-200">
+							{COMPARISON_SUMMARY.manual.title}
+						</span>
 					</div>
-					<ul class="space-y-3 text-sm text-slate-400">
-						<li class="flex items-start gap-2.5">
-							<span class="text-rose-500 font-bold">&times;</span>
-							<span>Tedious manual entry of educational records and regional phone numbers.</span>
-						</li>
-						<li class="flex items-start gap-2.5">
-							<span class="text-rose-500 font-bold">&times;</span>
-							<span>Switching browser tabs repeatedly to check incoming verification emails.</span>
-						</li>
-						<li class="flex items-start gap-2.5">
-							<span class="text-rose-500 font-bold">&times;</span>
-							<span>Session timeouts and fragile authentication redirects that expire midway.</span>
-						</li>
-						<li class="flex items-start gap-2.5">
-							<span class="text-rose-500 font-bold">&times;</span>
-							<span>Having to manually bookmark or copy down long redemption query strings.</span>
-						</li>
-					</ul>
+					<span class="text-xs font-mono text-slate-400">
+						{COMPARISON_SUMMARY.manual.badge}
+					</span>
 				</div>
-				<div class="mt-6 pt-4 border-t border-slate-800 text-xs text-rose-300 font-mono">
-					Average manual time: 8–15 minutes of repetitive clicking
+
+				<!-- Portal Way Column Header -->
+				<div class="px-5 py-3.5 flex items-center justify-between">
+					<div class="flex items-center gap-2">
+						<span class="w-2 h-2 rounded-full bg-sky-400"></span>
+						<span class="font-bold text-sm text-white">
+							{COMPARISON_SUMMARY.portal.title}
+						</span>
+					</div>
+					<span class="text-xs font-mono text-sky-400 font-medium">
+						{COMPARISON_SUMMARY.portal.badge}
+					</span>
 				</div>
 			</div>
 
-			<!-- The Portal Solution -->
+			<!-- Mobile Header Bar (visible only on mobile) -->
 			<div
-				class="rounded-xl border border-sky-500/40 bg-slate-900/90 p-6 flex flex-col justify-between"
+				class="md:hidden px-4 py-3 bg-slate-950/90 border-b border-slate-800/80 flex items-center justify-between text-xs"
 			>
-				<div>
-					<div class="flex items-center gap-2 text-sky-400 font-semibold text-sm mb-4">
-						<svg
-							aria-hidden="true"
-							focusable="false"
-							class="w-5 h-5"
-							fill="none"
-							stroke="currentColor"
-							viewBox="0 0 24 24"
-						>
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M5 13l4 4L19 7"
-							/>
-						</svg>
-						<span>The Google AI Plus Portal Way</span>
-					</div>
-					<ul class="space-y-3 text-sm text-slate-300">
-						<li class="flex items-start gap-2.5">
-							<span class="text-sky-400 font-bold">&check;</span>
-							<span>1-click demographic profiles or custom inputs with automatic validation.</span>
-						</li>
-						<li class="flex items-start gap-2.5">
-							<span class="text-sky-400 font-bold">&check;</span>
-							<span>Runs headless in the background via Playwright, attaching to your pre-installed browser.</span>
-						</li>
-						<li class="flex items-start gap-2.5">
-							<span class="text-sky-400 font-bold">&check;</span>
-							<span>Human-in-the-loop: Prompts cleanly only when email confirmation is needed.</span>
-						</li>
-						<li class="flex items-start gap-2.5">
-							<span class="text-sky-400 font-bold">&check;</span>
-							<span>Resolves the canonical <span class="text-sky-300 font-medium">official Google One offer link</span> and archives it to local disk.</span>
-						</li>
-					</ul>
+				<span class="font-bold text-slate-200">Feature Comparison</span>
+				<span class="text-sky-400 font-mono text-[11px]">Manual vs Portal</span>
+			</div>
+
+			<!-- Comparison Rows -->
+			<div class="divide-y divide-slate-800/80">
+				{
+					COMPARISON_ROWS.map((row) => (
+						<div class="p-3.5 sm:p-4 md:p-0">
+							<!-- Category Label (shown once per row on mobile, styled cleanly) -->
+							<div class="md:hidden text-[11px] font-mono uppercase tracking-wider text-sky-400 font-semibold mb-2.5 flex items-center gap-1.5">
+								<span class="w-1.5 h-1.5 rounded-full bg-sky-400" />
+								{row.label}
+							</div>
+
+							<div class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-800/80 rounded-lg md:rounded-none border md:border-0 border-slate-800/60 overflow-hidden">
+								<!-- Manual Cell -->
+								<div class="p-3.5 sm:p-4 md:p-5 flex items-start gap-3 bg-slate-950/40 md:bg-slate-950/20">
+									<XIcon class="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+									<div class="min-w-0">
+										<span class="hidden md:block text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
+											{row.label}
+										</span>
+										<div class="md:hidden text-[11px] font-semibold text-slate-400 mb-0.5">
+											Manual Method
+										</div>
+										<p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+											{row.manual}
+										</p>
+									</div>
+								</div>
+
+								<!-- Portal Cell -->
+								<div class="p-3.5 sm:p-4 md:p-5 flex items-start gap-3 bg-sky-950/15 md:bg-transparent">
+									<CheckIcon class="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+									<div class="min-w-0">
+										<span class="hidden md:block text-[11px] font-mono uppercase tracking-wider text-sky-400 mb-1">
+											{row.label}
+										</span>
+										<div class="md:hidden text-[11px] font-semibold text-sky-400 mb-0.5">
+											Portal Way
+										</div>
+										<p class="text-xs sm:text-sm text-slate-200 leading-relaxed font-medium">
+											{row.portal}
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					))
+				}
+			</div>
+
+			<!-- Matrix Footer Benchmark Bar -->
+			<div
+				class="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-slate-800/80 bg-slate-950/80 border-t border-slate-800/80 text-xs font-mono"
+			>
+				<div
+					class="px-4 py-3 sm:px-5 flex items-center justify-between gap-3 text-slate-400"
+				>
+					<span class="shrink-0">Average manual time:</span>
+					<span class="text-slate-300 font-medium text-right">{COMPARISON_SUMMARY.manual.timeMetric}</span>
 				</div>
 				<div
-					class="mt-6 pt-4 border-t border-slate-800 text-xs text-emerald-400 font-mono flex items-center justify-between"
+					class="px-4 py-3 sm:px-5 flex items-center justify-between gap-3 text-slate-400 bg-sky-950/20 md:bg-transparent"
 				>
-					<span>Average runtime: ~45 seconds</span>
-					<span class="font-bold">Zero Telemetry</span>
+					<span class="shrink-0">Average runtime:</span>
+					<span class="text-emerald-400 font-semibold text-right">
+						{COMPARISON_SUMMARY.portal.timeMetric}
+					</span>
 				</div>
 			</div>
 		</div>
