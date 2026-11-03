@@ -17,12 +17,10 @@ Official landing page and release distribution portal for **Google AI Plus Porta
 
 ```
 gemini-ai-plus-claimer-app/
-├── astro.config.mjs         # Static output ('static'), Tailwind integration, canonical site URL
-├── tailwind.config.mjs      # Brand design system (slate-850/900/950 palette, fonts, brand sky)
+├── astro.config.mjs         # Static output ('static'), Tailwind Vite plugin, canonical site URL
 ├── tsconfig.json            # Strict TypeScript configuration
 ├── package.json             # Build scripts (dev, build, preview) & dependencies
 ├── vercel.json              # Vercel deployment configuration (framework: astro, output: dist)
-├── .npmrc                   # npm configuration (legacy-peer-deps=true)
 ├── README.md                # Project documentation and deployment guide
 ├── AGENT.md                 # Architectural blueprint and AI context handoff
 ├── CHANGELOG.md             # Comprehensive version history & release changelog

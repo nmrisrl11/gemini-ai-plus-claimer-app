@@ -24,7 +24,7 @@
 | Layer               | Technology                            | Details                                                                                                                        |
 | :------------------ | :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
 | **Framework**       | Astro (output: 'static')              | High-performance static site generator with zero client JS runtime overhead for UI components                                  |
-| **Styling**         | Tailwind CSS (Build-time)             | Integrated via @astrojs/tailwind; purge & compile at build time into minified, hash-versioned CSS (~25KB vs 300KB runtime CDN) |
+| **Styling**         | Tailwind CSS v4 (@tailwindcss/vite)   | Modern CSS-first architecture via official Vite plugin; compiled & purged at build time into minified CSS |
 | **Components**      | Astro Components (.astro)             | Modular component tree (Navbar, Hero, WhyAutomate, HowItWorks, Features, Browsers, Requirements, Support, FAQ, Footer)         |
 | **Configuration**   | TypeScript (src/config.ts)            | Single source of truth for version (1.0.1), repo links, direct download endpoints, and developer links                         |
 | **Custom CSS**      | src/styles/global.css                 | Restrained slate scrollbars, stable gutters, terminal blinking animations, and @media (prefers-reduced-motion: reduce)         |
@@ -37,11 +37,11 @@
 
 ## 3. 📂 Repository File Tree & Purpose
 
-`gemini-ai-plus-claimer-app/
+``
+gemini-ai-plus-claimer-app/
 ├── astro.config.mjs    # Astro configuration (static output, tailwind integration, site URL)
-├── tailwind.config.mjs # Tailwind design system (slate-850/900/950 palette, fonts, brand sky)
 ├── tsconfig.json       # TypeScript configuration extending astro/tsconfigs/strict
-├── package.json        # Project metadata, dependencies (astro, @astrojs/tailwind), build scripts
+├── package.json        # Project metadata, dependencies (astro, @tailwindcss/vite), build scripts
 ├── package-lock.json   # Deterministic dependency lockfile
 ├── AGENT.md            # You are here: comprehensive AI agent context and architecture
 ├── README.md           # User-facing repository overview, quickstart, and binary checksums
@@ -147,7 +147,8 @@
 
 ## 5. 🔗 Release & Direct Download Architecture
 
-- **Release Tag URL**: `https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1`
+- **Release Tag URL**: `https://github.com/nmrisrl11/`
+gemini-ai-plus-claimer-app/releases/tag/v1.0.1`
 - **Release Archive Filename**: `Google AI Plus Portal v1.0.1 by nmrisrl11.zip`
 - **Application Binary Filename**: `Google AI Plus Portal v1.0.1.exe`
 - **Binary SHA-256 Checksum**: `803F5ACCE69119A96D667CC38FB48B8B5A7BDC2040C1E3C1EE98DEA0F8118605`
@@ -169,7 +170,8 @@
   	},
   };
   ```
-  - **Dynamic Link Wiring**: Any element with `.direct-download-link` or `.releases-link` automatically adopts these URLs on load. In static HTML, buttons use the resilient permanent fallback `https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/latest`.
+  - **Dynamic Link Wiring**: Any element with `.direct-download-link` or `.releases-link` automatically adopts these URLs on load. In static HTML, buttons use the resilient permanent fallback `https://github.com/nmrisrl11/`
+gemini-ai-plus-claimer-app/releases/latest`.
   - **Dynamic Version Wiring**: Any element with `.app-version-text` automatically synchronizes with `CONFIG.VERSION` on load, removing hardcoded version strings across all pages and layouts.
   - **Dynamic Schema Synchronization**: Dynamically updates `softwareVersion` and `downloadUrl` inside `<script id="app-schema">`.
   > **Safe Browsing & Trust Design**: Download buttons route transparently to official GitHub Releases instead of direct binary streams, ensuring automated security crawlers verify the open-source hosting origin.
