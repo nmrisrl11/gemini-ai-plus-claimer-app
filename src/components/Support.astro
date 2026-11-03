@@ -1,82 +1,109 @@
 ---
-import { Coffee as CoffeeIcon, Smartphone as SmartphoneIcon } from "@lucide/astro";
+import { ExternalLink as ExternalLinkIcon, Heart as HeartIcon } from "@lucide/astro";
 import { CONFIG } from "../config";
+import { SUPPORT_CHANNELS } from "../constants/support";
 ---
 
 <!-- Support Developer Section -->
-<section id="support" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/30">
+<section id="support" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/20">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="max-w-2xl mx-auto text-center">
-			<span class="text-xs font-bold uppercase tracking-wider text-amber-400">Support the Dev</span>
-			<h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
-				Buy Me a Coffee
-			</h2>
-			<p class="text-slate-300 mt-3 text-base">
-				Saved you some time? Buying a coffee won't hurt.<br />
-				<span class="text-slate-400 text-sm">Totally optional, but always appreciated!</span>
-			</p>
-
-			<!-- QR Codes Card -->
-			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
-				<!-- Buy Me A Coffee QR -->
-				<div
-					class="p-5 rounded-xl border border-slate-800 bg-slate-900 flex flex-col items-center"
+		<!-- Unified Support Card Container -->
+		<div
+			class="max-w-2xl mx-auto rounded-2xl border border-slate-800 bg-slate-900/60 p-6 sm:p-10 shadow-xl backdrop-blur-sm"
+		>
+			<!-- Header -->
+			<div class="text-center max-w-lg mx-auto">
+				<span
+					class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 font-mono text-xs font-semibold uppercase tracking-wider"
 				>
-					<span class="text-xs font-bold text-amber-400 mb-3 flex items-center gap-1.5">
-						<CoffeeIcon class="w-4 h-4" />
-						<span>Buy Me a Coffee</span>
-					</span>
-					<div
-						class="w-40 h-40 rounded-lg bg-white p-2 flex items-center justify-center border border-slate-700"
-					>
-						<img
-							src="/images/qrcode-bmc.png"
-							alt="Buy Me A Coffee QR Code"
-							class="w-full h-full object-contain"
-							width="160"
-							height="160"
-							loading="lazy"
-							decoding="async"
-						/>
-					</div>
-					<span class="text-[11px] text-slate-400 font-mono mt-3">Scan via Camera or BMC app</span>
-				</div>
-
-				<!-- GCash QR -->
-				<div
-					class="p-5 rounded-xl border border-slate-800 bg-slate-900 flex flex-col items-center"
-				>
-					<span class="text-xs font-bold text-sky-400 mb-3 flex items-center gap-1.5">
-						<SmartphoneIcon class="w-4 h-4" />
-						<span>GCash (Direct)</span>
-					</span>
-					<div
-						class="w-40 h-40 rounded-lg bg-white p-2 flex items-center justify-center border border-slate-700"
-					>
-						<img
-							src="/images/qrcode-gcash.JPG"
-							alt="GCash QR Code"
-							class="w-full h-full object-contain"
-							width="160"
-							height="160"
-							loading="lazy"
-							decoding="async"
-						/>
-					</div>
-					<span class="text-[11px] text-slate-400 font-mono mt-3">Scan via GCash App</span>
-				</div>
+					<HeartIcon class="w-3.5 h-3.5" />
+					Support Development
+				</span>
+				<h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-3">
+					Support Independent Tooling
+				</h2>
+				<p class="text-slate-300 mt-3 text-sm sm:text-base leading-relaxed">
+					Google AI Plus Portal is free, open-source, and runs 100% locally. If it saved you manual registration time, contributions toward maintenance and infrastructure are always appreciated.
+				</p>
 			</div>
 
-			<div class="mt-6 text-xs text-slate-400">
-				Developer:
-				<a
-					href={CONFIG.DEV_GITHUB}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="text-sky-400 hover:underline"
-					>@nmrisrl11</a
-				>
-				&bull; Desktop automation craft
+			<!-- Payment Channels Grid -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+				{
+					SUPPORT_CHANNELS.map((channel) => (
+						<div class="rounded-xl border border-slate-800 bg-slate-950/70 p-5 flex flex-col items-center justify-between text-center hover:border-slate-700 transition-colors">
+							<div class="w-full flex flex-col items-center">
+								<!-- Channel Name (Clean Typographic Header) -->
+								<h3 class="text-sm font-bold text-white mb-1">
+									{channel.title}
+								</h3>
+								<span class="text-[11px] font-mono text-slate-400 mb-4">
+									{channel.methods}
+								</span>
+
+								<!-- QR Code Frame -->
+								<div class="w-40 h-40 rounded-xl bg-white p-2.5 flex items-center justify-center border border-slate-700 shadow-md">
+									<img
+										src={channel.qrImage}
+										alt={channel.qrAlt}
+										class="w-full h-full object-contain"
+										width="160"
+										height="160"
+										loading="lazy"
+										decoding="async"
+									/>
+								</div>
+
+								<span class="text-[11px] text-slate-400 font-mono mt-3">
+									{channel.instruction}
+								</span>
+							</div>
+
+							{channel.actionUrl && (
+								<div class="mt-4 w-full pt-3 border-t border-slate-800/80">
+									<a
+										href={channel.actionUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="inline-flex items-center justify-center gap-1.5 w-full px-3 py-1.5 rounded-lg text-xs font-semibold text-sky-400 bg-sky-500/10 hover:bg-sky-500/20 border border-sky-500/20 transition-all"
+									>
+										<span>{channel.actionLabel}</span>
+										<ExternalLinkIcon class="w-3.5 h-3.5" />
+									</a>
+								</div>
+							)}
+						</div>
+					))
+				}
+			</div>
+
+			<!-- Footer Attribution -->
+			<div
+				class="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400 text-center sm:text-left"
+			>
+				<div>
+					<span>Crafted by </span>
+					<a
+						href={CONFIG.DEV_GITHUB}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-sky-400 hover:underline font-medium"
+					>
+						@nmrisrl11
+					</a>
+					<span class="text-slate-600 mx-1.5">&bull;</span>
+					<a
+						href={CONFIG.DEV_URL}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-slate-300 hover:text-white transition-colors"
+					>
+						nmrisrl.dev
+					</a>
+				</div>
+				<span class="font-mono text-[11px] text-slate-500">
+					MIT License &bull; Free &amp; Open Source
+				</span>
 			</div>
 		</div>
 	</div>
