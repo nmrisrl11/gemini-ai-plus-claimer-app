@@ -47,28 +47,28 @@ const prefix = isHome ? "" : "/";
 				<a
 					href={`${prefix}#how-it-works`}
 					data-section="how-it-works"
-					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-150"
+					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
 				>
 					How It Works
 				</a>
 				<a
 					href={`${prefix}#features`}
 					data-section="features"
-					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-150"
+					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
 				>
 					Features
 				</a>
 				<a
 					href={`${prefix}#browsers`}
 					data-section="browsers"
-					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-150"
+					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
 				>
 					Compatibility
 				</a>
 				<a
 					href={`${prefix}#faq`}
 					data-section="faq"
-					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 transition-all duration-150"
+					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
 				>
 					FAQ
 				</a>
@@ -300,66 +300,109 @@ const prefix = isHome ? "" : "/";
 		});
 	}
 
-	// Scrollspy for Segmented Track
-	const sectionIds = ["how-it-works", "features", "browsers", "requirements", "faq"];
-	const navTabs = document.querySelectorAll(".nav-tab");
+	// Scrollspy for Segmented Track (DOMContentLoaded safe, high accuracy)
+	function initScrollspy() {
+		const sections = [
+			{ id: "how-it-works", tabKey: "how-it-works" },
+			{ id: "features", tabKey: "features" },
+			{ id: "browsers", tabKey: "browsers" },
+			{ id: "requirements", tabKey: "browsers" },
+			{ id: "faq", tabKey: "faq" },
+		];
 
-	const activeClasses = [
-		"bg-slate-800",
-		"text-white",
-		"font-semibold",
-		"shadow-sm",
-		"border",
-		"border-slate-700/60",
-	];
-	const inactiveClasses = ["text-slate-400", "font-medium"];
+		const navTabs = document.querySelectorAll(".nav-tab");
+		if (!navTabs.length) return;
 
-	function updateActiveTab(activeId) {
+		const activeClasses = [
+			"bg-slate-800",
+			"text-white",
+			"font-semibold",
+			"shadow-sm",
+			"border-slate-700/80",
+		];
+		const inactiveClasses = ["text-slate-400", "font-medium", "border-transparent"];
+
+		function setActiveTab(activeKey) {
+			navTabs.forEach((tab) => {
+				const target = tab.getAttribute("data-section");
+				if (target === activeKey) {
+					tab.classList.add(...activeClasses);
+					tab.classList.remove(...inactiveClasses);
+					tab.setAttribute("aria-current", "page");
+				} else {
+					tab.classList.remove(...activeClasses);
+					tab.classList.add(...inactiveClasses);
+					tab.removeAttribute("aria-current");
+				}
+			});
+		}
+
+		// Click activation (instant visual feedback)
 		navTabs.forEach((tab) => {
-			const target = tab.getAttribute("data-section");
-			const isMatch =
-				target === activeId || (target === "browsers" && activeId === "requirements");
+			tab.addEventListener("click", () => {
+				const target = tab.getAttribute("data-section");
+				if (target) setActiveTab(target);
+			});
+		});
 
-			if (isMatch) {
-				tab.classList.add(...activeClasses);
-				tab.classList.remove(...inactiveClasses);
-			} else {
-				tab.classList.remove(...activeClasses);
-				tab.classList.add(...inactiveClasses);
+		let isTicking = false;
+		function updateOnScroll() {
+			const scrollY = window.scrollY;
+			const viewportHeight = window.innerHeight;
+			const docHeight = document.documentElement.scrollHeight;
+
+			// If reached the very bottom of the page, highlight FAQ
+			if (scrollY + viewportHeight >= docHeight - 80) {
+				setActiveTab("faq");
+				return;
 			}
-		});
-	}
 
-	// Observe section intersections
-	if ("IntersectionObserver" in window) {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						updateActiveTab(entry.target.id);
-					}
-				});
-			},
-			{
-				rootMargin: "-25% 0px -65% 0px",
-				threshold: 0,
-			},
-		);
+			// Header offset buffer
+			const headerOffset = 140;
+			const currentY = scrollY + headerOffset;
 
-		sectionIds.forEach((id) => {
-			const el = document.getElementById(id);
-			if (el) observer.observe(el);
-		});
+			// Check first section top
+			const firstSection = document.getElementById("how-it-works");
+			if (firstSection && currentY < firstSection.offsetTop) {
+				setActiveTab("");
+				return;
+			}
 
-		// When near the very top of page (hero), clear selection
+			// Scan backwards to find the current active section
+			let activeKey = "";
+			for (let i = sections.length - 1; i >= 0; i--) {
+				const item = sections[i];
+				const el = document.getElementById(item.id);
+				if (el && currentY >= el.offsetTop) {
+					activeKey = item.tabKey;
+					break;
+				}
+			}
+
+			setActiveTab(activeKey);
+		}
+
 		window.addEventListener(
 			"scroll",
 			() => {
-				if (window.scrollY < 240) {
-					updateActiveTab("");
+				if (!isTicking) {
+					window.requestAnimationFrame(() => {
+						updateOnScroll();
+						isTicking = false;
+					});
+					isTicking = true;
 				}
 			},
 			{ passive: true },
 		);
+
+		// Initial check on page load
+		updateOnScroll();
+	}
+
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", initScrollspy);
+	} else {
+		initScrollspy();
 	}
 </script>

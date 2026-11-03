@@ -25,6 +25,11 @@ html {
 	scrollbar-gutter: stable;
 }
 
+/* Offset anchor scrolling for sticky navbar */
+section[id] {
+	scroll-margin-top: 5rem;
+}
+
 /* Sleek restrained scrollbar matching desktop slate styling */
 ::-webkit-scrollbar {
 	width: 10px;
