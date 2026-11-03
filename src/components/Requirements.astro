@@ -1,130 +1,97 @@
 ---
-import { TriangleAlert as TriangleAlertIcon } from "@lucide/astro";
+import { Info as InfoIcon } from "@lucide/astro";
+import { REDEMPTION_GUIDELINES, SYSTEM_SPECS } from "../constants/requirements";
 ---
 
 <!-- System Requirements & Google Constraints Section -->
-<section id="requirements" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/40">
+<section id="requirements" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/10">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-			<!-- Left: System Requirements -->
-			<div
-				class="rounded-xl border border-slate-800 bg-slate-900 p-5 sm:p-8 flex flex-col justify-between h-full"
-			>
-				<div>
-					<span class="text-xs font-bold uppercase tracking-wider text-sky-400"
-						>Specifications</span
-					>
-					<h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1 mb-6">
-						System Requirements
-					</h2>
-
-					<div class="divide-y divide-slate-800">
-						<div
-							class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
-						>
-							<span class="text-slate-400 font-medium">Operating System</span>
-							<span
-								class="text-slate-200 font-mono text-xs bg-slate-800 px-2.5 py-1 rounded self-start sm:self-auto"
-								>Windows 10 / 11 (64-bit)</span
-							>
-						</div>
-						<div
-							class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
-						>
-							<span class="text-slate-400 font-medium">Web Browser</span>
-							<span class="text-slate-200 text-xs"
-								>Chrome, Edge (built-in), Brave, Opera, or Vivaldi</span
-							>
-						</div>
-						<div
-							class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
-						>
-							<span class="text-slate-400 font-medium">Python Runtime</span>
-							<span
-								class="text-emerald-400 font-mono text-xs bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded self-start sm:self-auto"
-							>
-								Not required (bundled)
+		<!-- Unified Split-Pane Technical Specification Panel -->
+		<div class="rounded-2xl border border-slate-800 bg-slate-900/50 overflow-hidden shadow-xl">
+			<div class="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-slate-800">
+				<!-- Left Pane: System Specifications -->
+				<div class="p-6 sm:p-8 lg:p-10 flex flex-col justify-between">
+					<div>
+						<div class="mb-8">
+							<span class="text-xs font-bold uppercase tracking-wider text-sky-400">
+								Specifications
 							</span>
+							<h2 class="text-2xl font-extrabold text-white tracking-tight mt-1">
+								System Requirements
+							</h2>
+							<p class="text-sm text-slate-400 mt-2">
+								Minimal prerequisites to execute the standalone automation engine on Windows.
+							</p>
 						</div>
-						<div
-							class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
-						>
-							<span class="text-slate-400 font-medium">Target Account</span>
-							<span class="text-slate-200 text-xs">Standard personal @gmail.com</span>
+
+						<div class="divide-y divide-slate-800/80">
+							{
+								SYSTEM_SPECS.map((spec) => (
+									<div class="py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4 text-sm">
+										<span class="text-slate-400 font-medium text-xs sm:text-sm">
+											{spec.label}
+										</span>
+										<span
+											class={`text-slate-200 text-xs sm:text-sm ${
+												spec.mono ? "font-mono" : ""
+											} text-left sm:text-right`}
+										>
+											{spec.value}
+										</span>
+									</div>
+								))
+							}
 						</div>
-						<div
-							class="py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-sm"
-						>
-							<span class="text-slate-400 font-medium">Application Binary</span>
-							<span class="text-slate-200 font-mono text-xs self-start sm:self-auto"
-								>Single-file portable (Zero installation)</span
-							>
-						</div>
+					</div>
+
+					<div class="mt-8 pt-6 border-t border-slate-800/80 flex items-start gap-3">
+						<InfoIcon class="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+						<p class="text-xs text-slate-400 leading-relaxed">
+							<strong class="text-slate-300 font-semibold">Zero-Dependency Engine:</strong>{" "}
+							The utility bundles all automation components. It binds to your existing browser with no external compilers, libraries, or Python paths required.
+						</p>
 					</div>
 				</div>
 
-				<div
-					class="mt-6 p-4 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400 leading-relaxed"
-				>
-					<span class="text-sky-400 font-semibold">Universal Compatibility:</span> With the
-					intelligent multi-browser discovery cascade, you don't even need to download Chrome.
-					Because Microsoft Edge is pre-installed on 100% of Windows 10 and 11 computers, the
-					application runs instantly on any machine out of the box with native
-					multi-resolution taskbar integration.
-				</div>
-			</div>
-
-			<!-- Right: Google Expectations & Reality -->
-			<div
-				class="rounded-xl border border-slate-800 bg-slate-900 p-5 sm:p-8 flex flex-col justify-between h-full"
-			>
-				<div>
-					<span class="text-xs font-bold uppercase tracking-wider text-amber-400"
-						>Important Notice</span
-					>
-					<h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight mt-1 mb-6">
-						Google One Expectations &amp; Limits
-					</h2>
-				</div>
-
-				<div
-					class="space-y-4 text-xs sm:text-sm text-slate-300 flex-grow flex flex-col justify-between"
-				>
-					<div
-						class="p-4 rounded-lg bg-slate-950 border border-slate-800 flex-1 flex flex-col justify-center"
-					>
-						<div class="font-bold text-white mb-1.5 flex items-center gap-2">
-							<TriangleAlertIcon class="w-4 h-4 text-amber-400 shrink-0" />
-							<span>$0.00 Billed Today &bull; Standard Verification Required</span>
+				<!-- Right Pane: Redemption Guidelines & Notes -->
+				<div class="p-6 sm:p-8 lg:p-10 flex flex-col justify-between bg-slate-950/20">
+					<div>
+						<div class="mb-8">
+							<span class="text-xs font-bold uppercase tracking-wider text-sky-400">
+								Account Advisory
+							</span>
+							<h2 class="text-2xl font-extrabold text-white tracking-tight mt-1">
+								Google One Redemption Rules
+							</h2>
+							<p class="text-sm text-slate-400 mt-2">
+								Key upstream account constraints and activation policies to keep in mind.
+							</p>
 						</div>
-						<p class="text-slate-400 text-xs leading-relaxed">
-							Activating any promotional Google One subscription requires establishing a valid
-							billing profile for account identity verification.
-							<strong>You are charged $0.00 today</strong>, and recurring preferences can be
-							managed or turned off anytime in your Google account settings.
-						</p>
+
+						<div class="space-y-6">
+							{
+								REDEMPTION_GUIDELINES.map((item) => (
+									<div class="flex items-start gap-3.5">
+										<span class="font-mono text-sm font-bold text-sky-400 shrink-0 mt-0.5">
+											{item.step}
+										</span>
+										<div>
+											<h3 class="text-sm font-bold text-white mb-1.5 tracking-tight">
+												{item.title}
+											</h3>
+											<p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+												{item.description}
+											</p>
+										</div>
+									</div>
+								))
+							}
+						</div>
 					</div>
 
-					<div
-						class="p-4 rounded-lg bg-slate-950 border border-slate-800 flex-1 flex flex-col justify-center"
-					>
-						<div class="font-bold text-white mb-1.5">Standard Personal Accounts Only</div>
-						<p class="text-slate-400 text-xs leading-relaxed">
-							Destination accounts must be personal Google accounts in good standing. Accounts
-							with conflicting enterprise Google Workspace domains or active paid Google One
-							memberships may require canceling active plans before promo links can apply.
-						</p>
-					</div>
-
-					<div
-						class="p-4 rounded-lg bg-slate-950 border border-slate-800 flex-1 flex flex-col justify-center"
-					>
-						<div class="font-bold text-white mb-1.5">Single-Use Promotional Grants</div>
-						<p class="text-slate-400 text-xs leading-relaxed">
-							Each extracted link is unique, single-use, and bound to the registration
-							session. Third-party partner quotas and regional rules are maintained
-							independently by upstream providers.
-						</p>
+					<div class="mt-8 pt-6 border-t border-slate-800/80 flex items-center gap-2 text-xs text-slate-500">
+						<span class="w-1.5 h-1.5 rounded-full bg-slate-600 shrink-0" />
+						<span>Official Google One promotion policy applies. One redemption per eligible Google account.</span>
 					</div>
 				</div>
 			</div>
