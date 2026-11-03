@@ -3,13 +3,36 @@
 [![Live Deployment: Vercel](https://img.shields.io/badge/deployment-Vercel-000000?style=flat-square&logo=vercel)](https://gemini-ai-plus-claimer.vercel.app/)
 [![Platform: Windows 10 / 11](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011%20(64--bit)-0284c7?style=flat-square&logo=windows)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases)
 [![Version: v1.0.1](https://img.shields.io/badge/release-v1.0.1-38bdf8?style=flat-square&logo=github)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 [![WCAG 2.1 AA Compliant](https://img.shields.io/badge/accessibility-WCAG%202.1%20AA-10b981?style=flat-square)](https://www.w3.org/WAI/WCAG21/quickref/)
 [![Telemetry: Zero](https://img.shields.io/badge/telemetry-Zero%20(100%25%20Local)-10b981?style=flat-square)](#-privacy--local-execution)
 
-Official landing page and release distribution portal for **Google AI Plus Portal** — a lightweight, zero-telemetry Windows desktop utility engineered to automate promotional student onboarding and capture the canonical official Google One offer link for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
+Official web hub and release distribution portal for **Google AI Plus Portal** — a lightweight, zero-telemetry Windows desktop utility engineered to automate educational partner onboarding and resolve canonical official Google One offer links for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
+
+> **Open-Source Scope Notice**: This repository hosts the complete, open-source static landing page and release distribution portal under the **MIT License**. The underlying portable Windows desktop executable is distributed via official GitHub Releases; its automation script/engine is currently maintained in a separate private repository and is not yet open-source.
 
 🌐 **Live Web Hub**: [https://gemini-ai-plus-claimer.vercel.app](https://gemini-ai-plus-claimer.vercel.app/)  
 📦 **Official Release (v1.0.1)**: [https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1)
+
+---
+
+## 🛠️ Tech Stack & Tooling
+
+The web hub is engineered for maximum performance, strict accessibility (WCAG 2.1 AA), zero client-side JavaScript overhead, and unified developer tooling.
+
+| Category                 | Technology                                                 | Version                     | Purpose & Architectural Rationale                                                                                                                                                                                     |
+| :----------------------- | :--------------------------------------------------------- | :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Framework**            | [Astro](https://astro.build/)                              | `^7.4.5` (v5 engine)        | Zero-JS static site generation (`output: "static"`). Compiles clean, semantic HTML/CSS without sending client framework runtimes to the browser, delivering instant load times and perfect 100/100 Lighthouse scores. |
+| **Styling**              | [Tailwind CSS v4](https://tailwindcss.com/)                | `^4.3.4`                    | CSS-first utility architecture via the official `@tailwindcss/vite` plugin. Theme variables and utility classes are compiled and minified at build time with zero CSS-in-JS runtime penalty.                          |
+| **Type System**          | [TypeScript](https://www.typescriptlang.org/)              | `^5.0.0`                    | Strict type definitions (`astro/tsconfigs/strict`) enforcing data integrity across config, constants, and component interfaces.                                                                                       |
+| **Iconography**          | [Lucide Icons](https://lucide.dev/)                        | `^1.67.0` (`@lucide/astro`) | Highly accessible, scalable vector icons imported on demand with uniform stroke width (`1.75px`) and consistent `*Icon` naming convention.                                                                            |
+| **Brand Vectors**        | Custom Astro Components                                    | Native SVG                  | Bespoke, accessible vector graphics in `src/components/icons/` (`GithubIcon.astro`, `WindowsIcon.astro`) for brand marks not in Lucide.                                                                               |
+| **Linter & Formatter**   | [Biome](https://biomejs.dev/)                              | `2.6.4` (`@biomejs/biome`)  | Blazing-fast Rust toolchain (~40ms) handling linting, code formatting (tabs, 100 char width), and import organization in a single tool, replacing both ESLint and Prettier.                                           |
+| **Hosting & Edge CDN**   | [Vercel](https://vercel.com/)                              | Global Edge                 | Static edge distribution with zero server compute overhead, automated Brotli compression, and HTTP/3 delivery worldwide.                                                                                              |
+| **Traffic Analytics**    | [Vercel Web Analytics](https://vercel.com/analytics)       | `^2.0.1`                    | Privacy-friendly, cookieless traffic analytics integrated with zero tracking cookies or PII collection.                                                                                                               |
+| **Performance Insights** | [Vercel Speed Insights](https://vercel.com/speed-insights) | `^2.0.0`                    | Real-user monitoring for Core Web Vitals (Largest Contentful Paint, Interaction to Next Paint, Cumulative Layout Shift).                                                                                              |
+| **Typography**           | Google Fonts                                               | Web Fonts                   | **Inter** for clean, readable UI copy and **JetBrains Mono** for technical specs, terminal logs, and system readouts.                                                                                                 |
+| **Accessibility (a11y)** | WCAG 2.1 AA                                                | Specification               | Semantic landmark roles, skip navigation links, high-contrast palette (7.5:1+), reduced-motion media queries, and accessible form structures.                                                                         |
 
 ---
 
@@ -18,13 +41,13 @@ Official landing page and release distribution portal for **Google AI Plus Porta
 ```
 gemini-ai-plus-claimer-app/
 ├── astro.config.mjs         # Static output ('static'), Tailwind Vite plugin, canonical site URL
+├── biome.json               # Unified Biome linter and formatter configuration
 ├── tsconfig.json            # Strict TypeScript configuration
-├── package.json             # Build scripts (dev, build, preview) & dependencies
+├── package.json             # Build scripts (dev, build, preview, check, lint) & dependencies
 ├── vercel.json              # Vercel deployment configuration (framework: astro, output: dist)
 ├── README.md                # Project documentation and deployment guide
 ├── AGENT.md                 # Architectural blueprint and AI context handoff
 ├── CHANGELOG.md             # Comprehensive version history & release changelog
-├── biome.json               # Unified Biome linter and formatter configuration
 ├── .gitignore               # Git exclusion rules
 ├── public/                  # Static assets served untouched at root
 │   ├── images/              # Icons, app screenshots, QR codes, og-image.png
@@ -38,24 +61,42 @@ gemini-ai-plus-claimer-app/
     ├── pages/
     │   ├── index.astro      # Assembles all sections inside Layout
     │   └── 404.astro        # Dedicated accessible 404 error page
+    ├── constants/           # Strictly typed content models (kebab-case)
+    │   ├── browsers.ts      # Multi-browser tiers, discovery cascade sequence
+    │   ├── faq.ts           # Frequently asked questions & answers
+    │   ├── features.ts      # 6 engineering highlight cards & specs
+    │   ├── footer.ts        # 3-column navigation & developer credits
+    │   ├── hero.ts          # Hero spec ribbon, terminal logs, and mock profile data
+    │   ├── how-it-works.ts  # 5-stage automated pipeline steps
+    │   ├── navigation.ts    # Navbar navigation links & CTAs
+    │   ├── requirements.ts  # System specs & Google One verification guidelines
+    │   ├── support.ts       # Buy Me a Coffee & GCash funding details
+    │   └── why-automate.ts  # Manual vs Automated comparison matrix
     └── components/
-        ├── Navbar.astro       # Sticky navbar, mobile drawer with Escape key listener, CTA
-        ├── Hero.astro         # Headline, value pills, CTAs, interactive Mockup tabs, stats
-        ├── WhyAutomate.astro  # Comparison table (Manual Gateway vs Automated Flow)
-        ├── HowItWorks.astro   # 5-stage automated provisioning pipeline
-        ├── Features.astro     # 6 engineering cards (multi-browser cascade, F12 diagnostics, etc.)
-        ├── Browsers.astro     # 4-engine browser grid (Edge, Chrome, Brave, Opera/Vivaldi)
-        ├── Requirements.astro # System specs table & explicit $0.00 billing verification notice
-        ├── Support.astro      # Buy Me a Coffee & GCash QR code cards
-        ├── FAQ.astro          # Interactive details/summary accordions
-        └── Footer.astro       # Legal disclaimers, developer credits, dynamic version badge
+        ├── icons/           # Bespoke brand SVG icons (GithubIcon, WindowsIcon)
+        ├── Navbar.astro     # Sticky navbar, mobile drawer with Escape key listener, CTA
+        ├── Hero.astro       # Headline, spec ribbon, CTAs, interactive Mockup preview
+        ├── WhyAutomate.astro# Comparison matrix (Manual Educational Gateway vs Automated Flow)
+        ├── HowItWorks.astro # 5-stage automated provisioning pipeline rail
+        ├── Features.astro   # 6 engineering cards (multi-browser cascade, F12 diagnostics, etc.)
+        ├── Browsers.astro   # 4-engine browser grid (Edge, Chrome, Brave, Opera/Vivaldi)
+        ├── Requirements.astro # Split-pane specs table & $0.00 billing verification notice
+        ├── Support.astro    # Unified Buy Me a Coffee & GCash QR code bento
+        ├── FAQ.astro        # Interactive details/summary accordion
+        └── Footer.astro     # 3-column footer, legal disclaimer, status badges
 ```
 
 ---
 
-## ⚡ Key Features of the Landing Page
+## ⚡ Key Features of the Web Hub
 
-### 1. Universal Multi-Browser Engine (New in v1.0.1)
+### 1. Modern De-Slopped Design System & Typed Constants Architecture
+
+- **Lucide Icon Integration**: Powered by `@lucide/astro` with uniform stroke widths and accessible SVG labeling across all UI components.
+- **Separation of Concerns**: 100% of landing page copy, specifications, and pipeline stages are decoupled into typed TypeScript constants in `src/constants/` (_kebab-case_).
+- **Restrained Dark Theme**: Minimalist dark slate palette (`#090d16`) with subtle `slate-800` borders, eliminating noisy gradients and badge spam.
+
+### 2. Universal Multi-Browser Engine Showcase
 
 - **Intelligent 5-Tier Discovery Cascade**: Detects and binds to existing Chromium browsers on the user's PC:
   1. Google Chrome channel (`chrome`)
@@ -65,37 +106,26 @@ gemini-ai-plus-claimer-app/
   5. Unbundled fallback
 - **Zero-Bloat Guarantee**: Runs out-of-the-box without downloading or bundling 400MB browser runtimes.
 
-### 2. Transparent GitHub Releases Distribution & Open-Source Integrity
+### 3. Transparent GitHub Releases Distribution & Safe Browsing Compliance
 
 - **GitHub Releases Distribution Hub**: All download buttons and CTAs route directly to the official [GitHub Release Hub (v1.0.1)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1), ensuring transparent hosting, binary integrity verification (SHA-256), and compliance with Google Safe Browsing standards.
-- **Open-Source Transparency**: Prominent [GitHub Repository](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app) verification badge directly on the hero section, reinforcing community trust, verifiable source code, and zero-credential-harvesting architecture.
+- **De-risked Educational Copywriting**: Neutral phrasing strictly emphasizing local Playwright automation, canonical link extraction, and identity verification compliance.
+- **Open-Source Landing Page**: MIT-licensed landing page source code providing full transparency for web visitors.
 
-### 3. Accessibility (WCAG 2.1 AA Compliance)
+### 4. Accessibility (WCAG 2.1 AA Compliance)
 
 - **Bypass Blocks (`2.4.1`)**: Accessible keyboard "Skip to main content" link placed at the top of `<body>`.
+- **Form Field Cleanliness**: Desktop mockup uses semantic `<span>` tags instead of orphaned `<label>` tags, resolving Chrome DevTools accessibility audits.
 - **Landmark Regions**: Proper semantic structure using `<header role="banner">`, `<main id="main-content">`, `<footer role="contentinfo">`, and uniquely labeled navigation regions.
 - **Screen Reader Announcer (`4.1.3`)**: Dynamic `aria-live="polite"` region alerts assistive tech users when code snippets or hashes are copied to clipboard.
 - **Sanitized Decorative SVGs (`1.1.1`)**: All decorative inline SVGs contain `aria-hidden="true" focusable="false"`.
 - **Reduced Motion (`2.3.3` & `2.2.2`)**: Media queries automatically disable smooth scrolling and blinking cursors for visitors with vestibular motion sensitivities.
-- **High-Contrast Palette (`1.4.3`)**: All body and disclaimer typography exceeds 7:1 contrast ratios on dark slate backgrounds.
 
-### 4. SEO & Rich Social Previews
+### 5. SEO & Rich Social Previews
 
 - **High-Resolution OpenGraph & Twitter Cards**: 1200&times;630 `og:image` and `summary_large_image` Twitter card for rich previews on Discord, Telegram, X, and Slack.
-- **Structured Data (JSON-LD)**: `SoftwareApplication` and `WebSite` schemas providing Google with software version, license price ($0.00), OS compatibility, and author details for rich search snippets.
+- **Structured Data (JSON-LD)**: `SoftwareApplication` and `WebSite` schemas providing search engines with software version, license price ($0.00), OS compatibility, and author details for rich search snippets.
 - **Search Engine Discoverability**: Deployed `robots.txt` and `sitemap.xml` referencing canonical URLs.
-
-### 5. Telemetry & Speed Insights
-
-- Integrated **Vercel Web Analytics** (`/_vercel/insights/script.js`) for privacy-friendly traffic analysis.
-- Integrated **Vercel Speed Insights** (`/_vercel/speed-insights/script.js`) for real-user Core Web Vitals monitoring (LCP, FID, CLS).
-
-### 6. Custom 404 Error Page & Universal Routing
-
-- **Design Alignment**: Built with restrained typography, matching the slate dark palette (`#090d16`), full-fidelity sticky navbar, and legal footer for consistent branding.
-- **Path-Aware Routing**: Astro handles root vs nested page links statically at build time via `Astro.url.pathname`, ensuring anchor navigation (`#overview` on homepage, `/#overview` on 404) works reliably with zero client-side JavaScript link patching.
-- **Layout Shift Elimination**: Employs `scrollbar-gutter: stable; overflow-y: scroll;` in `src/styles/global.css` so transitioning between the full-height landing page and 404 error page causes zero horizontal jitter.
-- **Search Engine Friendly**: Tagged with `<meta name="robots" content="noindex, follow" />` and excluded in `robots.txt` / `sitemap.xml` to prevent dead links from polluting search indices.
 
 ---
 
