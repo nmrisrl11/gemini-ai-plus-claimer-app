@@ -1,7 +1,26 @@
-<!-- How It Works Section (The 5-Step Pipeline) -->
+---
+import {
+	Link2 as Link2Icon,
+	MailCheck as MailCheckIcon,
+	Sparkles as SparklesIcon,
+	Terminal as TerminalIcon,
+	UserCheck as UserCheckIcon,
+} from "@lucide/astro";
+import { PIPELINE_STEPS } from "../constants/how-it-works";
+
+const STEP_ICONS = {
+	"user-check": UserCheckIcon,
+	terminal: TerminalIcon,
+	"mail-check": MailCheckIcon,
+	link: Link2Icon,
+	sparkles: SparklesIcon,
+} as const;
+---
+
+<!-- How It Works Section (Connected Stepper Pipeline) -->
 <section id="how-it-works" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/30">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="text-center max-w-3xl mx-auto mb-16">
+		<div class="text-center max-w-3xl mx-auto mb-14 sm:mb-16">
 			<span class="text-xs font-bold uppercase tracking-wider text-sky-400">Step-by-Step Architecture</span>
 			<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2">
 				The 5-Step Provisioning Pipeline
@@ -11,101 +30,93 @@
 			</p>
 		</div>
 
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-			<!-- Step 1 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between">
-				<div>
-					<div
-						class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3"
-					>
-						01
-					</div>
-					<h3 class="text-sm font-bold text-white mb-2">Profile Setup</h3>
-					<p class="text-xs text-slate-400 leading-relaxed">
-						Configure your student profile or click
-						<span class="text-slate-200">Randomize Info</span> to generate realistic student demographic records.
-					</p>
-				</div>
-				<div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
-					Input validation
-				</div>
-			</div>
-
-			<!-- Step 2 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between">
-				<div>
-					<div
-						class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3"
-					>
-						02
-					</div>
-					<h3 class="text-sm font-bold text-white mb-2">Headless Engine</h3>
-					<p class="text-xs text-slate-400 leading-relaxed">
-						Click <span class="text-slate-200">Get 1-Year Access Link</span>. The app silently navigates the partner registration portal in the background.
-					</p>
-				</div>
-				<div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
-					Playwright Engine
-				</div>
-			</div>
-
-			<!-- Step 3 -->
-			<div class="rounded-xl border border-sky-500/30 bg-slate-850 p-5 flex flex-col justify-between shadow-lg">
-				<div>
-					<div
-						class="w-8 h-8 rounded-lg bg-sky-700 text-white font-mono font-bold flex items-center justify-center text-sm mb-3 shadow"
-					>
-						03
-					</div>
-					<h3 class="text-sm font-bold text-white mb-2">Interactive Verification</h3>
-					<p class="text-xs text-slate-300 leading-relaxed">
-						When prompted, complete the email confirmation received in your inbox. Clean keystroke sanitization protects your session.
-					</p>
-				</div>
-				<div class="mt-4 pt-3 border-t border-slate-700/80 text-[11px] text-sky-400 font-mono">
-					Human-in-the-loop
-				</div>
-			</div>
-
-			<!-- Step 4 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-5 flex flex-col justify-between">
-				<div>
-					<div
-						class="w-8 h-8 rounded-lg bg-sky-500/10 border border-sky-500/30 text-sky-400 font-mono font-bold flex items-center justify-center text-sm mb-3"
-					>
-						04
-					</div>
-					<h3 class="text-sm font-bold text-white mb-2">Link Extraction</h3>
-					<p class="text-xs text-slate-400 leading-relaxed">
-						Captures the unique promotional subscription link, resolving redirects to yield a clean
-						<span class="text-slate-200 font-medium">official Google One offer link</span>.
-					</p>
-				</div>
-				<div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-slate-400 font-mono">
-					Canonical URL unwrapping
-				</div>
-			</div>
-
-			<!-- Step 5 -->
+		<!-- Desktop Connected Stepper Rail (hidden on mobile, visible lg+) -->
+		<div class="hidden lg:block relative">
+			<!-- Connecting Rail Line behind nodes -->
 			<div
-				class="rounded-xl border border-emerald-500/30 bg-slate-900 p-5 flex flex-col justify-between sm:col-span-2 lg:col-span-1"
+				class="absolute top-7 left-[8%] right-[8%] h-px bg-slate-800"
+				aria-hidden="true"
 			>
-				<div>
-					<div
-						class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono font-bold flex items-center justify-center text-sm mb-3"
-					>
-						05
-					</div>
-					<h3 class="text-sm font-bold text-white mb-2">Access &amp; Activate</h3>
-					<p class="text-xs text-slate-400 leading-relaxed">
-						Proceed directly to Google One to complete setup. Session details and your permanent URL are archived in the local
-						<span class="font-mono text-slate-200">results/</span> directory.
-					</p>
-				</div>
-				<div class="mt-4 pt-3 border-t border-slate-800/80 text-[11px] text-emerald-400 font-mono">
-					1-Year Activated
-				</div>
 			</div>
+
+			<div class="grid grid-cols-5 gap-6 relative z-10">
+				{
+					PIPELINE_STEPS.map((item) => {
+						const IconComponent = STEP_ICONS[item.icon];
+						return (
+							<div class="group flex flex-col items-center text-center">
+								<!-- Step Node Indicator -->
+								<div class="relative mb-5">
+									<div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-700/80 group-hover:border-sky-500/60 p-3 flex items-center justify-center text-sky-400 shadow-md group-hover:shadow-sky-500/10 transition-all">
+										<IconComponent class="w-6 h-6" />
+									</div>
+									<span class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-slate-950 border border-slate-700 text-slate-300">
+										{item.step}
+									</span>
+								</div>
+
+								<!-- Step Content -->
+								<h3 class="text-sm font-bold text-white mb-2 tracking-tight">
+									{item.title}
+								</h3>
+								<p class="text-xs text-slate-400 leading-relaxed mb-4">
+									{item.description}
+								</p>
+								<div class="mt-auto">
+									<span class="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-mono text-slate-400 bg-slate-900 border border-slate-800">
+										{item.tag}
+									</span>
+								</div>
+							</div>
+						);
+					})
+				}
+			</div>
+		</div>
+
+		<!-- Mobile & Tablet Connected Vertical Timeline (visible below lg) -->
+		<div class="lg:hidden relative space-y-6 sm:space-y-8 max-w-2xl mx-auto">
+			<!-- Timeline Rail Line -->
+			<div
+				class="absolute top-4 bottom-4 left-[17px] sm:left-[19px] w-px bg-slate-800"
+				aria-hidden="true"
+			>
+			</div>
+
+			{
+				PIPELINE_STEPS.map((item) => {
+					const IconComponent = STEP_ICONS[item.icon];
+					return (
+						<div class="relative flex items-start gap-3.5 sm:gap-4 group">
+							<!-- Timeline Node on the Left Rail -->
+							<div class="relative z-10 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-slate-900 border border-slate-700/80 text-sky-400 flex items-center justify-center shadow-md shrink-0 mt-0.5 group-hover:border-sky-500/50 transition-colors">
+								<IconComponent class="w-4 h-4 sm:w-5 sm:h-5" />
+							</div>
+
+							<!-- Timeline Content Card -->
+							<div class="flex-1 min-w-0 rounded-xl border border-slate-800/80 bg-slate-900/60 p-4 sm:p-5 hover:border-slate-700 transition-colors">
+								<div class="flex flex-wrap items-center justify-between gap-x-2 gap-y-1 mb-2">
+									<h3 class="text-sm sm:text-base font-bold text-white tracking-tight flex items-center gap-1.5">
+										<span class="font-mono text-xs font-bold text-sky-400">
+											{item.step}
+										</span>
+										<span class="text-slate-600 text-xs" aria-hidden="true">
+											&bull;
+										</span>
+										<span>{item.title}</span>
+									</h3>
+									<span class="text-[10px] font-mono text-slate-400 px-2 py-0.5 rounded bg-slate-950 border border-slate-800">
+										{item.tag}
+									</span>
+								</div>
+								<p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+									{item.description}
+								</p>
+							</div>
+						</div>
+					);
+				})
+			}
 		</div>
 	</div>
 </section>
