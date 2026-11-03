@@ -7,12 +7,22 @@ import {
 	Terminal as TerminalIcon,
 	TriangleAlert as TriangleAlertIcon,
 } from "@lucide/astro";
+import { ENGINEERING_FEATURES } from "../constants/features";
+
+const FEATURE_ICONS = {
+	layers: LayersIcon,
+	"shield-check": ShieldCheckIcon,
+	link: Link2Icon,
+	mail: MailIcon,
+	"triangle-alert": TriangleAlertIcon,
+	terminal: TerminalIcon,
+} as const;
 ---
 
 <!-- Key Features Grid (Engineered, No AI Slop) -->
-<section id="features" class="py-16 md:py-24 border-b border-slate-800">
+<section id="features" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/10">
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="max-w-3xl mb-16">
+		<div class="max-w-3xl mb-12 sm:mb-16">
 			<span class="text-xs font-bold uppercase tracking-wider text-sky-400">Engineering Highlights</span>
 			<h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2">
 				Built for reliability, privacy, and zero overhead
@@ -22,89 +32,41 @@ import {
 			</p>
 		</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-			<!-- Feature 1 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-				<div
-					class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
-				>
-					<LayersIcon class="w-5 h-5" />
-				</div>
-				<h3 class="text-base font-bold text-white mb-2">Intelligent Multi-Browser Cascade</h3>
-				<p class="text-sm text-slate-400 leading-relaxed">
-					No Python or manual browser downloads required. Intelligently cascades across Google Chrome, native Microsoft Edge, Brave Browser, Opera, and Vivaldi already on your system, avoiding 400MB bundled downloads.
-				</p>
-			</div>
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+			{
+				ENGINEERING_FEATURES.map((feature) => {
+					const IconComponent = FEATURE_ICONS[feature.icon];
+					return (
+						<div class="group relative rounded-xl border border-slate-800 bg-slate-900/60 p-5 sm:p-6 flex flex-col justify-between hover:border-slate-700 hover:bg-slate-900/90 transition-all">
+							<div>
+								<div class="flex items-center justify-between mb-4">
+									<div class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center group-hover:border-sky-500/40 group-hover:bg-sky-500/15 transition-all">
+										<IconComponent class="w-5 h-5" />
+									</div>
+									<span class="text-[10px] font-mono font-medium text-slate-400 px-2.5 py-0.5 rounded bg-slate-950 border border-slate-800 group-hover:border-slate-700 transition-colors">
+										{feature.tag}
+									</span>
+								</div>
+								<h3 class="text-base font-bold text-white mb-2 tracking-tight group-hover:text-sky-300 transition-colors">
+									{feature.title}
+								</h3>
+								<p class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+									{feature.description}
+								</p>
+							</div>
 
-			<!-- Feature 2 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-				<div
-					class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center mb-4"
-				>
-					<ShieldCheckIcon class="w-5 h-5" />
-				</div>
-				<h3 class="text-base font-bold text-white mb-2">100% Local &amp; Private</h3>
-				<p class="text-sm text-slate-400 leading-relaxed">
-					No cloud relays, proxies, or remote APIs. Session records, demographic profiles, and output URLs are written strictly to the local
-					<code class="text-slate-300 font-mono text-xs">results/</code> folder on your drive and never transmitted externally.
-				</p>
-			</div>
-
-			<!-- Feature 3 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-				<div
-					class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
-				>
-					<Link2Icon class="w-5 h-5" />
-				</div>
-				<h3 class="text-base font-bold text-white mb-2">Canonical Link Extraction</h3>
-				<p class="text-sm text-slate-400 leading-relaxed">
-					Unwraps session tokens and authentication redirection wrappers to deliver a clean, permanent
-					<span class="text-sky-300 font-medium">official Google One offer link</span> that can be redeemed anytime in your browser.
-				</p>
-			</div>
-
-			<!-- Feature 4 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-				<div
-					class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
-				>
-					<MailIcon class="w-5 h-5" />
-				</div>
-				<h3 class="text-base font-bold text-white mb-2">Dual Delivery Architecture</h3>
-				<p class="text-sm text-slate-400 leading-relaxed">
-					Handles direct on-screen promotional offers as well as accounts where the partner dispatches activation emails directly to the inbox, providing clear status guidance for both paths.
-				</p>
-			</div>
-
-			<!-- Feature 5 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-				<div
-					class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
-				>
-					<TriangleAlertIcon class="w-5 h-5" />
-				</div>
-				<h3 class="text-base font-bold text-white mb-2">Smart Error &amp; Challenge Safety</h3>
-				<p class="text-sm text-slate-400 leading-relaxed">
-					Proactively detects Cloudflare Turnstile, reCAPTCHA, and gateway stops. Safely pauses execution with clear on-screen diagnostics to protect accounts from lockouts.
-				</p>
-			</div>
-
-			<!-- Feature 6 -->
-			<div class="rounded-xl border border-slate-800 bg-slate-900 p-6 hover:border-slate-700 transition-colors">
-				<div
-					class="w-10 h-10 rounded-lg bg-sky-500/10 border border-sky-500/20 text-sky-400 flex items-center justify-center mb-4"
-				>
-					<TerminalIcon class="w-5 h-5" />
-				</div>
-				<h3 class="text-base font-bold text-white mb-2">Built-in Diagnostics (F12)</h3>
-				<p class="text-sm text-slate-400 leading-relaxed">
-					Includes an integrated testing suite (<kbd
-						class="px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 font-mono text-xs"
-						>F12</kbd
-					>) allowing developers to simulate verification flows, gateway responses, and link extraction states safely.
-				</p>
-			</div>
+							<div class="mt-5 pt-3.5 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono">
+								<span class="text-slate-500 uppercase tracking-wider text-[10px]">
+									{feature.metaLabel}
+								</span>
+								<span class="text-slate-300">
+									{feature.metaValue}
+								</span>
+							</div>
+						</div>
+					);
+				})
+			}
 		</div>
 	</div>
 </section>
