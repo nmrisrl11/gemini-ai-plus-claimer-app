@@ -1,10 +1,10 @@
 # Google AI Plus Portal — Official Web Hub & Distribution
 
 [![Live Deployment: Vercel](https://img.shields.io/badge/deployment-Vercel-000000?style=flat-square&logo=vercel)](https://gemini-ai-plus-claimer.vercel.app/)
-[![Platform: Windows 10 / 11](<https://img.shields.io/badge/platform-Windows%2010%20%2F%2011%20(64--bit)-0284c7?style=flat-square&logo=windows>)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases)
+[![Platform: Windows 10 / 11](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011%20(64--bit)-0284c7?style=flat-square&logo=windows)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases)
 [![Version: v1.0.1](https://img.shields.io/badge/release-v1.0.1-38bdf8?style=flat-square&logo=github)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1)
 [![WCAG 2.1 AA Compliant](https://img.shields.io/badge/accessibility-WCAG%202.1%20AA-10b981?style=flat-square)](https://www.w3.org/WAI/WCAG21/quickref/)
-[![Telemetry: Zero](<https://img.shields.io/badge/telemetry-Zero%20(100%25%20Local)-10b981?style=flat-square>)](#-privacy--local-execution)
+[![Telemetry: Zero](https://img.shields.io/badge/telemetry-Zero%20(100%25%20Local)-10b981?style=flat-square)](#-privacy--local-execution)
 
 Official landing page and release distribution portal for **Google AI Plus Portal** — a lightweight, zero-telemetry Windows desktop utility engineered to automate promotional student onboarding and capture the canonical official Google One offer link for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
 
@@ -17,30 +17,38 @@ Official landing page and release distribution portal for **Google AI Plus Porta
 
 ```
 gemini-ai-plus-claimer-app/
-├── 404.html          # Custom, restrained 404 error page matching homepage UI
-├── index.html          # Semantic, accessible landing page (Tailwind CSS CDN)
-├── robots.txt          # Search engine crawler directives & sitemap reference
-├── sitemap.xml         # XML sitemap for SEO discovery
-├── site.webmanifest    # Web app manifest for installable/bookmark metadata
-├── README.md           # Project documentation and deployment guide
-├── CHANGELOG.md        # Comprehensive version history & release changelog
-├── .prettierrc         # Project-level Prettier code formatting rules
-├── .prettierignore     # Files excluded from Prettier formatting
-├── .gitignore          # Git exclusion rules
-├── .vscode/
-│   ├── settings.json   # Workspace editor formatting rules (formatOnSave)
-│   └── extensions.json # Recommended VS Code extensions (Prettier, Tailwind)
-├── css/
-│   └── style.css       # Custom scrollbars, focus rings & prefers-reduced-motion
-├── js/
-│   └── app.js          # Direct download routing, mobile drawer, a11y live announcer
-└── images/
-    ├── app_icon.ico    # Multi-resolution Windows application icon
-    ├── app_icon.png    # High-resolution brand icon (512x512)
-    ├── og-image.png    # Official 1200x630 OpenGraph & Twitter social preview banner
-    ├── qrcode-bmc.png  # Buy Me a Coffee donation QR code
-    ├── qrcode-gcash.JPG# GCash donation QR code
-    └── shuffle.png     # UI accessory icon
+├── astro.config.mjs         # Static output ('static'), Tailwind Vite plugin, canonical site URL
+├── tsconfig.json            # Strict TypeScript configuration
+├── package.json             # Build scripts (dev, build, preview) & dependencies
+├── vercel.json              # Vercel deployment configuration (framework: astro, output: dist)
+├── README.md                # Project documentation and deployment guide
+├── AGENT.md                 # Architectural blueprint and AI context handoff
+├── CHANGELOG.md             # Comprehensive version history & release changelog
+├── biome.json               # Unified Biome linter and formatter configuration
+├── .gitignore               # Git exclusion rules
+├── public/                  # Static assets served untouched at root
+│   ├── images/              # Icons, app screenshots, QR codes, og-image.png
+│   ├── robots.txt           # Search crawler directives & sitemap reference
+│   ├── sitemap.xml          # Canonical XML sitemap for SEO discovery
+│   └── site.webmanifest     # Mobile bookmark & PWA manifest
+└── src/
+    ├── config.ts            # Centralized VERSION, GitHub links, developer URLs, verification ID
+    ├── styles/global.css    # Clean scrollbars, stable gutter, blinking terminal cursor
+    ├── layouts/Layout.astro # Universal layout (SEO, OpenGraph, dynamic Schema.org JSON-LD, analytics)
+    ├── pages/
+    │   ├── index.astro      # Assembles all sections inside Layout
+    │   └── 404.astro        # Dedicated accessible 404 error page
+    └── components/
+        ├── Navbar.astro       # Sticky navbar, mobile drawer with Escape key listener, CTA
+        ├── Hero.astro         # Headline, value pills, CTAs, interactive Mockup tabs, stats
+        ├── WhyAutomate.astro  # Comparison table (Manual Gateway vs Automated Flow)
+        ├── HowItWorks.astro   # 5-stage automated provisioning pipeline
+        ├── Features.astro     # 6 engineering cards (multi-browser cascade, F12 diagnostics, etc.)
+        ├── Browsers.astro     # 4-engine browser grid (Edge, Chrome, Brave, Opera/Vivaldi)
+        ├── Requirements.astro # System specs table & explicit $0.00 billing verification notice
+        ├── Support.astro      # Buy Me a Coffee & GCash QR code cards
+        ├── FAQ.astro          # Interactive details/summary accordions
+        └── Footer.astro       # Legal disclaimers, developer credits, dynamic version badge
 ```
 
 ---
@@ -62,7 +70,7 @@ gemini-ai-plus-claimer-app/
 - **GitHub Releases Distribution Hub**: All download buttons and CTAs route directly to the official [GitHub Release Hub (v1.0.1)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1), ensuring transparent hosting, binary integrity verification (SHA-256), and compliance with Google Safe Browsing standards.
 - **Open-Source Transparency**: Prominent [GitHub Repository](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app) verification badge directly on the hero section, reinforcing community trust, verifiable source code, and zero-credential-harvesting architecture.
 
-### 2. Accessibility (WCAG 2.1 AA Compliance)
+### 3. Accessibility (WCAG 2.1 AA Compliance)
 
 - **Bypass Blocks (`2.4.1`)**: Accessible keyboard "Skip to main content" link placed at the top of `<body>`.
 - **Landmark Regions**: Proper semantic structure using `<header role="banner">`, `<main id="main-content">`, `<footer role="contentinfo">`, and uniquely labeled navigation regions.
@@ -71,33 +79,33 @@ gemini-ai-plus-claimer-app/
 - **Reduced Motion (`2.3.3` & `2.2.2`)**: Media queries automatically disable smooth scrolling and blinking cursors for visitors with vestibular motion sensitivities.
 - **High-Contrast Palette (`1.4.3`)**: All body and disclaimer typography exceeds 7:1 contrast ratios on dark slate backgrounds.
 
-### 3. SEO & Rich Social Previews
+### 4. SEO & Rich Social Previews
 
 - **High-Resolution OpenGraph & Twitter Cards**: 1200&times;630 `og:image` and `summary_large_image` Twitter card for rich previews on Discord, Telegram, X, and Slack.
 - **Structured Data (JSON-LD)**: `SoftwareApplication` and `WebSite` schemas providing Google with software version, license price ($0.00), OS compatibility, and author details for rich search snippets.
 - **Search Engine Discoverability**: Deployed `robots.txt` and `sitemap.xml` referencing canonical URLs.
 
-### 4. Telemetry & Speed Insights
+### 5. Telemetry & Speed Insights
 
 - Integrated **Vercel Web Analytics** (`/_vercel/insights/script.js`) for privacy-friendly traffic analysis.
 - Integrated **Vercel Speed Insights** (`/_vercel/speed-insights/script.js`) for real-user Core Web Vitals monitoring (LCP, FID, CLS).
 
-### 5. Custom 404 Error Page & Universal Routing
+### 6. Custom 404 Error Page & Universal Routing
 
 - **Design Alignment**: Built with restrained typography, matching the slate dark palette (`#090d16`), full-fidelity sticky navbar, and legal footer for consistent branding.
-- **Dual-Environment Support**: Features an inline environment-aware `<base>` fallback and JavaScript link adapter (`js/app.js`) that supports both local offline testing (`file://`) and live Vercel deployments (`http://` / `https://`).
-- **Layout Shift Elimination**: Employs `scrollbar-gutter: stable; overflow-y: scroll;` in `css/style.css` so transitioning between the full-height landing page and 404 error page causes zero horizontal jitter.
+- **Path-Aware Routing**: Astro handles root vs nested page links statically at build time via `Astro.url.pathname`, ensuring anchor navigation (`#overview` on homepage, `/#overview` on 404) works reliably with zero client-side JavaScript link patching.
+- **Layout Shift Elimination**: Employs `scrollbar-gutter: stable; overflow-y: scroll;` in `src/styles/global.css` so transitioning between the full-height landing page and 404 error page causes zero horizontal jitter.
 - **Search Engine Friendly**: Tagged with `<meta name="robots" content="noindex, follow" />` and excluded in `robots.txt` / `sitemap.xml` to prevent dead links from polluting search indices.
 
 ---
 
 ## 🚀 Deployment (Vercel)
 
-The landing page is optimized for instant static hosting on Vercel with zero build configurations required:
+The landing page is optimized for instant static hosting on Vercel with zero server compute costs ($0 Edge CDN):
 
 1. Connect `nmrisrl11/gemini-ai-plus-claimer-app` to your Vercel account.
-2. Set Framework Preset to **Other** (Plain HTML).
-3. The root directory `/` serves `index.html`, `css/`, `js/`, and `images/`.
+2. Vercel automatically detects the **Astro** framework preset via `package.json` and `vercel.json`.
+3. The build command `astro build` compiles static HTML, CSS, and assets into `dist/`.
 4. Any push to `main` automatically triggers deployment and activates Vercel Analytics and Speed Insights.
 
 ---
@@ -124,14 +132,24 @@ Get-FileHash "Google AI Plus Portal v1.0.1.exe" -Algorithm SHA256
 
 ## 🛠️ Local Development & Code Quality
 
-This project enforces strict code formatting using Prettier and VS Code editor hooks:
-
 ```bash
-# Check formatting
-npx prettier --check .
+# Install dependencies
+npm install
 
-# Auto-format all files
-npx prettier --write .
+# Start local dev server (hot reload)
+npm run dev
+
+# Compile static production build into dist/
+npm run build
+
+# Preview production build locally
+npm run preview
+
+# Lint, check formatting, and organize imports with Biome
+npm run lint
+
+# Auto-format and apply safe fixes with Biome
+npm run check
 ```
 
 ---

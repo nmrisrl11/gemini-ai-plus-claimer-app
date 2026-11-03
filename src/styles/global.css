@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	--font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
+
+	--color-slate-850: #131c2e;
+	--color-slate-900: #0f172a;
+	--color-slate-950: #090d16;
+
+	--color-brand: #0284c7;
+	--color-brand-hover: #0369a1;
+	--color-brand-accent: #38bdf8;
+	--color-brand-glow: rgba(2, 132, 199, 0.15);
+}
+
+/* ==========================================================================
+   Google AI Plus Portal — Global Stylesheet
+   Matches desktop app styling, restrained scrollbars, focus states & animations
+   ========================================================================== */
+
+/* Always reserve vertical scrollbar track to prevent cross-page layout shift */
+html {
+	overflow-y: scroll;
+	scrollbar-gutter: stable;
+}
+
+/* Sleek restrained scrollbar matching desktop slate styling */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: #090d16;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #1e293b;
+	border-radius: 5px;
+	border: 2px solid #090d16;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #334155;
+}
+
+/* Subtle hairline focus ring */
+*:focus-visible {
+	outline: 2px solid #38bdf8;
+	outline-offset: 2px;
+}
+
+/* Hide horizontal scrollbar for touch tab scrolling */
+.no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.no-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+/* Terminal blinking cursor */
+.term-cursor {
+	display: inline-block;
+	width: 8px;
+	height: 15px;
+	background-color: #38bdf8;
+	animation: blink 1s step-start infinite;
+	vertical-align: middle;
+	margin-left: 2px;
+}
+
+@keyframes blink {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
+/* Code block line numbers */
+.code-line::before {
+	content: attr(data-line);
+	display: inline-block;
+	width: 2rem;
+	margin-right: 1rem;
+	color: #475569;
+	text-align: right;
+	user-select: none;
+}
+
+/* FAQ accordion custom animation */
+details summary::-webkit-details-marker {
+	display: none;
+}
+
+details summary svg.faq-chevron {
+	transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+details[open] summary svg.faq-chevron {
+	transform: rotate(180deg);
+}
+
+/* WCAG 2.2 / 2.3.3: Respect user reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms;
+		animation-iteration-count: 1;
+		transition-duration: 0.01ms;
+		scroll-behavior: auto;
+	}
+}

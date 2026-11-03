@@ -1,0 +1,200 @@
+<!-- FAQ Section -->
+<section id="faq" class="py-16 md:py-24">
+	<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="text-center mb-16">
+			<span class="text-xs font-bold uppercase tracking-wider text-sky-400"
+				>Frequently Asked Questions</span
+			>
+			<h2
+				class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white tracking-tight mt-2"
+			>
+				Clear answers to common questions
+			</h2>
+		</div>
+
+		<div class="space-y-4">
+			<!-- Q1 -->
+			<details
+				class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+			>
+				<summary
+					class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+				>
+					<span>How does the tool ensure privacy and local execution?</span>
+					<span class="text-slate-400 group-open:rotate-180 transition-transform">
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							class="w-5 h-5 faq-chevron"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M19 9l-7 7-7-7"
+							/>
+						</svg>
+					</span>
+				</summary>
+				<p
+					class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+				>
+					Yes, 100%. The application operates completely locally on your computer. It makes no
+					outbound connections to external relays, servers, or analytics services. All
+					activity runs strictly client-side, and results are kept solely in the local
+					<code class="text-slate-300 font-mono text-xs">results/</code> folder on your
+					machine.
+				</p>
+			</details>
+
+			<!-- Q2 -->
+			<details
+				class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+			>
+				<summary
+					class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+				>
+					<span>How does the automated browser handle verification prompts?</span>
+					<span class="text-slate-400 group-open:rotate-180 transition-transform">
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							class="w-5 h-5 faq-chevron"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M19 9l-7 7-7-7"
+							/>
+						</svg>
+					</span>
+				</summary>
+				<p
+					class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+				>
+					During educational onboarding, the platform sends a confirmation message to your
+					mailbox to verify ownership. The desktop app pauses cleanly and presents an
+					interactive prompt with input sanitization. Once you submit the confirmation,
+					automation resumes immediately.
+				</p>
+			</details>
+
+			<!-- Q3 -->
+			<details
+				class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+			>
+				<summary
+					class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+				>
+					<span>Why does Google One require verification during promotional activation?</span>
+					<span class="text-slate-400 group-open:rotate-180 transition-transform">
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							class="w-5 h-5 faq-chevron"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M19 9l-7 7-7-7"
+							/>
+						</svg>
+					</span>
+				</summary>
+				<p
+					class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+				>
+					This is a standard Google One subscription requirement. Google One subscription
+					policy requires establishing promotional eligibility.
+					<strong>You are billed $0.00 today</strong> for the promotional tier. You can easily
+					manage or disable recurring preferences in your Google account settings at any
+					point.
+				</p>
+			</details>
+
+			<!-- Q4 -->
+			<details
+				class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+			>
+				<summary
+					class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+				>
+					<span>What if a Cloudflare or reCAPTCHA verification challenge appears?</span>
+					<span class="text-slate-400 group-open:rotate-180 transition-transform">
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							class="w-5 h-5 faq-chevron"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M19 9l-7 7-7-7"
+							/>
+						</svg>
+					</span>
+				</summary>
+				<p
+					class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+				>
+					The engine proactively monitors for interstitial challenges. If one occurs,
+					automation safely pauses to prevent lockouts, allowing you to resolve the prompt in
+					the browser before continuing.
+				</p>
+			</details>
+
+			<!-- Q5 -->
+			<details
+				class="group rounded-xl border border-slate-800 bg-slate-900 p-5 open:bg-slate-900/90 transition-colors"
+			>
+				<summary
+					class="flex items-center justify-between cursor-pointer list-none text-sm font-semibold text-white"
+				>
+					<span>Do I need to install Python, Node, or Playwright browser binaries?</span>
+					<span class="text-slate-400 group-open:rotate-180 transition-transform">
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							class="w-5 h-5 faq-chevron"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M19 9l-7 7-7-7"
+							/>
+						</svg>
+					</span>
+				</summary>
+				<p
+					class="mt-3 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/80 pt-3"
+				>
+					No. When using the standalone portable application (<code
+						class="text-slate-300 font-mono text-xs"
+						>Google AI Plus Portal</code
+					>), all dependencies are bundled into the binary. It automatically attaches to your
+					existing Google Chrome, Microsoft Edge, or Brave browser without requiring external
+					browser downloads.
+				</p>
+			</details>
+		</div>
+	</div>
+</section>

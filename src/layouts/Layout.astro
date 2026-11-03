@@ -1,0 +1,150 @@
+---
+import { CONFIG } from "../config";
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+	noindex?: boolean;
+}
+
+const {
+	title = "Google AI Plus Portal — Automated 1-Year Access Utility",
+	description = "A lightweight, zero-telemetry Windows desktop utility that automates promotional student onboarding and canonical redemption link extraction for the 12-month Google AI Plus promotional tier (Gemini Advanced & 2TB Google One).",
+	noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, CONFIG.SITE_URL);
+
+const schemaData = {
+	"@context": "https://schema.org",
+	"@graph": [
+		{
+			"@type": "SoftwareApplication",
+			"@id": `${CONFIG.SITE_URL}/#software`,
+			name: "Google AI Plus Portal",
+			operatingSystem: "Windows 10, Windows 11 (64-bit)",
+			applicationCategory: "UtilitiesApplication",
+			offers: {
+				"@type": "Offer",
+				price: "0",
+				priceCurrency: "USD",
+			},
+			description: description,
+			softwareVersion: CONFIG.VERSION.replace(/^v/, ""),
+			downloadUrl: CONFIG.LATEST_RELEASE_URL,
+			url: `${CONFIG.SITE_URL}/`,
+			image: `${CONFIG.SITE_URL}/images/og-image.png`,
+			screenshot: `${CONFIG.SITE_URL}/images/og-image.png`,
+			author: {
+				"@type": "Person",
+				name: "nmrisrl11",
+				url: CONFIG.DEV_GITHUB,
+			},
+		},
+		{
+			"@type": "WebSite",
+			"@id": `${CONFIG.SITE_URL}/#website`,
+			name: "Google AI Plus Portal",
+			url: `${CONFIG.SITE_URL}/`,
+			description:
+				"Official landing page and distribution hub for the Google AI Plus Portal standalone Windows utility.",
+			publisher: {
+				"@type": "Person",
+				name: "nmrisrl11",
+			},
+		},
+	],
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth dark">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<meta
+			name="keywords"
+			content="Google AI Plus, Gemini Advanced, Google One, 1-Year Access, Automation, Windows Utility, Open Source, Student Onboarding, Portable App"
+		/>
+		<meta name="author" content="nmrisrl11" />
+		{noindex ? <meta name="robots" content="noindex, follow" /> : <meta name="robots" content="index, follow" />}
+		<meta name="theme-color" content="#090d16" />
+		<meta name="color-scheme" content="dark" />
+		<meta name="google-site-verification" content={CONFIG.GOOGLE_SITE_VERIFICATION} />
+		<link rel="canonical" href={canonicalURL} />
+		<link rel="manifest" href="/site.webmanifest" />
+
+		<!-- OpenGraph / Social Cards -->
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Google AI Plus Portal" />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={`${CONFIG.SITE_URL}/images/og-image.png`} />
+		<meta property="og:image:type" content="image/png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Google AI Plus Portal — Automated 1-Year Access Utility Open Graph Preview" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter Cards -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={`${CONFIG.SITE_URL}/images/og-image.png`} />
+		<meta name="twitter:image:alt" content="Google AI Plus Portal — Automated 1-Year Access Utility Open Graph Preview" />
+
+		<!-- Icons -->
+		<link rel="icon" type="image/x-icon" href="/images/app_icon.ico" />
+		<link rel="icon" type="image/png" href="/images/app_icon.png" />
+		<link rel="apple-touch-icon" href="/images/app_icon.png" />
+
+		<!-- JSON-LD Structured Data: SoftwareApplication & WebSite -->
+		<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+
+		<!-- Typography: Inter for clean UI, JetBrains Mono for technical specs & code -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+
+		<!-- Vercel Web Analytics -->
+		<script is:inline>
+			window.va =
+				window.va ||
+				function () {
+					(window.vaq = window.vaq || []).push(arguments);
+				};
+		</script>
+		<script is:inline defer src="/_vercel/insights/script.js"></script>
+
+		<!-- Vercel Speed Insights -->
+		<script is:inline>
+			window.si =
+				window.si ||
+				function () {
+					(window.siq = window.siq || []).push(arguments);
+				};
+		</script>
+		<script is:inline defer src="/_vercel/speed-insights/script.js"></script>
+	</head>
+	<body class="bg-slate-950 text-slate-100 font-sans antialiased selection:bg-sky-500 selection:text-white">
+		<!-- Accessible Skip to Main Content Link (WCAG 2.4.1) -->
+		<a
+			href="#main-content"
+			class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-sky-700 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-white text-sm font-semibold transition-all"
+		>
+			Skip to main content
+		</a>
+
+		<slot />
+
+		<!-- Live region announcer for assistive technologies (WCAG 4.1.3 Status Messages) -->
+		<div id="a11y-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+	</body>
+</html>

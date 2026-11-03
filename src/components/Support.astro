@@ -1,0 +1,105 @@
+---
+import { CONFIG } from "../config";
+---
+
+<!-- Support Developer Section -->
+<section id="support" class="py-16 md:py-24 border-b border-slate-800 bg-slate-900/30">
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<div class="max-w-2xl mx-auto text-center">
+			<span class="text-xs font-bold uppercase tracking-wider text-amber-400">Support the Dev</span>
+			<h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mt-2">
+				Buy Me a Coffee
+			</h2>
+			<p class="text-slate-300 mt-3 text-base">
+				Saved you some time? Buying a coffee won't hurt.<br />
+				<span class="text-slate-400 text-sm">Totally optional, but always appreciated!</span>
+			</p>
+
+			<!-- QR Codes Card -->
+			<div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-lg mx-auto">
+				<!-- Buy Me A Coffee QR -->
+				<div
+					class="p-5 rounded-xl border border-slate-800 bg-slate-900 flex flex-col items-center"
+				>
+					<span class="text-xs font-bold text-amber-400 mb-3 flex items-center gap-1.5">
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							class="w-4 h-4 fill-current"
+							viewBox="0 0 24 24"
+						>
+							<path
+								d="M20 3H4v10c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-3h2c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 5h-2V5h2v3zM4 19h16v2H4z"
+							/>
+						</svg>
+						<span>Buy Me a Coffee</span>
+					</span>
+					<div
+						class="w-40 h-40 rounded-lg bg-white p-2 flex items-center justify-center border border-slate-700"
+					>
+						<img
+							src="/images/qrcode-bmc.png"
+							alt="Buy Me A Coffee QR Code"
+							class="w-full h-full object-contain"
+							width="160"
+							height="160"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+					<span class="text-[11px] text-slate-400 font-mono mt-3">Scan via Camera or BMC app</span>
+				</div>
+
+				<!-- GCash QR -->
+				<div
+					class="p-5 rounded-xl border border-slate-800 bg-slate-900 flex flex-col items-center"
+				>
+					<span class="text-xs font-bold text-sky-400 mb-3 flex items-center gap-1.5">
+						<svg
+							aria-hidden="true"
+							focusable="false"
+							class="w-4 h-4"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+							/>
+						</svg>
+						<span>GCash (Direct)</span>
+					</span>
+					<div
+						class="w-40 h-40 rounded-lg bg-white p-2 flex items-center justify-center border border-slate-700"
+					>
+						<img
+							src="/images/qrcode-gcash.JPG"
+							alt="GCash QR Code"
+							class="w-full h-full object-contain"
+							width="160"
+							height="160"
+							loading="lazy"
+							decoding="async"
+						/>
+					</div>
+					<span class="text-[11px] text-slate-400 font-mono mt-3">Scan via GCash App</span>
+				</div>
+			</div>
+
+			<div class="mt-6 text-xs text-slate-400">
+				Developer:
+				<a
+					href={CONFIG.DEV_GITHUB}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-sky-400 hover:underline"
+					>@nmrisrl11</a
+				>
+				&bull; Desktop automation craft
+			</div>
+		</div>
+	</div>
+</section>
