@@ -13,6 +13,17 @@ $RECYCLE.BIN/
 *.sublime-project
 *.sublime-workspace
 
+# Node dependencies & Astro build output
+node_modules/
+dist/
+.astro/
+.vercel/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
 # Logs and runtime files
 *.log
 npm-debug.log*
@@ -21,5 +32,4 @@ yarn-error.log*
 
 # Executables and builds (binary releases should be uploaded via GitHub Releases, not git tree)
 *.exe
-dist/
 build/

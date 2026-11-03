@@ -19,51 +19,61 @@
 
 ---
 
-## 2. 🏗️ Tech Stack & Philosophy
+## 2. 🏗️ Tech Stack & Architecture
 
-| Layer               | Technology                            | Details                                                                                                                                       |
-| :------------------ | :------------------------------------ | :-------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Markup**          | HTML5 Semantic                        | Strictly structured with ARIA landmarks, WCAG 2.1 AA compliance, zero broken tags                                                             |
-| **Styling**         | Tailwind CSS (CDN) + Custom CSS       | Loaded via Tailwind CDN (`tailwind.config` in `<head>`), dark slate theme palette (`#090d16` base, `#0f172a` cards, `#0284c7` sky brand)      |
-| **Custom CSS**      | `css/style.css`                       | Restrained slate scrollbars, hairline focus-visible rings (`#38bdf8`), terminal blinking animation, `@media (prefers-reduced-motion: reduce)` |
-| **Interactivity**   | Vanilla JavaScript (`js/app.js`)      | Single centralized `CONFIG` object, dynamic download routing, mobile drawer, accessible clipboard copy with live announcements                |
-| **Fonts**           | Google Fonts                          | `Inter` (UI typography) & `JetBrains Mono` (code, terminal, and spec readouts)                                                                |
-| **Code Formatter**  | Prettier                              | Project-scoped `.prettierrc` (tabs, tabWidth: 4, printWidth: 100), `.vscode/settings.json` formatOnSave enabled                               |
-| **Hosting & CI/CD** | Vercel                                | Plain HTML framework preset; automatic deploys triggered on `git push origin main`                                                            |
-| **Analytics**       | Vercel Web Analytics + Speed Insights | Client-side HTML quickstart snippets inside `<head>`                                                                                          |
+| Layer               | Technology                            | Details                                                                                                                        |
+| :------------------ | :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
+| **Framework**       | Astro (output: 'static')              | High-performance static site generator with zero client JS runtime overhead for UI components                                  |
+| **Styling**         | Tailwind CSS (Build-time)             | Integrated via @astrojs/tailwind; purge & compile at build time into minified, hash-versioned CSS (~25KB vs 300KB runtime CDN) |
+| **Components**      | Astro Components (.astro)             | Modular component tree (Navbar, Hero, WhyAutomate, HowItWorks, Features, Browsers, Requirements, Support, FAQ, Footer)         |
+| **Configuration**   | TypeScript (src/config.ts)            | Single source of truth for version (1.0.1), repo links, direct download endpoints, and developer links                         |
+| **Custom CSS**      | src/styles/global.css                 | Restrained slate scrollbars, stable gutters, terminal blinking animations, and @media (prefers-reduced-motion: reduce)         |
+| **Fonts**           | Google Fonts                          | Inter (UI typography) & JetBrains Mono (code, terminal, and spec readouts)                                                     |
+| **Code Formatter**  | Prettier                              | Project-scoped .prettierrc (tabs, tabWidth: 4, printWidth: 100), .vscode/settings.json formatOnSave enabled                    |
+| **Hosting & CI/CD** | Vercel                                | Framework preset: Astro (dist output directory); zero compute cost ( Edge CDN)                                                 |
+| **Analytics**       | Vercel Web Analytics + Speed Insights | Client-side quickstart snippets embedded via Layout.astro                                                                      |
 
 ---
 
 ## 3. 📂 Repository File Tree & Purpose
 
-```
-gemini-ai-plus-claimer-app/
+`gemini-ai-plus-claimer-app/
+├── astro.config.mjs    # Astro configuration (static output, tailwind integration, site URL)
+├── tailwind.config.mjs # Tailwind design system (slate-850/900/950 palette, fonts, brand sky)
+├── tsconfig.json       # TypeScript configuration extending astro/tsconfigs/strict
+├── package.json        # Project metadata, dependencies (astro, @astrojs/tailwind), build scripts
+├── package-lock.json   # Deterministic dependency lockfile
 ├── AGENT.md            # You are here: comprehensive AI agent context and architecture
 ├── README.md           # User-facing repository overview, quickstart, and binary checksums
-├── 404.html            # Custom 404 error page (dual file:// and http/https routing)
 ├── CHANGELOG.md        # Semantic Versioning change log (Keep a Changelog format)
-├── index.html          # Core landing page (SEO, semantic markup, SVG icons, schema)
-├── robots.txt          # Crawler instructions referencing canonical sitemap
-├── sitemap.xml         # XML sitemap with weekly frequency for search engines
-├── site.webmanifest    # Progressive web app / mobile bookmark metadata
 ├── .prettierrc         # Prettier formatting configuration
 ├── .prettierignore     # Prettier ignore patterns
-├── .gitignore          # Git exclusion rules (ignores binaries, logs, temp files)
-├── .vscode/
-│   ├── settings.json   # VS Code formatOnSave and default formatter setup
-│   └── extensions.json # Recommended VS Code extensions (Prettier, Tailwind)
-├── css/
-│   └── style.css       # Custom scrollbars, focus rings, reduced-motion overrides
-├── js/
-│   └── app.js          # Client-side configuration, download routing, a11y announcer
-└── images/
-    ├── app_icon.ico    # Multi-resolution Windows desktop icon (16x16 to 256x256)
-    ├── app_icon.png    # High-resolution (512x512) master logo asset
-    ├── og-image.png    # Official 1200x630 OpenGraph & Twitter large card social preview
-    ├── qrcode-bmc.png  # Buy Me a Coffee QR code (160x160)
-    ├── qrcode-gcash.JPG# GCash QR code (160x160)
-    └── shuffle.png     # Randomize accessory icon
-```
+├── .gitignore          # Git exclusion rules (ignores node_modules, dist, .astro, .vercel, .env)
+├── public/             # Static assets served untouched at root
+│   ├── images/         # Icons, logos, and social share assets
+│   ├── robots.txt      # Crawler instructions referencing canonical sitemap
+│   ├── sitemap.xml     # Canonical XML sitemap for search engines
+│   └── site.webmanifest# PWA and mobile bookmark metadata
+└── src/
+    ├── config.ts       # Centralized configuration (VERSION, URLs, verification IDs)
+    ├── styles/
+    │   └── global.css  # Global styles, scrollbar styling, terminal blinking cursor
+    ├── layouts/
+    │   └── Layout.astro# Universal root layout (SEO meta, OpenGraph, JSON-LD, analytics)
+    ├── pages/
+    │   ├── index.astro # Home landing page assembling all section components
+    │   └── 404.astro   # Dedicated accessible 404 error page
+    └── components/
+        ├── Navbar.astro       # Responsive sticky header with mobile drawer & Escape listener
+        ├── Hero.astro         # Hero headline, CTA buttons, interactive Mockup preview
+        ├── WhyAutomate.astro  # Problem vs Solution comparison matrix
+        ├── HowItWorks.astro   # 5-stage automated provisioning pipeline
+        ├── Features.astro     # 6 engineering highlight cards
+        ├── Browsers.astro     # Multi-browser 4-engine support grid & cascade banner
+        ├── Requirements.astro # System specs table & .00 billing verification notice
+        ├── Support.astro      # Buy Me a Coffee & GCash developer appreciation cards
+        ├── FAQ.astro          # Interactive details/summary accordion questions
+        └── Footer.astro       # Legal disclaimer, developer credits, dynamic version badge`
 
 ---
 

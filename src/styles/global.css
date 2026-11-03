@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Google AI Plus Portal — Custom Stylesheet
+   Google AI Plus Portal — Global Stylesheet
    Matches desktop app styling, restrained scrollbars, focus states & animations
    ========================================================================== */
 
@@ -50,9 +50,10 @@ html {
 	display: inline-block;
 	width: 8px;
 	height: 15px;
+	background-color: #38bdf8;
+	animation: blink 1s step-start infinite;
 	vertical-align: middle;
-	background: #38bdf8;
-	animation: blink 1s step-end infinite;
+	margin-left: 2px;
 }
 
 @keyframes blink {
@@ -65,23 +66,26 @@ html {
 	}
 }
 
-/* Respect user preference for reduced motion (WCAG 2.1 SC 2.3.3 & SC 2.2.2) */
-@media (prefers-reduced-motion: reduce) {
-	html:focus-within {
-		scroll-behavior: auto;
-	}
+/* Code block line numbers */
+.code-line::before {
+	content: attr(data-line);
+	display: inline-block;
+	width: 2rem;
+	margin-right: 1rem;
+	color: #475569;
+	text-align: right;
+	user-select: none;
+}
 
-	*,
-	*::before,
-	*::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-		scroll-behavior: auto !important;
-	}
+/* FAQ accordion custom animation */
+details summary::-webkit-details-marker {
+	display: none;
+}
 
-	.term-cursor {
-		animation: none;
-		opacity: 1;
-	}
+details[open] summary svg.faq-chevron {
+	transform: rotate(180deg);
+}
+
+details summary svg.faq-chevron {
+	transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }

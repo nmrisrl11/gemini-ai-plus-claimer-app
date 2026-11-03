@@ -1,0 +1,89 @@
+---
+import { CONFIG } from '../config';
+
+const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
+const prefix = isHome ? '' : '/';
+---
+
+<footer
+	role="contentinfo"
+	class="bg-slate-950 border-t border-slate-800 text-slate-400 text-xs py-12"
+>
+	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+		<div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+			<div class="flex items-center gap-3">
+				<div
+					class="w-7 h-7 rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 p-0.5 flex items-center justify-center"
+				>
+					<img
+						src="/images/app_icon.png"
+						alt="Google AI Plus Portal Logo"
+						class="w-full h-full object-contain"
+						width="28"
+						height="28"
+						loading="lazy"
+						decoding="async"
+					/>
+				</div>
+				<span class="font-bold text-white text-sm">Google AI Plus Portal</span>
+				<span class="text-slate-600">&bull;</span>
+				<span class="text-sky-400 font-mono text-xs">{CONFIG.VERSION}</span>
+			</div>
+
+			<nav
+				aria-label="Footer Navigation"
+				class="flex flex-wrap items-center gap-6 text-slate-400"
+			>
+				<a href={`${prefix}#overview`} class="hover:text-white transition-colors">Overview</a>
+				<a href={`${prefix}#how-it-works`} class="hover:text-white transition-colors">How It Works</a>
+				<a href={`${prefix}#browsers`} class="hover:text-white transition-colors">Browsers</a>
+				<a href={`${prefix}#features`} class="hover:text-white transition-colors">Features</a>
+				<a href={`${prefix}#requirements`} class="hover:text-white transition-colors">Requirements</a>
+
+				<a
+					href={CONFIG.DEV_GITHUB}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="hover:text-white transition-colors"
+					>Developer Profile<span class="sr-only"> (opens in a new tab)</span></a
+				>
+			</nav>
+		</div>
+
+		<!-- Legal Disclaimer & Non-Affiliation -->
+		<div
+			class="p-4 rounded-xl border border-slate-800/80 bg-slate-900/40 text-[11px] leading-relaxed text-slate-400 space-y-1.5"
+		>
+			<p class="font-semibold text-slate-400">Disclaimer &amp; Non-Affiliation Notice:</p>
+			<p>
+				This software is an independent desktop automation utility provided strictly for
+				convenience, personal educational testing, and research. This project is
+				<strong
+					>NOT affiliated with, sponsored by, or endorsed by Google LLC, Alphabet Inc., or
+					Internshala</strong
+				>.
+			</p>
+			<p>
+				Google, Google AI, Google One, and Gemini are registered trademarks of Google LLC.
+				Internshala is a registered trademark of Scholiverse Educare Private Limited. All
+				product and company names are trademarks or registered trademarks of their respective
+				holders.
+			</p>
+		</div>
+
+		<div
+			class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-slate-900 text-[11px] text-slate-400"
+		>
+			<div>
+				&copy; 2026 nmrisrl11. Built with precision for the developer and student community.
+			</div>
+			<div class="flex items-center gap-4">
+				<span class="text-emerald-500/80">&bull; 100% Local Execution</span>
+				<span>&bull; Zero Tracking</span>
+				<a href="#" class="text-slate-400 hover:text-white transition-colors"
+					>Back to top &uarr;</a
+				>
+			</div>
+		</div>
+	</div>
+</footer>
