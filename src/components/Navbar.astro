@@ -1,5 +1,6 @@
 ---
 import { CONFIG } from "../config";
+import { MOBILE_EXTRA_ITEMS, NAV_ITEMS, SCROLLSPY_SECTIONS } from "../constants/navigation";
 
 const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
 const prefix = isHome ? "" : "/";
@@ -38,40 +39,23 @@ const prefix = isHome ? "" : "/";
 			</div>
 		</a>
 
-		<!-- Option 2: Center Segmented Control Nav with Scrollspy -->
+		<!-- Desktop Segmented Control Nav with Dynamic Map -->
 		<nav
 			class="hidden lg:flex items-center p-1 rounded-xl bg-slate-900/90 border border-slate-800 shadow-inner"
 			aria-label="Main Navigation"
 		>
 			<div class="flex items-center gap-1" id="nav-segmented-track">
-				<a
-					href={`${prefix}#how-it-works`}
-					data-section="how-it-works"
-					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
-				>
-					How It Works
-				</a>
-				<a
-					href={`${prefix}#features`}
-					data-section="features"
-					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
-				>
-					Features
-				</a>
-				<a
-					href={`${prefix}#browsers`}
-					data-section="browsers"
-					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
-				>
-					Compatibility
-				</a>
-				<a
-					href={`${prefix}#faq`}
-					data-section="faq"
-					class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
-				>
-					FAQ
-				</a>
+				{
+					NAV_ITEMS.map((item) => (
+						<a
+							href={`${prefix}${item.href}`}
+							data-section={item.section}
+							class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
+						>
+							{item.label}
+						</a>
+					))
+				}
 			</div>
 		</nav>
 
@@ -183,7 +167,7 @@ const prefix = isHome ? "" : "/";
 		</div>
 	</div>
 
-	<!-- Mobile Navigation Drawer / Dropdown -->
+	<!-- Mobile Navigation Drawer / Dropdown with Dynamic Map -->
 	<div
 		id="mobile-menu"
 		class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-lg px-4 pt-3 pb-5 space-y-2 transition-all duration-200"
@@ -192,44 +176,28 @@ const prefix = isHome ? "" : "/";
 			class="flex flex-col space-y-1 text-sm font-medium text-slate-200"
 			aria-label="Mobile Navigation"
 		>
-			<a
-				href={`${prefix}#how-it-works`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-			>
-				How It Works
-			</a>
-			<a
-				href={`${prefix}#features`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-			>
-				Features
-			</a>
-			<a
-				href={`${prefix}#browsers`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-			>
-				Compatibility
-			</a>
-			<a
-				href={`${prefix}#faq`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
-			>
-				FAQ
-			</a>
-			<a
-				href={CONFIG.REPO_URL}
-				target="_blank"
-				rel="noopener noreferrer"
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-slate-900 hover:text-white transition-colors"
-			>
-				Source Code
-			</a>
-			<a
-				href={`${prefix}#support`}
-				class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-slate-900 hover:text-white transition-colors"
-			>
-				Support Dev
-			</a>
+			{
+				NAV_ITEMS.map((item) => (
+					<a
+						href={`${prefix}${item.href}`}
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+					>
+						{item.label}
+					</a>
+				))
+			}
+			{
+				MOBILE_EXTRA_ITEMS.map((item) => (
+					<a
+						href={item.external ? item.href : `${prefix}${item.href}`}
+						target={item.external ? "_blank" : undefined}
+						rel={item.external ? "noopener noreferrer" : undefined}
+						class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-slate-900 hover:text-white transition-colors"
+					>
+						{item.label}
+					</a>
+				))
+			}
 		</nav>
 
 		<div class="pt-3 border-t border-slate-800/80">
@@ -255,7 +223,7 @@ const prefix = isHome ? "" : "/";
 	</div>
 </header>
 
-<script is:inline>
+<script is:inline define:vars={{ scrollspySections: SCROLLSPY_SECTIONS }}>
 	// Mobile Drawer Navigation toggle logic
 	const mobileMenuBtn = document.getElementById("mobile-menu-btn");
 	const mobileMenu = document.getElementById("mobile-menu");
@@ -302,14 +270,7 @@ const prefix = isHome ? "" : "/";
 
 	// Scrollspy for Segmented Track (DOMContentLoaded safe, high accuracy)
 	function initScrollspy() {
-		const sections = [
-			{ id: "how-it-works", tabKey: "how-it-works" },
-			{ id: "features", tabKey: "features" },
-			{ id: "browsers", tabKey: "browsers" },
-			{ id: "requirements", tabKey: "browsers" },
-			{ id: "faq", tabKey: "faq" },
-		];
-
+		const sections = scrollspySections;
 		const navTabs = document.querySelectorAll(".nav-tab");
 		if (!navTabs.length) return;
 
