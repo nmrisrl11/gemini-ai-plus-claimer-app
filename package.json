@@ -1,24 +1,30 @@
 {
-  "name": "google-ai-plus-portal",
-  "type": "module",
-  "version": "1.0.1",
-  "description": "Official landing page and release distribution hub for Google AI Plus Portal",
-  "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nmrisrl11/gemini-ai-plus-claimer-app.git"
-  },
-  "author": "nmrisrl11",
-  "license": "MIT",
-  "dependencies": {
-    "@tailwindcss/vite": "^4.3.4",
-    "astro": "^7.4.5",
-    "tailwindcss": "^4.3.4"
-  }
+	"name": "google-ai-plus-portal",
+	"type": "module",
+	"version": "1.0.1",
+	"description": "Official landing page and release distribution hub for Google AI Plus Portal",
+	"scripts": {
+		"dev": "astro dev",
+		"start": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"lint": "biome check .",
+		"format": "biome format --write .",
+		"check": "biome check --write ."
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/nmrisrl11/gemini-ai-plus-claimer-app.git"
+	},
+	"author": "nmrisrl11",
+	"license": "MIT",
+	"dependencies": {
+		"@tailwindcss/vite": "^4.3.4",
+		"astro": "^7.4.5",
+		"tailwindcss": "^4.3.4"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "2.6.4"
+	}
 }

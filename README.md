@@ -1,10 +1,10 @@
 # Google AI Plus Portal — Official Web Hub & Distribution
 
 [![Live Deployment: Vercel](https://img.shields.io/badge/deployment-Vercel-000000?style=flat-square&logo=vercel)](https://gemini-ai-plus-claimer.vercel.app/)
-[![Platform: Windows 10 / 11](<https://img.shields.io/badge/platform-Windows%2010%20%2F%2011%20(64--bit)-0284c7?style=flat-square&logo=windows>)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases)
+[![Platform: Windows 10 / 11](https://img.shields.io/badge/platform-Windows%2010%20%2F%2011%20(64--bit)-0284c7?style=flat-square&logo=windows)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases)
 [![Version: v1.0.1](https://img.shields.io/badge/release-v1.0.1-38bdf8?style=flat-square&logo=github)](https://github.com/nmrisrl11/gemini-ai-plus-claimer-app/releases/tag/v1.0.1)
 [![WCAG 2.1 AA Compliant](https://img.shields.io/badge/accessibility-WCAG%202.1%20AA-10b981?style=flat-square)](https://www.w3.org/WAI/WCAG21/quickref/)
-[![Telemetry: Zero](<https://img.shields.io/badge/telemetry-Zero%20(100%25%20Local)-10b981?style=flat-square>)](#-privacy--local-execution)
+[![Telemetry: Zero](https://img.shields.io/badge/telemetry-Zero%20(100%25%20Local)-10b981?style=flat-square)](#-privacy--local-execution)
 
 Official landing page and release distribution portal for **Google AI Plus Portal** — a lightweight, zero-telemetry Windows desktop utility engineered to automate promotional student onboarding and capture the canonical official Google One offer link for 12 months of complimentary Gemini Advanced and 2TB cloud storage.
 
@@ -24,8 +24,7 @@ gemini-ai-plus-claimer-app/
 ├── README.md                # Project documentation and deployment guide
 ├── AGENT.md                 # Architectural blueprint and AI context handoff
 ├── CHANGELOG.md             # Comprehensive version history & release changelog
-├── .prettierrc              # Project-level Prettier code formatting rules
-├── .prettierignore          # Files excluded from Prettier formatting
+├── biome.json               # Unified Biome linter and formatter configuration
 ├── .gitignore               # Git exclusion rules
 ├── public/                  # Static assets served untouched at root
 │   ├── images/              # Icons, app screenshots, QR codes, og-image.png
@@ -145,6 +144,12 @@ npm run build
 
 # Preview production build locally
 npm run preview
+
+# Lint, check formatting, and organize imports with Biome
+npm run lint
+
+# Auto-format and apply safe fixes with Biome
+npm run check
 ```
 
 ---

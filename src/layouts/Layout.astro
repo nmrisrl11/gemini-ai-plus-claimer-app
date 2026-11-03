@@ -1,6 +1,6 @@
 ---
-import { CONFIG } from '../config';
-import '../styles/global.css';
+import { CONFIG } from "../config";
+import "../styles/global.css";
 
 interface Props {
 	title?: string;
@@ -9,48 +9,49 @@ interface Props {
 }
 
 const {
-	title = 'Google AI Plus Portal — Automated 1-Year Access Utility',
-	description = 'A lightweight, zero-telemetry Windows desktop utility that automates promotional student onboarding and canonical redemption link extraction for the 12-month Google AI Plus promotional tier (Gemini Advanced & 2TB Google One).',
+	title = "Google AI Plus Portal — Automated 1-Year Access Utility",
+	description = "A lightweight, zero-telemetry Windows desktop utility that automates promotional student onboarding and canonical redemption link extraction for the 12-month Google AI Plus promotional tier (Gemini Advanced & 2TB Google One).",
 	noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, CONFIG.SITE_URL);
 
 const schemaData = {
-	'@context': 'https://schema.org',
-	'@graph': [
+	"@context": "https://schema.org",
+	"@graph": [
 		{
-			'@type': 'SoftwareApplication',
-			'@id': `${CONFIG.SITE_URL}/#software`,
-			name: 'Google AI Plus Portal',
-			operatingSystem: 'Windows 10, Windows 11 (64-bit)',
-			applicationCategory: 'UtilitiesApplication',
+			"@type": "SoftwareApplication",
+			"@id": `${CONFIG.SITE_URL}/#software`,
+			name: "Google AI Plus Portal",
+			operatingSystem: "Windows 10, Windows 11 (64-bit)",
+			applicationCategory: "UtilitiesApplication",
 			offers: {
-				'@type': 'Offer',
-				price: '0',
-				priceCurrency: 'USD',
+				"@type": "Offer",
+				price: "0",
+				priceCurrency: "USD",
 			},
 			description: description,
-			softwareVersion: CONFIG.VERSION.replace(/^v/, ''),
+			softwareVersion: CONFIG.VERSION.replace(/^v/, ""),
 			downloadUrl: CONFIG.LATEST_RELEASE_URL,
 			url: `${CONFIG.SITE_URL}/`,
 			image: `${CONFIG.SITE_URL}/images/og-image.png`,
 			screenshot: `${CONFIG.SITE_URL}/images/og-image.png`,
 			author: {
-				'@type': 'Person',
-				name: 'nmrisrl11',
+				"@type": "Person",
+				name: "nmrisrl11",
 				url: CONFIG.DEV_GITHUB,
 			},
 		},
 		{
-			'@type': 'WebSite',
-			'@id': `${CONFIG.SITE_URL}/#website`,
-			name: 'Google AI Plus Portal',
+			"@type": "WebSite",
+			"@id": `${CONFIG.SITE_URL}/#website`,
+			name: "Google AI Plus Portal",
 			url: `${CONFIG.SITE_URL}/`,
-			description: 'Official landing page and distribution hub for the Google AI Plus Portal standalone Windows utility.',
+			description:
+				"Official landing page and distribution hub for the Google AI Plus Portal standalone Windows utility.",
 			publisher: {
-				'@type': 'Person',
-				name: 'nmrisrl11',
+				"@type": "Person",
+				name: "nmrisrl11",
 			},
 		},
 	],

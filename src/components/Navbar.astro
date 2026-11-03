@@ -1,8 +1,8 @@
 ---
-import { CONFIG } from '../config';
+import { CONFIG } from "../config";
 
-const isHome = Astro.url.pathname === '/' || Astro.url.pathname === '/index.html';
-const prefix = isHome ? '' : '/';
+const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
+const prefix = isHome ? "" : "/";
 ---
 
 <header

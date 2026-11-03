@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-	--font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-	--font-mono: 'JetBrains Mono', Consolas, 'Courier New', monospace;
+	--font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	--font-mono: "JetBrains Mono", Consolas, "Courier New", monospace;
 
 	--color-slate-850: #131c2e;
 	--color-slate-900: #0f172a;
@@ -98,10 +98,10 @@ details summary::-webkit-details-marker {
 	display: none;
 }
 
-details[open] summary svg.faq-chevron {
-	transform: rotate(180deg);
-}
-
 details summary svg.faq-chevron {
 	transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+details[open] summary svg.faq-chevron {
+	transform: rotate(180deg);
 }

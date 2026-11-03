@@ -21,17 +21,17 @@
 
 ## 2. 🏗️ Tech Stack & Architecture
 
-| Layer               | Technology                            | Details                                                                                                                        |
-| :------------------ | :------------------------------------ | :----------------------------------------------------------------------------------------------------------------------------- |
-| **Framework**       | Astro (output: 'static')              | High-performance static site generator with zero client JS runtime overhead for UI components                                  |
-| **Styling**         | Tailwind CSS v4 (@tailwindcss/vite)   | Modern CSS-first architecture via official Vite plugin; compiled & purged at build time into minified CSS |
-| **Components**      | Astro Components (.astro)             | Modular component tree (Navbar, Hero, WhyAutomate, HowItWorks, Features, Browsers, Requirements, Support, FAQ, Footer)         |
-| **Configuration**   | TypeScript (src/config.ts)            | Single source of truth for version (1.0.1), repo links, direct download endpoints, and developer links                         |
-| **Custom CSS**      | src/styles/global.css                 | Restrained slate scrollbars, stable gutters, terminal blinking animations, and @media (prefers-reduced-motion: reduce)         |
-| **Fonts**           | Google Fonts                          | Inter (UI typography) & JetBrains Mono (code, terminal, and spec readouts)                                                     |
-| **Code Formatter**  | Prettier                              | Project-scoped .prettierrc (tabs, tabWidth: 4, printWidth: 100), .vscode/settings.json formatOnSave enabled                    |
-| **Hosting & CI/CD** | Vercel                                | Framework preset: Astro (dist output directory); zero compute cost ( Edge CDN)                                                 |
-| **Analytics**       | Vercel Web Analytics + Speed Insights | Client-side quickstart snippets embedded via Layout.astro                                                                      |
+| Layer                  | Technology                            | Details                                                                                                                |
+| :--------------------- | :------------------------------------ | :--------------------------------------------------------------------------------------------------------------------- |
+| **Framework**          | Astro (output: 'static')              | High-performance static site generator with zero client JS runtime overhead for UI components                          |
+| **Styling**            | Tailwind CSS v4 (@tailwindcss/vite)   | Modern CSS-first architecture via official Vite plugin; compiled & purged at build time into minified CSS              |
+| **Components**         | Astro Components (.astro)             | Modular component tree (Navbar, Hero, WhyAutomate, HowItWorks, Features, Browsers, Requirements, Support, FAQ, Footer) |
+| **Configuration**      | TypeScript (src/config.ts)            | Single source of truth for version (1.0.1), repo links, direct download endpoints, and developer links                |
+| **Custom CSS**         | src/styles/global.css                 | Restrained slate scrollbars, stable gutters, terminal blinking animations, and @media (prefers-reduced-motion: reduce) |
+| **Fonts**              | Google Fonts                          | Inter (UI typography) & JetBrains Mono (code, terminal, and spec readouts)                                             |
+| **Linter & Formatter** | Biome (@biomejs/biome)                | Blazing-fast unified Rust toolchain (~40ms), single biome.json configuration                                           |
+| **Hosting & CI/CD**    | Vercel                                | Framework preset: Astro (dist output directory); zero compute cost ( Edge CDN)                                         |
+| **Analytics**          | Vercel Web Analytics + Speed Insights | Client-side quickstart snippets embedded via Layout.astro                                                              |
 
 ---
 
@@ -39,41 +39,40 @@
 
 ``
 gemini-ai-plus-claimer-app/
-├── astro.config.mjs    # Astro configuration (static output, tailwind integration, site URL)
-├── tsconfig.json       # TypeScript configuration extending astro/tsconfigs/strict
-├── package.json        # Project metadata, dependencies (astro, @tailwindcss/vite), build scripts
-├── package-lock.json   # Deterministic dependency lockfile
-├── AGENT.md            # You are here: comprehensive AI agent context and architecture
-├── README.md           # User-facing repository overview, quickstart, and binary checksums
-├── CHANGELOG.md        # Semantic Versioning change log (Keep a Changelog format)
-├── .prettierrc         # Prettier formatting configuration
-├── .prettierignore     # Prettier ignore patterns
-├── .gitignore          # Git exclusion rules (ignores node_modules, dist, .astro, .vercel, .env)
-├── public/             # Static assets served untouched at root
-│   ├── images/         # Icons, logos, and social share assets
-│   ├── robots.txt      # Crawler instructions referencing canonical sitemap
-│   ├── sitemap.xml     # Canonical XML sitemap for search engines
-│   └── site.webmanifest# PWA and mobile bookmark metadata
+├── astro.config.mjs # Astro configuration (static output, tailwind integration, site URL)
+├── tsconfig.json # TypeScript configuration extending astro/tsconfigs/strict
+├── package.json # Project metadata, dependencies (astro, @tailwindcss/vite), build scripts
+├── package-lock.json # Deterministic dependency lockfile
+├── AGENT.md # You are here: comprehensive AI agent context and architecture
+├── README.md # User-facing repository overview, quickstart, and binary checksums
+├── CHANGELOG.md # Semantic Versioning change log (Keep a Changelog format)
+├── biome.json # Unified Biome linter and formatter configuration
+├── .gitignore # Git exclusion rules (ignores node_modules, dist, .astro, .vercel, .env)
+├── public/ # Static assets served untouched at root
+│ ├── images/ # Icons, logos, and social share assets
+│ ├── robots.txt # Crawler instructions referencing canonical sitemap
+│ ├── sitemap.xml # Canonical XML sitemap for search engines
+│ └── site.webmanifest# PWA and mobile bookmark metadata
 └── src/
-    ├── config.ts       # Centralized configuration (VERSION, URLs, verification IDs)
-    ├── styles/
-    │   └── global.css  # Global styles, scrollbar styling, terminal blinking cursor
-    ├── layouts/
-    │   └── Layout.astro# Universal root layout (SEO meta, OpenGraph, JSON-LD, analytics)
-    ├── pages/
-    │   ├── index.astro # Home landing page assembling all section components
-    │   └── 404.astro   # Dedicated accessible 404 error page
-    └── components/
-        ├── Navbar.astro       # Responsive sticky header with mobile drawer & Escape listener
-        ├── Hero.astro         # Hero headline, CTA buttons, interactive Mockup preview
-        ├── WhyAutomate.astro  # Problem vs Solution comparison matrix
-        ├── HowItWorks.astro   # 5-stage automated provisioning pipeline
-        ├── Features.astro     # 6 engineering highlight cards
-        ├── Browsers.astro     # Multi-browser 4-engine support grid & cascade banner
-        ├── Requirements.astro # System specs table & .00 billing verification notice
-        ├── Support.astro      # Buy Me a Coffee & GCash developer appreciation cards
-        ├── FAQ.astro          # Interactive details/summary accordion questions
-        └── Footer.astro       # Legal disclaimer, developer credits, dynamic version badge`
+├── config.ts # Centralized configuration (VERSION, URLs, verification IDs)
+├── styles/
+│ └── global.css # Global styles, scrollbar styling, terminal blinking cursor
+├── layouts/
+│ └── Layout.astro# Universal root layout (SEO meta, OpenGraph, JSON-LD, analytics)
+├── pages/
+│ ├── index.astro # Home landing page assembling all section components
+│ └── 404.astro # Dedicated accessible 404 error page
+└── components/
+├── Navbar.astro # Responsive sticky header with mobile drawer & Escape listener
+├── Hero.astro # Hero headline, CTA buttons, interactive Mockup preview
+├── WhyAutomate.astro # Problem vs Solution comparison matrix
+├── HowItWorks.astro # 5-stage automated provisioning pipeline
+├── Features.astro # 6 engineering highlight cards
+├── Browsers.astro # Multi-browser 4-engine support grid & cascade banner
+├── Requirements.astro # System specs table & .00 billing verification notice
+├── Support.astro # Buy Me a Coffee & GCash developer appreciation cards
+├── FAQ.astro # Interactive details/summary accordion questions
+└── Footer.astro # Legal disclaimer, developer credits, dynamic version badge`
 
 ---
 
@@ -148,13 +147,14 @@ gemini-ai-plus-claimer-app/
 ## 5. 🔗 Release & Direct Download Architecture
 
 - **Release Tag URL**: `https://github.com/nmrisrl11/`
-gemini-ai-plus-claimer-app/releases/tag/v1.0.1`
+  gemini-ai-plus-claimer-app/releases/tag/v1.0.1`
 - **Release Archive Filename**: `Google AI Plus Portal v1.0.1 by nmrisrl11.zip`
 - **Application Binary Filename**: `Google AI Plus Portal v1.0.1.exe`
 - **Binary SHA-256 Checksum**: `803F5ACCE69119A96D667CC38FB48B8B5A7BDC2040C1E3C1EE98DEA0F8118605`
 - **Archive SHA-256 Checksum**: `487A8A9AF27C22B1B76792617014E25F0E7F6B0CA12CAB8D83168DF95AF6646C`
 - **Repository Visibility Rule**: The repository `gemini-ai-plus-claimer-app` **MUST REMAIN PUBLIC**. If set to private, any anonymous visitor clicking download will receive a GitHub `404 Not Found` error.
 - **Centralized Configuration in `js/app.js` (Single Source of Truth)**:
+
   ```javascript
   const CONFIG = {
   	VERSION: "v1.0.1",
@@ -170,8 +170,9 @@ gemini-ai-plus-claimer-app/releases/tag/v1.0.1`
   	},
   };
   ```
+
   - **Dynamic Link Wiring**: Any element with `.direct-download-link` or `.releases-link` automatically adopts these URLs on load. In static HTML, buttons use the resilient permanent fallback `https://github.com/nmrisrl11/`
-gemini-ai-plus-claimer-app/releases/latest`.
+    gemini-ai-plus-claimer-app/releases/latest`.
   - **Dynamic Version Wiring**: Any element with `.app-version-text` automatically synchronizes with `CONFIG.VERSION` on load, removing hardcoded version strings across all pages and layouts.
   - **Dynamic Schema Synchronization**: Dynamically updates `softwareVersion` and `downloadUrl` inside `<script id="app-schema">`.
   > **Safe Browsing & Trust Design**: Download buttons route transparently to official GitHub Releases instead of direct binary streams, ensuring automated security crawlers verify the open-source hosting origin.
@@ -182,6 +183,7 @@ gemini-ai-plus-claimer-app/releases/latest`.
 
 1. **Skip Navigation Link (SC 2.4.1)**:
    Located immediately after `<body>`:
+
    ```html
    <a
    	href="#main-content"
@@ -190,14 +192,17 @@ gemini-ai-plus-claimer-app/releases/latest`.
    	Skip to main content
    </a>
    ```
+
    `<main id="main-content" tabindex="-1">` is programmatically focusable.
 2. **Decorative SVGs (SC 1.1.1)**:
    All 26 decorative SVGs contain `aria-hidden="true" focusable="false"`.
 3. **Screen Reader Live Announcer (SC 4.1.3)**:
    An assertive/polite live region exists before `</body>`:
+
    ```html
    <div id="a11y-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
    ```
+
    When `copySnippet()` runs, it populates this div to announce clipboard updates to blind users.
 4. **Reduced Motion (SC 2.3.3 & 2.2.2)**:
    In `css/style.css`, `@media (prefers-reduced-motion: reduce)` disables smooth scrolling and animations for vestibular accessibility.
@@ -274,6 +279,7 @@ When working on this repository:
 
 1. **Prettier Formatting is Mandatory**:
    Always run Prettier before committing:
+
    ```bash
    npx prettier --write .
    ```
