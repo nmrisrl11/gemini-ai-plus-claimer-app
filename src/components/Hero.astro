@@ -62,7 +62,7 @@ import { CONFIG } from "../config";
 					href={CONFIG.LATEST_RELEASE_URL}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="direct-download-link w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm sm:text-base transition-all duration-150 border border-sky-400/30 shadow-lg shadow-sky-950/40"
+					class="direct-download-link w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-semibold text-sm sm:text-base transition-all duration-150 border border-sky-500/30 shadow-lg shadow-sky-950/40 focus:outline-none focus:ring-2 focus:ring-sky-400"
 				>
 					<!-- Windows Logo SVG -->
 					<svg
@@ -189,7 +189,8 @@ import { CONFIG } from "../config";
 						</span>
 					</div>
 					<div
-						class="flex items-center gap-3 sm:gap-4 shrink-0 text-slate-400 text-xs font-mono pr-1"
+						class="flex items-center gap-3 sm:gap-4 shrink-0 text-slate-300 text-xs font-mono pr-1"
+						aria-hidden="true"
 					>
 						<span class="hover:text-white cursor-default select-none">&#9472;</span>
 						<span class="hover:text-white cursor-default select-none text-[11px]">&#9633;</span>
@@ -288,7 +289,7 @@ import { CONFIG } from "../config";
 					<div class="flex flex-wrap items-center justify-between gap-3 pt-0.5">
 						<div class="flex flex-wrap items-center gap-2.5 sm:gap-3">
 							<span
-								class="inline-flex items-center px-4 py-2.5 rounded-lg bg-sky-600 text-white font-bold text-xs shadow-sm"
+								class="inline-flex items-center px-4 py-2.5 rounded-lg bg-sky-700 text-white font-semibold text-xs shadow-sm"
 							>
 								Get 1-Year Access Link
 							</span>
@@ -383,18 +384,18 @@ import { CONFIG } from "../config";
 
 				<!-- In-App Desktop Window Footer -->
 				<div
-					class="px-4 sm:px-6 py-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-500"
+					class="px-4 sm:px-6 py-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400"
 				>
 					<div
 						class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap"
 					>
-						<span>Developed by <span class="text-slate-400">@nmrisrl11</span></span>
+						<span>Developed by <span class="text-slate-300 font-medium">@nmrisrl11</span></span>
 						<span>&bull;</span>
-						<a href={CONFIG.REPO_URL} class="hover:text-slate-300 transition-colors">About</a>
+						<a href={CONFIG.REPO_URL} class="text-slate-400 hover:text-slate-200 transition-colors">About</a>
 						<span>&bull;</span>
-						<a href={CONFIG.BMC_URL} class="hover:text-amber-400 transition-colors">Buy Me a Coffee</a>
+						<a href={CONFIG.BMC_URL} class="text-slate-400 hover:text-amber-300 transition-colors">Buy Me a Coffee</a>
 					</div>
-					<span class="font-mono text-slate-500 text-[10px] shrink-0">{CONFIG.VERSION}</span>
+					<span class="font-mono text-slate-400 text-[10px] shrink-0">{CONFIG.VERSION}</span>
 				</div>
 			</div>
 			<p class="text-center text-xs text-slate-400 mt-3 font-mono">
@@ -418,7 +419,7 @@ import { CONFIG } from "../config";
 				<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
 					Gemini Advanced Access
 				</div>
-				<div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+				<div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
 					Includes 2TB Google One Storage
 				</div>
 			</div>
@@ -428,7 +429,7 @@ import { CONFIG } from "../config";
 					100% Local
 				</div>
 				<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">Zero Telemetry</div>
-				<div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+				<div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
 					No cloud relays or external logging
 				</div>
 			</div>
@@ -440,7 +441,7 @@ import { CONFIG } from "../config";
 				<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
 					System Browser Engine
 				</div>
-				<div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+				<div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
 					Attaches to installed Chrome or Edge
 				</div>
 			</div>
@@ -452,7 +453,7 @@ import { CONFIG } from "../config";
 				<div class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
 					Canonical Link Grab
 				</div>
-				<div class="text-[10px] sm:text-[11px] text-slate-500 mt-0.5">
+				<div class="text-[10px] sm:text-[11px] text-slate-400 mt-0.5">
 					Auto-saved to local results folder
 				</div>
 			</div>
