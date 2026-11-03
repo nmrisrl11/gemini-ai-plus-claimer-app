@@ -16,13 +16,19 @@ const prefix = isHome ? "" : "/";
 
 <header
 	role="banner"
-	class="sticky top-0 z-50 backdrop-blur-md bg-slate-950/85 border-b border-slate-800/80 transition-colors"
+	id="site-header"
+	class="sticky top-0 z-50 w-full pointer-events-none flex flex-col items-center px-3 sm:px-6 transition-all duration-300 ease-out"
+	data-scrolled="false"
 >
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
-		<!-- App Brand & Logo -->
+	<div
+		id="navbar-container"
+		class="pointer-events-auto w-full max-w-7xl h-16 flex items-center justify-between transition-all duration-300 ease-out"
+	>
+		<!-- App Brand & Logo (tight 8px inset) -->
 		<a href="/" class="flex items-center gap-2.5 sm:gap-3 group shrink-0">
 			<div
-				class="relative w-8 h-8 sm:w-9 sm:h-9 rounded-lg overflow-hidden bg-slate-900 border border-slate-700/80 p-1 flex items-center justify-center transition-transform group-hover:scale-105"
+				id="brand-logo-box"
+				class="relative w-9 h-9 overflow-hidden bg-slate-900 border border-slate-700/80 p-1 flex items-center justify-center transition-transform group-hover:scale-105 shrink-0"
 			>
 				<img
 					src="/images/app_icon.png"
@@ -37,19 +43,23 @@ const prefix = isHome ? "" : "/";
 			</div>
 			<div class="flex flex-col">
 				<span
-					class="font-bold text-sm sm:text-base text-slate-50 tracking-tight group-hover:text-sky-300 transition-colors"
+					class="font-bold text-sm sm:text-base text-slate-50 tracking-tight group-hover:text-sky-300 transition-colors whitespace-nowrap"
 				>
 					Google AI Plus Portal
 				</span>
-				<span class="text-[10px] sm:text-[11px] text-slate-400 hidden xl:block"
-					>1-Year Access Automation Utility</span
+				<span
+					id="brand-subtitle"
+					class="text-[10px] sm:text-[11px] text-slate-400 hidden xl:block transition-all duration-200"
 				>
+					1-Year Access Automation Utility
+				</span>
 			</div>
 		</a>
 
-		<!-- Desktop Segmented Control Nav with Dynamic Map -->
+		<!-- Desktop Segmented Control Nav (symmetrically glides to edge) -->
 		<nav
-			class="hidden lg:flex items-center p-1 rounded-xl bg-slate-900/90 border border-slate-800 shadow-inner"
+			id="desktop-nav"
+			class="hidden lg:flex items-center p-1 bg-slate-950/70 border border-slate-800/90 shadow-inner"
 			aria-label="Main Navigation"
 		>
 			<div class="flex items-center gap-1" id="nav-segmented-track">
@@ -58,7 +68,7 @@ const prefix = isHome ? "" : "/";
 						<a
 							href={`${prefix}${item.href}`}
 							data-section={item.section}
-							class="nav-tab px-3.5 py-1.5 text-xs font-medium rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
+							class="nav-tab px-3 py-1.5 text-xs font-medium text-slate-400 hover:text-slate-200 hover:bg-slate-800/50 border border-transparent transition-all duration-150"
 						>
 							{item.label}
 						</a>
@@ -67,24 +77,27 @@ const prefix = isHome ? "" : "/";
 			</div>
 		</nav>
 
-		<!-- Right Actions: GitHub + Support Dev + Download CTA + Mobile Hamburger -->
-		<div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+		<!-- Desktop Right Actions: GitHub + Support Dev + Download CTA (pops off on scroll) -->
+		<div
+			id="nav-desktop-actions"
+			class="hidden lg:flex items-center gap-2 sm:gap-2.5 shrink-0 transition-all duration-300 ease-out"
+		>
 			<!-- GitHub Repository Link -->
 			<a
 				href={CONFIG.REPO_URL}
 				target="_blank"
 				rel="noopener noreferrer"
 				aria-label="GitHub Repository"
-				class="hidden md:inline-flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
+				class="inline-flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
 			>
 				<GithubIcon class="w-4 h-4" />
-				<span class="hidden lg:inline">GitHub</span>
+				<span>GitHub</span>
 			</a>
 
 			<!-- Support Dev Link -->
 			<a
 				href={`${prefix}#support`}
-				class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
+				class="inline-flex items-center gap-1.5 px-2.5 py-2 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-xs font-medium transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
 			>
 				<HeartIcon class="w-3.5 h-3.5 text-rose-500 fill-current" />
 				<span class="hidden xl:inline">Support</span>
@@ -95,31 +108,31 @@ const prefix = isHome ? "" : "/";
 				href={CONFIG.LATEST_RELEASE_URL}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="direct-download-link hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-sky-700 hover:bg-sky-600 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-sm transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
+				class="direct-download-link inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-sky-700 hover:bg-sky-600 text-white text-xs sm:text-sm font-semibold tracking-wide shadow-sm transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-sky-400"
 			>
 				<DownloadIcon class="w-4 h-4" />
 				<span>Download</span>
 			</a>
-
-			<!-- Mobile Menu Toggle Button (visible below lg) -->
-			<button
-				id="mobile-menu-btn"
-				type="button"
-				aria-label="Toggle navigation menu"
-				aria-expanded="false"
-				aria-controls="mobile-menu"
-				class="lg:hidden inline-flex items-center justify-center p-2.5 min-h-[44px] min-w-[44px] rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 border border-slate-700/80 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400"
-			>
-				<MenuIcon id="menu-icon-bars" class="w-5 h-5 block" />
-				<XIcon id="menu-icon-close" class="w-5 h-5 hidden" />
-			</button>
 		</div>
+
+		<!-- Mobile Menu Toggle Button (symmetrical 8px inset, always accessible) -->
+		<button
+			id="mobile-menu-btn"
+			type="button"
+			aria-label="Toggle navigation menu"
+			aria-expanded="false"
+			aria-controls="mobile-menu"
+			class="lg:hidden inline-flex items-center justify-center size-9 min-h-[36px] min-w-[36px] text-slate-300 hover:text-white bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400 shrink-0"
+		>
+			<MenuIcon id="menu-icon-bars" class="w-5 h-5 block" />
+			<XIcon id="menu-icon-close" class="w-5 h-5 hidden" />
+		</button>
 	</div>
 
-	<!-- Mobile Navigation Drawer / Dropdown with Dynamic Map -->
+	<!-- Mobile Navigation Drawer (vertically stacked directly below navbar) -->
 	<div
 		id="mobile-menu"
-		class="hidden lg:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-lg px-4 pt-3 pb-5 space-y-2 transition-all duration-200"
+		class="hidden lg:hidden w-full max-w-7xl mx-auto p-4 space-y-2 pointer-events-auto transition-all duration-200"
 	>
 		<nav
 			class="flex flex-col space-y-1 text-sm font-medium text-slate-200"
@@ -129,7 +142,7 @@ const prefix = isHome ? "" : "/";
 				NAV_ITEMS.map((item) => (
 					<a
 						href={`${prefix}${item.href}`}
-						class="mobile-nav-link block px-3 py-2.5 rounded-lg hover:bg-slate-900 hover:text-sky-400 transition-colors"
+						class="mobile-nav-link block px-3 py-2.5 hover:bg-slate-900 hover:text-sky-400 transition-colors"
 					>
 						{item.label}
 					</a>
@@ -141,7 +154,7 @@ const prefix = isHome ? "" : "/";
 						href={item.external ? item.href : `${prefix}${item.href}`}
 						target={item.external ? "_blank" : undefined}
 						rel={item.external ? "noopener noreferrer" : undefined}
-						class="mobile-nav-link block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-slate-900 hover:text-white transition-colors"
+						class="mobile-nav-link block px-3 py-2.5 text-slate-200 hover:bg-slate-900 hover:text-white transition-colors"
 					>
 						{item.label}
 					</a>
@@ -154,7 +167,7 @@ const prefix = isHome ? "" : "/";
 				href={CONFIG.LATEST_RELEASE_URL}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="direct-download-link mobile-nav-link w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-semibold text-sm shadow transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400"
+				class="direct-download-link mobile-nav-link w-full flex items-center justify-center gap-2 px-4 py-3 bg-sky-700 hover:bg-sky-600 text-white font-semibold text-sm shadow transition-colors focus:outline-none focus:ring-2 focus:ring-sky-400"
 			>
 				<WindowsIcon class="w-4 h-4" />
 				<span>Download Portable App</span>
@@ -162,6 +175,146 @@ const prefix = isHome ? "" : "/";
 		</div>
 	</div>
 </header>
+
+<style>
+	/* Header outer wrapper */
+	#site-header {
+		padding-top: 0.5rem;
+		padding-bottom: 0.25rem;
+		transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	#site-header[data-scrolled="true"] {
+		padding-top: 0.75rem;
+		padding-bottom: 0.25rem;
+	}
+
+	/*
+	 * Symmetrical Insets & Concentric Radius Formula:
+	 * R_outer = 20px
+	 * Inset = 8px (0.5rem)
+	 * R_inner = R_outer - Inset = 20px - 8px = 12px
+	 */
+	#navbar-container {
+		border-radius: 20px;
+		background-color: rgba(9, 13, 22, 0.85);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		border: 1px solid rgba(51, 65, 85, 0.65);
+		box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+		padding-left: 0.5rem;  /* exact 8px inset */
+		padding-right: 0.5rem; /* exact 8px inset */
+		transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+			height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+			padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+			background-color 0.3s ease-out,
+			border-color 0.3s ease-out,
+			box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+	}
+
+	/* Scrolled State: Symmetrical compact pill (max-w-3xl = 768px) */
+	#site-header[data-scrolled="true"] #navbar-container {
+		max-width: 48rem; /* 768px: perfectly proportional, no dead space */
+		height: 3.5rem;   /* 56px */
+		background-color: rgba(15, 23, 42, 0.94);
+		backdrop-filter: blur(18px);
+		-webkit-backdrop-filter: blur(18px);
+		border-color: rgba(51, 65, 85, 0.88);
+		box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+		padding-left: 0.5rem;  /* exact 8px inset */
+		padding-right: 0.5rem; /* exact 8px inset */
+	}
+
+	/* Brand logo box: R_logo = 20px - 8px = 12px */
+	#brand-logo-box {
+		border-radius: 12px;
+	}
+
+	/* Subtitle smoothly collapses */
+	#brand-subtitle {
+		transition: opacity 0.2s ease-out, max-height 0.25s ease-out;
+	}
+
+	#site-header[data-scrolled="true"] #brand-subtitle {
+		opacity: 0;
+		max-height: 0;
+		overflow: hidden;
+	}
+
+	/* Segmented Nav Track: R_track = 20px - 8px = 12px */
+	#desktop-nav {
+		border-radius: 12px;
+		transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+			margin 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+			background-color 0.2s ease-out;
+	}
+
+	/* Nav glides cleanly all the way to the right edge with matching 8px inset */
+	#site-header[data-scrolled="true"] #desktop-nav {
+		margin-left: auto;
+	}
+
+	/* Nav Tab Buttons: R_tab = 12px - 4px = 8px */
+	.nav-tab {
+		border-radius: 8px;
+	}
+
+	/* Desktop Right Actions: pop off / collapse smoothly */
+	#nav-desktop-actions {
+		transition: opacity 0.2s ease-out,
+			transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+			max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+			margin 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+		max-width: 380px;
+	}
+
+	#site-header[data-scrolled="true"] #nav-desktop-actions {
+		opacity: 0;
+		transform: scale(0.92) translateX(10px);
+		max-width: 0;
+		margin: 0;
+		padding: 0;
+		pointer-events: none;
+		overflow: hidden;
+	}
+
+	/* Mobile Menu Button: R_button = 20px - 8px = 12px */
+	#mobile-menu-btn {
+		border-radius: 12px;
+	}
+
+	/* Mobile Menu Drawer: R_drawer = 20px, stacked directly below navbar */
+	#mobile-menu {
+		border-radius: 20px;
+		margin-top: 0.5rem;
+		border: 1px solid rgba(51, 65, 85, 0.85);
+		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+		background-color: rgba(2, 6, 23, 0.96);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+	}
+
+	#site-header[data-scrolled="true"] #mobile-menu {
+		max-width: 48rem;
+	}
+
+	/* Mobile Menu Links: R_link = 20px - 12px = 8px */
+	.mobile-nav-link {
+		border-radius: 8px;
+	}
+
+	/* Respect user preferences for reduced motion (WCAG AA) */
+	@media (prefers-reduced-motion: reduce) {
+		#site-header,
+		#navbar-container,
+		#desktop-nav,
+		#nav-desktop-actions,
+		#brand-subtitle,
+		#mobile-menu {
+			transition: none !important;
+		}
+	}
+</style>
 
 <script is:inline define:vars={{ scrollspySections: SCROLLSPY_SECTIONS }}>
 	// Mobile Drawer Navigation toggle logic
@@ -208,11 +361,11 @@ const prefix = isHome ? "" : "/";
 		});
 	}
 
-	// Scrollspy for Segmented Track (DOMContentLoaded safe, high accuracy)
-	function initScrollspy() {
+	// Scrollspy & Hysteresis Scroll State (Flicker-Free)
+	function initNavbar() {
 		const sections = scrollspySections;
 		const navTabs = document.querySelectorAll(".nav-tab");
-		if (!navTabs.length) return;
+		const siteHeader = document.getElementById("site-header");
 
 		const activeClasses = [
 			"bg-slate-800",
@@ -224,6 +377,7 @@ const prefix = isHome ? "" : "/";
 		const inactiveClasses = ["text-slate-400", "font-medium", "border-transparent"];
 
 		function setActiveTab(activeKey) {
+			if (!navTabs.length) return;
 			navTabs.forEach((tab) => {
 				const target = tab.getAttribute("data-section");
 				if (target === activeKey) {
@@ -246,11 +400,30 @@ const prefix = isHome ? "" : "/";
 			});
 		});
 
+		// Hysteresis threshold to eliminate chatter/flicker at the boundary
+		let isScrolled = false;
+		const SCROLL_ACTIVATE_PX = 50;  // Enter scrolled state after 50px
+		const SCROLL_DEACTIVATE_PX = 20; // Return to top state only when above 20px
+
 		let isTicking = false;
 		function updateOnScroll() {
 			const scrollY = window.scrollY;
 			const viewportHeight = window.innerHeight;
 			const docHeight = document.documentElement.scrollHeight;
+
+			// 1. Flicker-Free Hysteresis Scroll State
+			if (siteHeader) {
+				if (!isScrolled && scrollY > SCROLL_ACTIVATE_PX) {
+					isScrolled = true;
+					siteHeader.setAttribute("data-scrolled", "true");
+				} else if (isScrolled && scrollY < SCROLL_DEACTIVATE_PX) {
+					isScrolled = false;
+					siteHeader.setAttribute("data-scrolled", "false");
+				}
+			}
+
+			// 2. Scrollspy Section Highlight
+			if (!navTabs.length) return;
 
 			// If reached the very bottom of the page, highlight FAQ
 			if (scrollY + viewportHeight >= docHeight - 80) {
@@ -302,8 +475,8 @@ const prefix = isHome ? "" : "/";
 	}
 
 	if (document.readyState === "loading") {
-		document.addEventListener("DOMContentLoaded", initScrollspy);
+		document.addEventListener("DOMContentLoaded", initNavbar);
 	} else {
-		initScrollspy();
+		initNavbar();
 	}
 </script>
