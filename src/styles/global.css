@@ -98,17 +98,9 @@ section[id] {
 	user-select: none;
 }
 
-/* FAQ accordion custom animation */
+/* FAQ accordion summary marker reset */
 details summary::-webkit-details-marker {
 	display: none;
-}
-
-details summary svg.faq-chevron {
-	transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-details[open] summary svg.faq-chevron {
-	transform: rotate(180deg);
 }
 
 /* WCAG 2.2 / 2.3.3: Respect user reduced motion preferences */
