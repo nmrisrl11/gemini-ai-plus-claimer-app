@@ -1,21 +1,35 @@
 {
+	"id": "/",
 	"name": "Google AI Plus Portal",
 	"short_name": "AI Plus Portal",
 	"description": "Automated 1-Year Google AI Plus & Gemini Advanced Access Utility",
+	"lang": "en",
+	"dir": "ltr",
 	"start_url": "/",
+	"scope": "/",
 	"display": "standalone",
+	"orientation": "any",
 	"background_color": "#090d16",
 	"theme_color": "#090d16",
+	"categories": ["utilities", "productivity"],
 	"icons": [
 		{
-			"src": "/images/app_icon.png",
+			"src": "/images/app_icon_192.png",
 			"sizes": "192x192",
-			"type": "image/png"
+			"type": "image/png",
+			"purpose": "any"
 		},
 		{
 			"src": "/images/app_icon.png",
 			"sizes": "512x512",
-			"type": "image/png"
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "/images/app_icon.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "maskable"
 		}
 	]
 }
