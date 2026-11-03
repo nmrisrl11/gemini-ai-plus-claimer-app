@@ -26,13 +26,15 @@ export const COMPARISON_ROWS: ComparisonRow[] = [
 	{
 		id: "verification",
 		label: "Verification Flow",
-		manual: "Fragile sessions that frequently timeout while waiting for email confirmation tokens.",
+		manual:
+			"Fragile partner web forms that frequently timeout while waiting for incoming confirmation emails.",
 		portal: "Human-in-the-loop: Prompts cleanly only when email confirmation is needed.",
 	},
 	{
 		id: "extraction",
 		label: "Link Capture",
-		manual: "Manually copying nested query strings and dealing with expiring redirection tokens.",
+		manual:
+			"Manually copying nested URL query parameters and dealing with expiring partner redirects.",
 		portal:
 			"Resolves the official Google One offer link and archives it to your local results folder.",
 	},

@@ -15,7 +15,7 @@ export const FAQ_ITEMS: FAQItem[] = [
 		id: "01",
 		question: "How does the tool ensure privacy and local execution?",
 		answer:
-			"100% local. The application operates completely on your machine with zero outbound relays, proxy tunnels, or analytics telemetry. All session tokens, demographic records, and redemption links are archived solely in your local results/ directory.",
+			"100% local. The application operates completely on your machine with zero outbound relays, proxy tunnels, or analytics telemetry. All demographic records and resolved redemption links are saved solely to your local results/ directory.",
 	},
 	{
 		id: "02",

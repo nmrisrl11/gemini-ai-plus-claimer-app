@@ -42,8 +42,8 @@ export const PIPELINE_STEPS: PipelineStep[] = [
 		step: "04",
 		title: "Link Capture",
 		description:
-			"Captures the promotional grant, resolving nested redirect tokens to yield a clean official Google One offer link.",
-		tag: "Canonical unwrapping",
+			"Resolves the partner promotion link, following intermediate redirects to yield the clean, official Google One offer link.",
+		tag: "Canonical resolution",
 		icon: "link",
 	},
 	{

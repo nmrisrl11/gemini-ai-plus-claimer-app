@@ -46,7 +46,7 @@ export const ENGINEERING_FEATURES: FeatureItem[] = [
 		id: "canonical-extraction",
 		title: "Canonical Link Extraction",
 		description:
-			"Unwraps session tokens and authentication redirection wrappers to deliver a clean, permanent official Google One offer link that can be redeemed anytime in your browser.",
+			"Resolves partner referral routes to deliver a clean, direct official Google One offer link that can be redeemed anytime in your browser.",
 		tag: "Direct Handshake",
 		metaLabel: "Output",
 		metaValue: "Canonical URL",
