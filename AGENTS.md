@@ -132,7 +132,7 @@ gemini-ai-plus-claimer-app/
         │   ├── GithubIcon.astro
         │   └── WindowsIcon.astro
         ├── Navbar.astro       # Responsive sticky header with mobile drawer & Escape listener
-        ├── Hero.astro         # Hero headline, CTA buttons, spec ribbon, interactive Mockup preview
+        ├── Hero.astro         # Hero headline, CTA buttons, spec ribbon, desktop UI preview mockup
         ├── WhyAutomate.astro  # Problem vs Solution comparison matrix table
         ├── HowItWorks.astro   # 5-stage automated provisioning pipeline rail
         ├── Features.astro     # 6 engineering highlight cards with spec metadata
@@ -173,7 +173,7 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
 - **Spec Ribbon**: Single unified container with `divide-x divide-slate-800` displaying `Windows 10 / 11 64-bit`, `v1.0.1 Portable`, and `100% Local Execution`.
 - **Headline**: High-clarity value proposition with no hype or spam.
 - **CTAs**: Primary Sky-600 download button and secondary GitHub Repository link.
-- **Interactive Mockup**: Full visual preview of the portable desktop utility with simulated demographic form (`<span>` tags for field descriptors to prevent a11y violations), step indicator rail, and live terminal readout.
+- **Desktop UI Preview Showcase**: Full visual interface preview of the portable desktop utility with simulated demographic form (`<span>` tags for field descriptors to prevent a11y violations), step indicator rail, and live terminal readout.
 
 ### 3. Comparison Matrix (`WhyAutomate.astro` + `src/constants/why-automate.ts`)
 

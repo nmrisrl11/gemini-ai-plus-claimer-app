@@ -79,7 +79,7 @@ gemini-ai-plus-claimer-app/
     └── components/
         ├── icons/           # Bespoke brand SVG icons (GithubIcon, WindowsIcon)
         ├── Navbar.astro     # Sticky navbar, mobile drawer with Escape key listener, CTA
-        ├── Hero.astro       # Headline, spec ribbon, CTAs, interactive Mockup preview
+        ├── Hero.astro       # Headline, spec ribbon, CTAs, desktop UI preview mockup
         ├── WhyAutomate.astro# Comparison matrix (Manual Educational Gateway vs Automated Flow)
         ├── HowItWorks.astro # 5-stage automated provisioning pipeline rail
         ├── Features.astro   # 6 engineering cards (multi-browser cascade, F12 diagnostics, etc.)
