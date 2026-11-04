@@ -88,6 +88,16 @@ export function initNavbar(): void {
 		});
 	});
 
+	// Smooth Back to Top handler
+	const backToTopBtn = document.getElementById("back-to-top");
+	if (backToTopBtn) {
+		backToTopBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			window.scrollTo({ top: 0, behavior: "smooth" });
+			setActiveTab("");
+		});
+	}
+
 	// Hysteresis threshold to eliminate chatter/flicker at the boundary
 	let isScrolled = false;
 	const SCROLL_ACTIVATE_PX = 50; // Enter scrolled state after 50px
