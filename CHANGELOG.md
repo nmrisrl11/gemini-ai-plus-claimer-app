@@ -7,16 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.1] - 2026-11-03
+## [1.0.1] - 2026-11-05
 
 ### Added
 
+- **Modular Component Architecture & Decoupling**:
+  - Renamed `AGENT.md` to `AGENTS.md` following standard AI agent documentation conventions and updated all cross-repository references.
+  - Decoupled `Navbar.astro` styles into a dedicated stylesheet `src/styles/navbar.css` injected into `src/styles/global.css` via `@import "./navbar.css";`, natively bundled by Tailwind CSS v4 and Vite.
+  - Extracted client-side interactive navbar logic into an independent TypeScript module `src/scripts/navbar.ts`, transpiled and minified via `<script src="../scripts/navbar.ts"></script>`.
+  - Reduced `Navbar.astro` template footprint from 488 lines down to 178 lines of clean semantic markup.
 - **Dynamic Scroll-Responsive Pill Navbar**:
   - Implemented dynamic shrinking floating pill navbar on scroll with hysteresis deadband (`SCROLL_ACTIVATE_PX = 50`, `SCROLL_DEACTIVATE_PX = 20`) eliminating threshold chatter and visual flicker.
   - Engineered smooth gliding animation for the segmented nav track to the right side of the pill while desktop actions collapse (`opacity-0 scale-92 max-w-0`).
   - Applied the concentric nested corner radius formula ($R_{\text{inner}} = R_{\text{outer}} - \text{Inset}$) with $R_{\text{outer}} = 20\text{px}$, $8\text{px}$ insets, and $R_{\text{inner}} = 12\text{px}$ across logo box, nav track, and mobile menu button for symmetrical edge alignment.
 - **Comprehensive Tech Stack & Tooling Architecture Documentation**:
-  - Added dedicated tech stack matrices and architectural rationale in `README.md` and `AGENT.md` covering Astro 5, Tailwind CSS v4 (@tailwindcss/vite), Biome 2.6.4, Lucide Icons (@lucide/astro), TypeScript, and Vercel edge delivery.
+  - Added dedicated tech stack matrices and architectural rationale in `README.md` and `AGENTS.md` covering Astro 5, Tailwind CSS v4 (@tailwindcss/vite), Biome 2.6.4, Lucide Icons (@lucide/astro), TypeScript, and Vercel edge delivery.
 - **Lucide Icon System Migration**:
   - Migrated entire iconography footprint from inline SVGs to `@lucide/astro`, adhering to strict `*Icon` import aliasing.
   - Created bespoke brand vector components in `src/components/icons/` (`GithubIcon.astro`, `WindowsIcon.astro`).
@@ -35,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Full-Width Focus Outline on Escape & Mobile Tap**: Resolved an issue where pressing <kbd>Esc</kbd> or tapping on mobile caused a 2px horizontal sky-blue line across the top of `<main>` by scoping `:focus-visible` strictly to interactive elements (`a`, `button`, `input`, etc.) and explicitly resetting outlines on container landmarks (`main`, `#main-content`, `header`, `#site-header`, `body`, `html`, `[tabindex="-1"]`).
+- **Mobile Viewport Zooming on Hamburger Toggle**: Fixed unintended page zooming when tapping the mobile menu open/close button by adding `touch-action: manipulation;` across all interactive elements, setting `font-size: 16px` on `#mobile-menu-btn` to prevent iOS Safari auto-focus zooming, and locking mobile viewport scaling via `<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />`.
 - **Mobile Menu Horizontal Layout Bug**: Resolved layout issue where the mobile navigation drawer rendered side-by-side with the navbar by adding `flex-col items-center` to `<header>`, ensuring clean vertical stacking.
 - **FAQ Chevron Double-Rotation Bug**: Fixed 360° rotation issue where `<details>` chevron rotated back to pointing down upon opening due to stacked rotation CSS rules.
 - **Accessibility & Form Field Audit**: Replaced 5 decorative `<label>` tags with `<span>` in `Hero.astro` desktop application preview mockup, resolving Chrome DevTools _"No label associated with a form field"_ errors.

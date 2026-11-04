@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./navbar.css";
 
 @theme {
 	--font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -50,10 +51,51 @@ section[id] {
 	background: #334155;
 }
 
-/* Subtle hairline focus ring */
-*:focus-visible {
+/* Prevent unwanted double-tap zoom gestures on touch devices while preserving smooth panning */
+html,
+body,
+button,
+a,
+input,
+select,
+textarea,
+[role="button"] {
+	touch-action: manipulation;
+}
+
+/* Subtle hairline focus ring for interactive elements only (WCAG 2.4.7 Focus Visible) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible,
+[role="button"]:focus-visible,
+[role="tab"]:focus-visible,
+[role="link"]:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
 	outline: 2px solid #38bdf8;
 	outline-offset: 2px;
+}
+
+/* Container elements, landmarks and programmatic focus targets must never display focus outlines */
+:focus:not(:focus-visible),
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible,
+main:focus,
+main:focus-visible,
+#main-content:focus,
+#main-content:focus-visible,
+header:focus,
+header:focus-visible,
+#site-header:focus,
+#site-header:focus-visible,
+body:focus,
+body:focus-visible,
+html:focus,
+html:focus-visible {
+	outline: none;
+	box-shadow: none;
 }
 
 /* Hide horizontal scrollbar for touch tab scrolling */

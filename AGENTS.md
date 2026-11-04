@@ -1,4 +1,4 @@
-# AGENT.md — Project Blueprint & AI Context Handoff
+# AGENTS.md — Project Blueprint & AI Context Handoff
 
 > **For Future AI Agents & Developers**:  
 > This file is the primary context and architectural blueprint for the **Google AI Plus Portal** landing page and distribution hub (`gemini-ai-plus-claimer-app`). Read this document first before writing code, modifying layout, updating links, or making releases.
@@ -92,7 +92,7 @@ gemini-ai-plus-claimer-app/
 ├── package.json               # Project metadata, dependencies (@lucide/astro, @tailwindcss/vite), build & lint scripts
 ├── package-lock.json          # Deterministic dependency lockfile
 ├── vercel.json                # Vercel deployment configuration (framework: astro, output: dist)
-├── AGENT.md                   # You are here: comprehensive AI agent context and architecture
+├── AGENTS.md                  # You are here: comprehensive AI agent context and architecture
 ├── README.md                  # User-facing repository overview, quickstart, and binary checksums
 ├── CHANGELOG.md               # Semantic Versioning change log (Keep a Changelog format)
 ├── .gitignore                 # Git exclusion rules (ignores node_modules, dist, .astro, .vercel, .env)
@@ -107,7 +107,10 @@ gemini-ai-plus-claimer-app/
 └── src/
     ├── config.ts              # Centralized configuration (VERSION, URLs, verification IDs)
     ├── styles/
-    │   └── global.css         # Global styles, scrollbar styling, terminal blinking cursor
+    │   ├── global.css         # Global styles, scrollbar styling, terminal blinking cursor
+    │   └── navbar.css         # Dynamic floating pill navbar transitions & concentric radii
+    ├── scripts/
+    │   └── navbar.ts          # Interactive navbar controller (drawer toggle, hysteresis, scrollspy)
     ├── layouts/
     │   └── Layout.astro       # Universal root layout (SEO meta, OpenGraph, JSON-LD, analytics)
     ├── pages/
@@ -148,6 +151,9 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
 
 ### 1. Header & Navigation (`Navbar.astro`)
 
+- **Architecture & Modularity**:
+  - **Decoupled Component Stylesheet (`src/styles/navbar.css`)**: Dynamic scroll transformations, concentric corner radii, and mobile drawer styles live in `src/styles/navbar.css`, injected into `src/styles/global.css` via `@import "./navbar.css";` and bundled natively by Tailwind CSS v4 and Vite.
+  - **Decoupled Client Controller (`src/scripts/navbar.ts`)**: Interactive logic (hysteresis scroll detection, active scrollspy section tracking, and mobile drawer accessibility) is encapsulated in an independent TypeScript module linked via `<script src="../scripts/navbar.ts"></script>`.
 - **Dynamic Scroll-Responsive Pill**:
   - Top State (`scrollY <= 20px`): Full `max-w-7xl` width, `h-16`, subtle border, brand subtitle visible, right actions (GitHub, Support, Download) expanded.
   - Scrolled State (`scrollY > 50px`): Contracts to `max-w-3xl` (48rem / 768px), `h-14`, elevated slate border, backdrop blur, and shadow. Desktop right actions collapse (`opacity-0 scale-92 max-w-0`), allowing the segmented nav track to smoothly glide to the right side with an exact $8\text{px}$ inset.
@@ -156,7 +162,11 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
 - **Brand Identity**: Logo tile with subtle scale transition.
 - **Desktop Navigation**: Links driven by `src/constants/navigation.ts`.
 - **Direct Download CTA**: Desktop-visible button pointing to `CONFIG.DIRECT_DOWNLOAD_URL`.
-- **Mobile Menu**: Header structured with `flex flex-col items-center` ensuring the mobile drawer vertically stacks directly below the navbar pill. Accessible `<button id="mobile-menu-btn">` with `aria-controls="mobile-menu"`, `aria-expanded="false"`, toggles mobile drawer with auto-close on navigation or <kbd>Esc</kbd>.
+- **Mobile Menu & Touch Optimization**:
+  - Header structured with `flex flex-col items-center` ensuring the mobile drawer vertically stacks directly below the navbar pill.
+  - Accessible `<button id="mobile-menu-btn">` with `aria-controls="mobile-menu"`, `aria-expanded="false"`, toggles mobile drawer with auto-close on navigation or <kbd>Esc</kbd>.
+  - `touch-action: manipulation;` and `font-size: 16px;` prevent 300ms double-tap delay, double-tap zoom gestures, and iOS Safari auto-focus zooming.
+  - Programmatic focus restoration uses `{ preventScroll: true }` to avoid viewport jumping.
 
 ### 2. Hero Section (`Hero.astro` + `src/constants/hero.ts`)
 
@@ -260,6 +270,10 @@ export const CONFIG = {
    `src/styles/global.css` includes `@media (prefers-reduced-motion: reduce)` which disables animations and smooth scrolling.
 5. **Color Contrast (SC 1.4.3)**:
    All typography against `#090d16` (slate-950) uses `#94a3b8` (slate-400, 7.58:1) or lighter, exceeding WCAG AAA requirements.
+6. **Scoped Focus Rings & Container Outline Isolation (SC 2.4.7)**:
+   Focus indicators (`outline: 2px solid #38bdf8`) are explicitly scoped to interactive elements (`a`, `button`, `input`, `select`, etc.). Container landmarks and programmatic focus targets (`main`, `header`, `body`, `html`, `[tabindex="-1"]`) strictly reset `outline: none; box-shadow: none;` to prevent viewport-spanning horizontal outline leakage when focus is restored via <kbd>Esc</kbd> or anchor skip links.
+7. **Touch Action & Zoom Prevention (SC 2.5.1 / 2.5.2)**:
+   Global `touch-action: manipulation;` disables the 300ms double-tap delay and double-tap zoom gestures. All touch targets maintain a minimum 16px equivalent font-size to prevent mobile Safari auto-focus zooming.
 
 ---
 

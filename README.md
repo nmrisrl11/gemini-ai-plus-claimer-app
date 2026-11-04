@@ -46,7 +46,7 @@ gemini-ai-plus-claimer-app/
 ├── package.json             # Build scripts (dev, build, preview, check, lint) & dependencies
 ├── vercel.json              # Vercel deployment configuration (framework: astro, output: dist)
 ├── README.md                # Project documentation and deployment guide
-├── AGENT.md                 # Architectural blueprint and AI context handoff
+├── AGENTS.md                # Architectural blueprint and AI context handoff
 ├── CHANGELOG.md             # Comprehensive version history & release changelog
 ├── .gitignore               # Git exclusion rules
 ├── public/                  # Static assets served untouched at root
@@ -56,7 +56,11 @@ gemini-ai-plus-claimer-app/
 │   └── site.webmanifest     # Mobile bookmark & PWA manifest
 └── src/
     ├── config.ts            # Centralized VERSION, GitHub links, developer URLs, verification ID
-    ├── styles/global.css    # Clean scrollbars, stable gutter, blinking terminal cursor
+    ├── styles/
+    │   ├── global.css       # Clean scrollbars, stable gutter, blinking terminal cursor
+    │   └── navbar.css       # Dynamic floating pill navbar transitions & concentric radii
+    ├── scripts/
+    │   └── navbar.ts        # Interactive navbar controller (drawer toggle, hysteresis, scrollspy)
     ├── layouts/Layout.astro # Universal layout (SEO, OpenGraph, dynamic Schema.org JSON-LD, analytics)
     ├── pages/
     │   ├── index.astro      # Assembles all sections inside Layout
@@ -93,6 +97,8 @@ gemini-ai-plus-claimer-app/
 ### 1. Modern De-Slopped Design System & Typed Constants Architecture
 
 - **Dynamic Scroll-Responsive Pill Navbar**: Symmetrically aligned floating navbar that contracts into an elevated dock on scroll with concentric nested corner radii ($R_{\text{outer}} = 20\text{px}$, $R_{\text{inner}} = 12\text{px}$), smoothly gliding navigation tabs to the edge with tight $8\text{px}$ insets while desktop actions collapse without flicker.
+- **Decoupled Component Architecture**: Component styling and client interactivity are cleanly isolated into dedicated stylesheets (`src/styles/navbar.css`) and modular TypeScript scripts (`src/scripts/navbar.ts`), eliminating inline code bloat and leveraging Vite's compilation and minification pipeline.
+- **Mobile Touch & Viewport Precision**: Configured `touch-action: manipulation;` and 16px minimum touch targets across all interactive buttons, completely preventing 300ms double-tap delays and unwanted iOS Safari focus zoom gestures.
 - **Lucide Icon Integration**: Powered by `@lucide/astro` with uniform stroke widths and accessible SVG labeling across all UI components.
 - **Separation of Concerns**: 100% of landing page copy, specifications, and pipeline stages are decoupled into typed TypeScript constants in `src/constants/` (_kebab-case_).
 - **Restrained Dark Theme**: Minimalist dark slate palette (`#090d16`) with subtle `slate-800` borders, eliminating noisy gradients and badge spam.
