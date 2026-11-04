@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Google AI Plus Portal — Navbar Component Stylesheet
+   Floating pill transition, concentric border radius, and hysteresis states
+   ========================================================================== */
+
+/* Header outer wrapper */
+#site-header {
+	padding-top: 0.5rem;
+	padding-bottom: 0.25rem;
+	transition: padding 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#site-header[data-scrolled="true"] {
+	padding-top: 0.75rem;
+	padding-bottom: 0.25rem;
+}
+
+/*
+ * Symmetrical Insets & Concentric Radius Formula:
+ * R_outer = 20px
+ * Inset = 8px (0.5rem)
+ * R_inner = R_outer - Inset = 20px - 8px = 12px
+ */
+#navbar-container {
+	border-radius: 20px;
+	background-color: rgba(9, 13, 22, 0.85);
+	backdrop-filter: blur(14px);
+	-webkit-backdrop-filter: blur(14px);
+	border: 1px solid rgba(51, 65, 85, 0.65);
+	box-shadow:
+		0 4px 6px -1px rgba(0, 0, 0, 0.25),
+		0 2px 4px -2px rgba(0, 0, 0, 0.2);
+	padding-left: 0.5rem; /* exact 8px inset */
+	padding-right: 0.5rem; /* exact 8px inset */
+	transition:
+		max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+		height 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+		padding 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+		background-color 0.3s ease-out,
+		border-color 0.3s ease-out,
+		box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Scrolled State: Symmetrical compact pill (max-w-3xl = 768px) */
+#site-header[data-scrolled="true"] #navbar-container {
+	max-width: 48rem; /* 768px: perfectly proportional, no dead space */
+	height: 3.5rem; /* 56px */
+	background-color: rgba(15, 23, 42, 0.94);
+	backdrop-filter: blur(18px);
+	-webkit-backdrop-filter: blur(18px);
+	border-color: rgba(51, 65, 85, 0.88);
+	box-shadow:
+		0 20px 25px -5px rgba(0, 0, 0, 0.5),
+		0 8px 10px -6px rgba(0, 0, 0, 0.5),
+		0 0 0 1px rgba(255, 255, 255, 0.05);
+	padding-left: 0.5rem; /* exact 8px inset */
+	padding-right: 0.5rem; /* exact 8px inset */
+}
+
+/* Brand logo box: R_logo = 20px - 8px = 12px */
+#brand-logo-box {
+	border-radius: 12px;
+}
+
+/* Subtitle smoothly collapses */
+#brand-subtitle {
+	transition:
+		opacity 0.2s ease-out,
+		max-height 0.25s ease-out;
+}
+
+#site-header[data-scrolled="true"] #brand-subtitle {
+	opacity: 0;
+	max-height: 0;
+	overflow: hidden;
+}
+
+/* Segmented Nav Track: R_track = 20px - 8px = 12px */
+#desktop-nav {
+	border-radius: 12px;
+	transition:
+		transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+		margin 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+		background-color 0.2s ease-out;
+}
+
+/* Nav glides cleanly all the way to the right edge with matching 8px inset */
+#site-header[data-scrolled="true"] #desktop-nav {
+	margin-left: auto;
+}
+
+/* Nav Tab Buttons: R_tab = 12px - 4px = 8px */
+.nav-tab {
+	border-radius: 8px;
+}
+
+/* Desktop Right Actions: pop off / collapse smoothly */
+#nav-desktop-actions {
+	transition:
+		opacity 0.2s ease-out,
+		transform 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+		max-width 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+		margin 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+	max-width: 380px;
+}
+
+#site-header[data-scrolled="true"] #nav-desktop-actions {
+	opacity: 0;
+	transform: scale(0.92) translateX(10px);
+	max-width: 0;
+	margin: 0;
+	padding: 0;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+/* Mobile Menu Button: R_button = 20px - 8px = 12px */
+#mobile-menu-btn {
+	border-radius: 12px;
+	touch-action: manipulation;
+	font-size: 16px;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile Menu Drawer: R_drawer = 20px, stacked directly below navbar */
+#mobile-menu {
+	border-radius: 20px;
+	margin-top: 0.5rem;
+	border: 1px solid rgba(51, 65, 85, 0.85);
+	box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
+	background-color: rgba(2, 6, 23, 0.96);
+	backdrop-filter: blur(16px);
+	-webkit-backdrop-filter: blur(16px);
+}
+
+#site-header[data-scrolled="true"] #mobile-menu {
+	max-width: 48rem;
+}
+
+/* Mobile Menu Links: R_link = 20px - 12px = 8px */
+.mobile-nav-link {
+	border-radius: 8px;
+	touch-action: manipulation;
+	-webkit-tap-highlight-color: transparent;
+}
+
+/* Respect user preferences for reduced motion (WCAG AA) */
+@media (prefers-reduced-motion: reduce) {
+	#site-header,
+	#navbar-container,
+	#desktop-nav,
+	#nav-desktop-actions,
+	#brand-subtitle,
+	#mobile-menu {
+		transition: none;
+	}
+}
