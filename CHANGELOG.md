@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Pre-Footer Retro WebGL Bayer Dither Call To Action (`DitherCta.astro`)**:
+  - Engineered a high-conversion call-to-action closing section positioned right after `<FAQ />` and before `<Footer />`.
+  - Built a zero-dependency WebGL shader component (`src/scripts/dither-canvas.ts`) inspired by `dithercn.dev`, generating a retro-futuristic 4x4 Bayer matrix ordered halftone dither halo in electric cyan (`#38bdf8`) against deep dark slate (`#090d16`).
+  - Implemented an `IntersectionObserver` render loop that automatically pauses `requestAnimationFrame` when the section is offscreen, ensuring 0% idle CPU and GPU usage elsewhere on the page.
+  - Implemented full accessibility and reduced-motion compliance via `prefers-reduced-motion: reduce`, instantly falling back to a clean static single-frame render without background animation loops.
+  - Centered official floating application logo with smooth hovering keyframe animation (`@keyframes dither-float`), cyan halo bloom, and clean conversion copywriting and micro-guarantee pills backed by centralized constants (`src/constants/dither-cta.ts`).
 - **Modular Component Architecture & Decoupling**:
   - Renamed `AGENT.md` to `AGENTS.md` following standard AI agent documentation conventions and updated all cross-repository references.
   - Decoupled `Navbar.astro` styles into a dedicated stylesheet `src/styles/navbar.css` injected into `src/styles/global.css` via `@import "./navbar.css";`, natively bundled by Tailwind CSS v4 and Vite.

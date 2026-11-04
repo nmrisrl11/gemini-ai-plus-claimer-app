@@ -110,6 +110,7 @@ gemini-ai-plus-claimer-app/
     │   ├── global.css         # Global styles, scrollbar styling, terminal blinking cursor
     │   └── navbar.css         # Dynamic floating pill navbar transitions & concentric radii
     ├── scripts/
+    │   ├── dither-canvas.ts   # WebGL Bayer dither canvas background (dithercn style, 0% idle CPU via IntersectionObserver)
     │   └── navbar.ts          # Interactive navbar controller (drawer toggle, hysteresis, scrollspy)
     ├── layouts/
     │   └── Layout.astro       # Universal root layout (SEO meta, OpenGraph, JSON-LD, analytics)
@@ -118,6 +119,7 @@ gemini-ai-plus-claimer-app/
     │   └── 404.astro          # Dedicated accessible 404 error page
     ├── constants/             # Strictly typed content models (kebab-case)
     │   ├── browsers.ts        # Browser discovery tiers (T01–T04), engine details, cascade steps
+    │   ├── dither-cta.ts      # Pre-footer dither CTA section headline, copy, and guarantees
     │   ├── faq.ts             # FAQ items with markdown support & answer paragraphs
     │   ├── features.ts        # 6 engineering cards and technical specifications
     │   ├── footer.ts          # 3-column footer navigation links & developer profiles
@@ -140,6 +142,7 @@ gemini-ai-plus-claimer-app/
         ├── Requirements.astro # System specs table & $0.00 billing verification notice
         ├── Support.astro      # Unified Buy Me a Coffee & GCash developer appreciation bento
         ├── FAQ.astro          # Interactive details/summary accordion questions
+        ├── DitherCta.astro    # Retro WebGL Bayer dither CTA banner with floating official logo and primary Windows download action
         └── Footer.astro       # 3-column navigation, legal disclaimers, status badges
 ```
 
@@ -211,7 +214,20 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
 - Semantic `<details>` and `<summary>` accordions styled in a single unified container with `divide-y divide-slate-800/80`.
 - Numbered index headers (`01`, `02`, `...`) and CSS rotation on the chevron icon (`group-open:rotate-180`). Note: do not duplicate rotation in CSS classes to avoid 360° rotation bugs.
 
-### 10. Footer (`Footer.astro` + `src/constants/footer.ts`)
+### 10. Dither Call To Action (`DitherCta.astro` + `src/constants/dither-cta.ts` + `src/scripts/dither-canvas.ts`)
+
+- High-impact closing CTA section positioned between `<FAQ />` and `<Footer />`.
+- **dithercn-Inspired WebGL Bayer Dither Background**:
+  - Implements a 4x4 Bayer ordered dither matrix shader rendering a breathing cyan halo against dark slate (`#090d16`).
+  - **Zero-Dependency Native WebGL**: Runs natively in TypeScript without third-party canvas or shader runtime dependencies.
+  - **Battery & Performance Optimized**: Utilizes `IntersectionObserver` to pause animation when scrolled out of view (0% idle CPU/GPU consumption).
+  - **Full Accessibility & Reduced Motion**: Detects `prefers-reduced-motion: reduce` to render a single static frame without animation loops; canvas is marked `aria-hidden="true"` and `pointer-events-none`.
+- **Floating Brand Logo**:
+  - Centered official application icon with gentle hovering float animation (`@keyframes dither-float`) and radial cyan glow halo.
+- **Conversion Copywriting & Micro-Guarantees**:
+  - Highlights version and portable Windows requirements (`v1.0.1 Portable • Windows 10 / 11 (64-bit)`), high-visibility primary download button (`Download for Windows (64-bit)`), changelog link, and key local execution guarantee pills.
+
+### 11. Footer (`Footer.astro` + `src/constants/footer.ts`)
 
 - 3-column navigation grid: `Product`, `Resources & Code`, and `Developer & Support`.
 - Comprehensive legal disclaimer and non-affiliation notice.

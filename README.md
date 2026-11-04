@@ -60,34 +60,37 @@ gemini-ai-plus-claimer-app/
     │   ├── global.css       # Clean scrollbars, stable gutter, blinking terminal cursor
     │   └── navbar.css       # Dynamic floating pill navbar transitions & concentric radii
     ├── scripts/
-    │   └── navbar.ts        # Interactive navbar controller (drawer toggle, hysteresis, scrollspy)
-    ├── layouts/Layout.astro # Universal layout (SEO, OpenGraph, dynamic Schema.org JSON-LD, analytics)
+    │   ├── dither-canvas.ts     # WebGL Bayer dither canvas background (dithercn style, 0% idle CPU)
+    │   └── navbar.ts            # Interactive navbar controller (drawer toggle, hysteresis, scrollspy)
+    ├── layouts/Layout.astro     # Universal layout (SEO, OpenGraph, dynamic Schema.org JSON-LD, analytics)
     ├── pages/
-    │   ├── index.astro      # Assembles all sections inside Layout
-    │   └── 404.astro        # Dedicated accessible 404 error page
-    ├── constants/           # Strictly typed content models (kebab-case)
-    │   ├── browsers.ts      # Multi-browser tiers, discovery cascade sequence
-    │   ├── faq.ts           # Frequently asked questions & answers
-    │   ├── features.ts      # 6 engineering highlight cards & specs
-    │   ├── footer.ts        # 3-column navigation & developer credits
-    │   ├── hero.ts          # Hero spec ribbon, terminal logs, and mock profile data
-    │   ├── how-it-works.ts  # 5-stage automated pipeline steps
-    │   ├── navigation.ts    # Navbar navigation links & CTAs
-    │   ├── requirements.ts  # System specs & Google One verification guidelines
-    │   ├── support.ts       # Buy Me a Coffee & GCash funding details
-    │   └── why-automate.ts  # Manual vs Automated comparison matrix
+    │   ├── index.astro          # Assembles all sections inside Layout
+    │   └── 404.astro            # Dedicated accessible 404 error page
+    ├── constants/               # Strictly typed content models (kebab-case)
+    │   ├── browsers.ts          # Multi-browser tiers, discovery cascade sequence
+    │   ├── dither-cta.ts        # Pre-footer dither CTA section headline, copy, and guarantees
+    │   ├── faq.ts               # Frequently asked questions & answers
+    │   ├── features.ts          # 6 engineering highlight cards & specs
+    │   ├── footer.ts            # 3-column navigation & developer credits
+    │   ├── hero.ts              # Hero spec ribbon, terminal logs, and mock profile data
+    │   ├── how-it-works.ts      # 5-stage automated pipeline steps
+    │   ├── navigation.ts        # Navbar navigation links & CTAs
+    │   ├── requirements.ts      # System specs & Google One verification guidelines
+    │   ├── support.ts           # Buy Me a Coffee & GCash funding details
+    │   └── why-automate.ts      # Manual vs Automated comparison matrix
     └── components/
-        ├── icons/           # Bespoke brand SVG icons (GithubIcon, WindowsIcon)
-        ├── Navbar.astro     # Sticky navbar, mobile drawer with Escape key listener, CTA
-        ├── Hero.astro       # Headline, spec ribbon, CTAs, desktop UI preview mockup
-        ├── WhyAutomate.astro# Comparison matrix (Manual Educational Gateway vs Automated Flow)
-        ├── HowItWorks.astro # 5-stage automated provisioning pipeline rail
-        ├── Features.astro   # 6 engineering cards (multi-browser cascade, F12 diagnostics, etc.)
-        ├── Browsers.astro   # 4-engine browser grid (Edge, Chrome, Brave, Opera/Vivaldi)
-        ├── Requirements.astro # Split-pane specs table & $0.00 billing verification notice
-        ├── Support.astro    # Unified Buy Me a Coffee & GCash QR code bento
-        ├── FAQ.astro        # Interactive details/summary accordion
-        └── Footer.astro     # 3-column footer, legal disclaimer, status badges
+        ├── icons/               # Bespoke brand SVG icons (GithubIcon, WindowsIcon)
+        ├── Navbar.astro         # Sticky navbar, mobile drawer with Escape key listener, CTA
+        ├── Hero.astro           # Headline, spec ribbon, CTAs, desktop UI preview mockup
+        ├── WhyAutomate.astro    # Comparison matrix (Manual Educational Gateway vs Automated Flow)
+        ├── HowItWorks.astro     # 5-stage automated provisioning pipeline rail
+        ├── Features.astro       # 6 engineering cards (multi-browser cascade, F12 diagnostics, etc.)
+        ├── Browsers.astro       # 4-engine browser grid (Edge, Chrome, Brave, Opera/Vivaldi)
+        ├── Requirements.astro   # Split-pane specs table & $0.00 billing verification notice
+        ├── Support.astro        # Unified Buy Me a Coffee & GCash QR code bento
+        ├── FAQ.astro            # Interactive details/summary accordion
+        ├── DitherCta.astro      # Retro WebGL Bayer dither CTA banner with floating official logo
+        └── Footer.astro         # 3-column footer, legal disclaimer, status badges
 ```
 
 ---

@@ -1,0 +1,137 @@
+---
+import { Check as CheckIcon, ExternalLink as ExternalLinkIcon } from "@lucide/astro";
+import { CONFIG } from "../config";
+import {
+	DITHER_CTA_BADGE,
+	DITHER_CTA_DESCRIPTION,
+	DITHER_CTA_GUARANTEES,
+	DITHER_CTA_SUBTITLE,
+	DITHER_CTA_TITLE,
+} from "../constants/dither-cta";
+import WindowsIcon from "./icons/WindowsIcon.astro";
+---
+
+<!-- Retro WebGL Dither Call To Action Section -->
+<section
+	id="download-cta"
+	aria-label="Download Google AI Plus Portal"
+	class="relative py-20 sm:py-28 md:py-36 border-t border-slate-800/80 bg-slate-950 overflow-hidden"
+>
+	<!-- WebGL Bayer Dither Canvas (dithercn style) -->
+	<canvas
+		id="dither-canvas"
+		aria-hidden="true"
+		class="pointer-events-none absolute inset-0 w-full h-full select-none"
+	></canvas>
+
+	<!-- Ambient vignette overlay for text legibility and smooth contrast -->
+	<div
+		class="pointer-events-none absolute inset-0 bg-radial-[circle_at_center,rgba(9,13,22,0.3)_0%,rgba(9,13,22,0.75)_70%,rgba(9,13,22,0.98)_100%]"
+		aria-hidden="true"
+	></div>
+
+	<!-- Content Container -->
+	<div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+		<!-- Floating Official App Logo Box -->
+		<div class="relative mb-6 sm:mb-8 group">
+			<div
+				class="absolute -inset-3 rounded-full bg-sky-500/20 blur-xl opacity-75 group-hover:opacity-100 transition-opacity duration-500"
+				aria-hidden="true"
+			></div>
+			<div
+				class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-2xl sm:rounded-3xl bg-slate-900/90 border border-sky-400/30 p-3 sm:p-4 shadow-2xl shadow-sky-950/60 flex items-center justify-center animate-dither-float backdrop-blur-sm transition-transform duration-300 group-hover:scale-105"
+			>
+				<img
+					src="/images/app_icon.png"
+					alt="Google AI Plus Portal Icon"
+					width="64"
+					height="64"
+					class="w-full h-full object-contain filter drop-shadow-[0_4px_12px_rgba(56,189,248,0.35)]"
+					loading="lazy"
+					decoding="async"
+				/>
+			</div>
+		</div>
+
+		<!-- Version & Architecture Badge -->
+		<div
+			class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/80 border border-sky-500/30 text-sky-400 text-xs font-mono font-medium shadow-sm mb-4"
+		>
+			<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+			<span>{DITHER_CTA_BADGE}</span>
+		</div>
+
+		<!-- Section Headline -->
+		<h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight mb-4 max-w-2xl">
+			{DITHER_CTA_TITLE}
+			<span class="block text-sky-400 mt-1 sm:mt-2">{DITHER_CTA_SUBTITLE}</span>
+		</h2>
+
+		<!-- Descriptive Copywriting -->
+		<p class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl mx-auto">
+			{DITHER_CTA_DESCRIPTION}
+		</p>
+
+		<!-- Primary Download CTA Button & Releases Link -->
+		<div class="flex flex-col items-center justify-center gap-3.5 w-full sm:w-auto mb-8">
+			<a
+				id="btn-download-dither-cta"
+				href={CONFIG.LATEST_RELEASE_URL}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="direct-download-link w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-semibold text-sm sm:text-base transition-all duration-150 border border-sky-500/30 shadow-lg shadow-sky-950/40 focus:outline-none focus:ring-2 focus:ring-sky-400"
+			>
+				<WindowsIcon class="w-5 h-5 fill-current shrink-0" />
+				<span>Download for Windows (64-bit)</span>
+			</a>
+
+			<a
+				href={CONFIG.RELEASES_URL}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="releases-link inline-flex items-center gap-1.5 text-xs text-slate-300 hover:text-sky-300 transition-colors font-medium group py-1 underline underline-offset-4 decoration-slate-700 hover:decoration-sky-400"
+			>
+				<span>View all releases &amp; changelog<span class="sr-only"> (opens in a new tab)</span></span>
+				<ExternalLinkIcon class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 text-slate-400 group-hover:text-sky-300" />
+			</a>
+		</div>
+
+		<!-- Micro-Guarantees List -->
+		<div
+			class="flex flex-wrap items-center justify-center gap-y-2.5 gap-x-6 text-xs text-slate-300 pt-6 border-t border-slate-800/60 max-w-xl mx-auto"
+		>
+			{
+				DITHER_CTA_GUARANTEES.map((item) => (
+					<span class="flex items-center gap-1.5">
+						<CheckIcon class="w-4 h-4 text-emerald-400 shrink-0" />
+						<span>{item}</span>
+					</span>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script src="../scripts/dither-canvas.ts"></script>
+
+<style>
+	@keyframes dither-float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-8px);
+		}
+	}
+
+	.animate-dither-float {
+		animation: dither-float 4s ease-in-out infinite;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.animate-dither-float {
+			animation: none;
+		}
+	}
+</style>
