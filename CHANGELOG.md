@@ -11,12 +11,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Engraved Surface System & Marcel Kargul Depth Formula (`src/styles/global.css`)**:
+  - Implemented reusable Tailwind v4 `@theme` depth tokens: `--shadow-engraved`, `--shadow-engraved-primary`, `--shadow-engraved-primary-hover`, and `--shadow-engraved-primary-active`.
+  - Engineered a 7-layer optical depth formula for primary buttons: 1px outer incision cut (`#040812`), drop shadow, ambient cyan brand glow, 1px top specular line, 1px perimeter stroke, diffuse luminous white inner glow (`rgba(255, 255, 255, 0.24)`), and deep primary sky floor depth (`rgba(2, 132, 199, 0.5)`).
+  - Created standardized utility classes: `.btn-engraved-primary`, `.btn-engraved-secondary`, and `.card-engraved`, deployed across Hero, Dither CTA, Navbar (desktop & mobile drawer), and 404 page.
 - **Pre-Footer Retro WebGL Bayer Dither Call To Action (`DitherCta.astro`)**:
   - Engineered a high-conversion call-to-action closing section positioned right after `<FAQ />` and before `<Footer />`.
   - Built a zero-dependency WebGL shader component (`src/scripts/dither-canvas.ts`) inspired by `dithercn.dev`, generating a retro-futuristic 4x4 Bayer matrix ordered halftone dither halo in electric cyan (`#38bdf8`) against deep dark slate (`#090d16`).
+  - Added configurable Astro component props (`position = "top" | "bottom" | "center"`, `radius`, `intensity`) dynamically parsed via canvas `data-*` attributes.
+  - Redesigned app logo presentation: removed the redundant square outer container box and awkward blue border; scaled up the 3D glassmorphic squircle tile to 128px with dynamic `-rotate-6` tilt, `draggable="false"`, and ambient backlight bloom that seamlessly radiates into the dither matrix.
+  - Seamlessly merged Dither CTA and Footer on the home page by removing the footer top border and adjusting vertical padding.
   - Implemented an `IntersectionObserver` render loop that automatically pauses `requestAnimationFrame` when the section is offscreen, ensuring 0% idle CPU and GPU usage elsewhere on the page.
   - Implemented full accessibility and reduced-motion compliance via `prefers-reduced-motion: reduce`, instantly falling back to a clean static single-frame render without background animation loops.
-  - Centered official floating application logo with smooth hovering keyframe animation (`@keyframes dither-float`), cyan halo bloom, and clean conversion copywriting and micro-guarantee pills backed by centralized constants (`src/constants/dither-cta.ts`).
 - **Modular Component Architecture & Decoupling**:
   - Renamed `AGENT.md` to `AGENTS.md` following standard AI agent documentation conventions and updated all cross-repository references.
   - Decoupled `Navbar.astro` styles into a dedicated stylesheet `src/styles/navbar.css` injected into `src/styles/global.css` via `@import "./navbar.css";`, natively bundled by Tailwind CSS v4 and Vite.
@@ -46,6 +52,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Post-Click Focus Shadow Loss & Active State Flattening**: Fixed issue where clicking buttons that open new browser tabs caused the button to appear flat and plain upon returning to the page. Decoupled `:focus:not(:focus-visible)` in `src/styles/global.css` so it only strips `outline: none;` without resetting `box-shadow`, added explicit `:focus` declarations preserving `--shadow-engraved-primary`, removed conflicting Tailwind `focus:ring-2` utilities, and implemented a realistic tactile `:active` press state (`translateY(1px)`) that preserves white diffuse inner glow and specular highlights.
+- **404 Page Navbar Active Link State**: Resolved bug where navigation items (e.g., FAQ) erroneously displayed active pill styling on the 404 error page. Scoped active tab calculation and scrollspy observers strictly to the root home route (`pathname === "/"`).
 - **Desktop UI Preview Affordance & Copywriting**: Replaced ambiguous "Interactive desktop preview" caption with clear desktop utility guidance ("Visual interface preview • Download the portable Windows utility above to run locally on your PC"), added a dedicated `UI Preview` titlebar badge, and removed misleading link pointers inside the preview window.
 - **Full-Width Focus Outline on Escape & Mobile Tap**: Resolved an issue where pressing <kbd>Esc</kbd> or tapping on mobile caused a 2px horizontal sky-blue line across the top of `<main>` by scoping `:focus-visible` strictly to interactive elements (`a`, `button`, `input`, etc.) and explicitly resetting outlines on container landmarks (`main`, `#main-content`, `header`, `#site-header`, `body`, `html`, `[tabindex="-1"]`).
 - **Footer "Back to top" Target & Navbar Reset**: Replaced the `#main-content` anchor target with smooth programmatic scrolling to `scrollY = 0`, ensuring the viewport returns completely to the absolute top of the page and cleanly resets the floating navbar from its scrolled dock state back to its expanded header state.

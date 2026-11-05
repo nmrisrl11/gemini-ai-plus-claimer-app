@@ -50,6 +50,10 @@ The landing page web hub is engineered for maximum performance, strict accessibi
 
 - **CSS-First Architecture**: Configured via `@tailwindcss/vite` plugin in `astro.config.mjs`. Theme variables and custom utilities reside in `src/styles/global.css`.
 - **Design Tokens**: Dark slate palette (`slate-950` `#090d16` background, `slate-900` cards, `slate-800` borders, `sky-400` primary accents, `emerald-400` live status indicators).
+- **Engraved Depth & Surface System**: Reusable Tailwind v4 `@theme` tokens inspired by modern desktop productivity apps:
+  - `--shadow-engraved`: Neutral dark elements (cards, secondary buttons, tabs) featuring a 1px outer incision cut (`rgba(0,0,0,0.85)`), subtle drop shadow, 1px top specular highlight (`rgba(255,255,255,0.14)`), and 1px inner perimeter stroke.
+  - `--shadow-engraved-primary`: High-pop 7-layer optical depth system for primary CTAs: 1px outer groove cut (`#040812`), drop shadow, ambient cyan brand glow, 1px top specular line (`rgba(255,255,255,0.45)`), 1px inner perimeter stroke, diffuse luminous white inner glow (`rgba(255,255,255,0.24)`), and vibrant primary bottom sky depth (`rgba(2,132,199,0.5)`).
+  - Utility Classes: `.btn-engraved-primary`, `.btn-engraved-secondary`, and `.card-engraved`.
 - **Global Reset & Gutters**: `src/styles/global.css` specifies `scrollbar-gutter: stable; overflow-y: scroll;` to prevent layout shifts when navigating between routes.
 
 ### 2.3 Vector Iconography Standards
@@ -163,7 +167,7 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
   - **Flicker-Free Hysteresis Deadband**: Enters scrolled state at $50\text{px}$ and returns to top state at $20\text{px}$, preventing boundary chatter.
   - **Concentric Nested Radius Formula**: $R_{\text{outer}} = 20\text{px}$, inset $= 8\text{px}$, inner radius $R_{\text{inner}} = 12\text{px}$ ($20 - 8 = 12$) across logo box, segmented nav track, and mobile button for symmetrical UI alignment.
 - **Brand Identity**: Logo tile with subtle scale transition.
-- **Desktop Navigation**: Links driven by `src/constants/navigation.ts`.
+- **Desktop Navigation**: Links driven by `src/constants/navigation.ts`. Active section indicators and scrollspy observers are strictly scoped to the home page root route (`pathname === "/"`), ensuring navigation links never erroneously show active pill states on the 404 page.
 - **Direct Download CTA**: Desktop-visible button pointing to `CONFIG.DIRECT_DOWNLOAD_URL`.
 - **Mobile Menu & Touch Optimization**:
   - Header structured with `flex flex-col items-center` ensuring the mobile drawer vertically stacks directly below the navbar pill.
@@ -217,15 +221,18 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
 ### 10. Dither Call To Action (`DitherCta.astro` + `src/constants/dither-cta.ts` + `src/scripts/dither-canvas.ts`)
 
 - High-impact closing CTA section positioned between `<FAQ />` and `<Footer />`.
+- **Seamless Footer Integration**: Footer top border is removed and padding is balanced on the home page so the Dither matrix and Footer visually merge into a unified bottom region.
+- **Configurable Shader Props**: Accepts optional `position` (`"top" | "bottom" | "center"`), `radius`, and `intensity` props passed down to the canvas as `data-*` attributes for flexible spotlight origin and intensity control.
 - **dithercn-Inspired WebGL Bayer Dither Background**:
   - Implements a 4x4 Bayer ordered dither matrix shader rendering a breathing cyan halo against dark slate (`#090d16`).
   - **Zero-Dependency Native WebGL**: Runs natively in TypeScript without third-party canvas or shader runtime dependencies.
   - **Battery & Performance Optimized**: Utilizes `IntersectionObserver` to pause animation when scrolled out of view (0% idle CPU/GPU consumption).
   - **Full Accessibility & Reduced Motion**: Detects `prefers-reduced-motion: reduce` to render a single static frame without animation loops; canvas is marked `aria-hidden="true"` and `pointer-events-none`.
-- **Floating Brand Logo**:
-  - Centered official application icon with gentle hovering float animation (`@keyframes dither-float`) and radial cyan glow halo.
+- **Pure Tilted 3D Hero Logo**:
+  - Showcases the official 3D glassmorphic application icon scaled up (up to 128px) with a dynamic `-rotate-6` tilt, `draggable="false"`, and `select-none`.
+  - Outer background container box, artificial borders, and rings were eliminated so the icon floats directly over the dither field with ambient cyan backlight bloom and realistic contact drop shadows.
 - **Conversion Copywriting & Micro-Guarantees**:
-  - Highlights version and portable Windows requirements (`v1.0.1 Portable • Windows 10 / 11 (64-bit)`), high-visibility primary download button (`Download for Windows (64-bit)`), changelog link, and key local execution guarantee pills.
+  - High-visibility primary download CTA styled with `.btn-engraved-primary` (`Download for Windows (64-bit)`), changelog link, and key local execution guarantee pills.
 
 ### 11. Footer (`Footer.astro` + `src/constants/footer.ts`)
 
@@ -287,7 +294,7 @@ export const CONFIG = {
 5. **Color Contrast (SC 1.4.3)**:
    All typography against `#090d16` (slate-950) uses `#94a3b8` (slate-400, 7.58:1) or lighter, exceeding WCAG AAA requirements.
 6. **Scoped Focus Rings & Container Outline Isolation (SC 2.4.7)**:
-   Focus indicators (`outline: 2px solid #38bdf8`) are explicitly scoped to interactive elements (`a`, `button`, `input`, `select`, etc.). Container landmarks and programmatic focus targets (`main`, `header`, `body`, `html`, `[tabindex="-1"]`) strictly reset `outline: none; box-shadow: none;` to prevent viewport-spanning horizontal outline leakage when focus is restored via <kbd>Esc</kbd> or anchor skip links.
+   Focus indicators (`outline: 2px solid #38bdf8`) are explicitly scoped to interactive elements (`a:focus-visible`, `button:focus-visible`, `input:focus-visible`, `select:focus-visible`, etc.). Non-keyboard pointer focus (`:focus:not(:focus-visible)`) strictly resets `outline: none;` without stripping `box-shadow`, ensuring custom engraved surface depth (`--shadow-engraved-primary`) remains 100% intact after clicking external links and returning from newly opened browser tabs. Container landmarks and programmatic focus targets (`main`, `header`, `body`, `html`, `[tabindex="-1"]`) strictly reset `outline: none; box-shadow: none;` to prevent viewport-spanning horizontal outline leakage when focus is restored via <kbd>Esc</kbd> or anchor skip links.
 7. **Touch Action & Zoom Prevention (SC 2.5.1 / 2.5.2)**:
    Global `touch-action: manipulation;` disables the 300ms double-tap delay and double-tap zoom gestures. All touch targets maintain a minimum 16px equivalent font-size to prevent mobile Safari auto-focus zooming.
 
