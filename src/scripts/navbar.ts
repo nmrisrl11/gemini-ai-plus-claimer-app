@@ -54,6 +54,7 @@ export function initNavbar(): void {
 	const sections = SCROLLSPY_SECTIONS;
 	const navTabs = document.querySelectorAll<HTMLElement>(".nav-tab");
 	const siteHeader = document.getElementById("site-header");
+	const hasScrollspySections = sections.some((item) => document.getElementById(item.id) !== null);
 
 	const activeClasses = [
 		"bg-slate-800",
@@ -68,7 +69,7 @@ export function initNavbar(): void {
 		if (!navTabs.length) return;
 		navTabs.forEach((tab) => {
 			const target = tab.getAttribute("data-section");
-			if (target === activeKey) {
+			if (activeKey && target === activeKey) {
 				tab.classList.add(...activeClasses);
 				tab.classList.remove(...inactiveClasses);
 				tab.setAttribute("aria-current", "page");
@@ -80,13 +81,25 @@ export function initNavbar(): void {
 		});
 	}
 
-	// Click activation (instant visual feedback)
-	navTabs.forEach((tab) => {
-		tab.addEventListener("click", () => {
-			const target = tab.getAttribute("data-section");
-			if (target) setActiveTab(target);
+	// Click activation (instant visual feedback) — only for pages with on-page sections
+	if (hasScrollspySections) {
+		navTabs.forEach((tab) => {
+			tab.addEventListener("click", () => {
+				const target = tab.getAttribute("data-section");
+				if (target) setActiveTab(target);
+			});
 		});
-	});
+	}
+
+	// Smooth Back to Top handler
+	const backToTopBtn = document.getElementById("back-to-top");
+	if (backToTopBtn) {
+		backToTopBtn.addEventListener("click", (e) => {
+			e.preventDefault();
+			window.scrollTo({ top: 0, behavior: "smooth" });
+			setActiveTab("");
+		});
+	}
 
 	// Hysteresis threshold to eliminate chatter/flicker at the boundary
 	let isScrolled = false;
@@ -96,10 +109,8 @@ export function initNavbar(): void {
 	let isTicking = false;
 	function updateOnScroll(): void {
 		const scrollY = window.scrollY;
-		const viewportHeight = window.innerHeight;
-		const docHeight = document.documentElement.scrollHeight;
 
-		// 1. Flicker-Free Hysteresis Scroll State
+		// 1. Flicker-Free Hysteresis Scroll State (applies globally across all pages)
 		if (siteHeader) {
 			if (!isScrolled && scrollY > SCROLL_ACTIVATE_PX) {
 				isScrolled = true;
@@ -110,12 +121,9 @@ export function initNavbar(): void {
 			}
 		}
 
-		// 2. Scrollspy Section Highlight
-		if (!navTabs.length) return;
-
-		// If reached the very bottom of the page, highlight FAQ
-		if (scrollY + viewportHeight >= docHeight - 80) {
-			setActiveTab("faq");
+		// 2. Scrollspy Section Highlight (only active on pages with section anchors)
+		if (!navTabs.length || !hasScrollspySections) {
+			setActiveTab("");
 			return;
 		}
 
@@ -123,9 +131,16 @@ export function initNavbar(): void {
 		const headerOffset = 140;
 		const currentY = scrollY + headerOffset;
 
-		// Check first section top
+		// Check if above the first section (e.g. Hero / Why Automate)
 		const firstSection = document.getElementById("how-it-works");
 		if (firstSection && currentY < firstSection.offsetTop) {
+			setActiveTab("");
+			return;
+		}
+
+		// Check if below the last section into download CTA / footer
+		const downloadCta = document.getElementById("download-cta");
+		if (downloadCta && currentY >= downloadCta.offsetTop) {
 			setActiveTab("");
 			return;
 		}

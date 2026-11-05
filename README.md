@@ -60,34 +60,37 @@ gemini-ai-plus-claimer-app/
     │   ├── global.css       # Clean scrollbars, stable gutter, blinking terminal cursor
     │   └── navbar.css       # Dynamic floating pill navbar transitions & concentric radii
     ├── scripts/
-    │   └── navbar.ts        # Interactive navbar controller (drawer toggle, hysteresis, scrollspy)
-    ├── layouts/Layout.astro # Universal layout (SEO, OpenGraph, dynamic Schema.org JSON-LD, analytics)
+    │   ├── dither-canvas.ts     # WebGL Bayer dither canvas background (dithercn style, 0% idle CPU)
+    │   └── navbar.ts            # Interactive navbar controller (drawer toggle, hysteresis, scrollspy)
+    ├── layouts/Layout.astro     # Universal layout (SEO, OpenGraph, dynamic Schema.org JSON-LD, analytics)
     ├── pages/
-    │   ├── index.astro      # Assembles all sections inside Layout
-    │   └── 404.astro        # Dedicated accessible 404 error page
-    ├── constants/           # Strictly typed content models (kebab-case)
-    │   ├── browsers.ts      # Multi-browser tiers, discovery cascade sequence
-    │   ├── faq.ts           # Frequently asked questions & answers
-    │   ├── features.ts      # 6 engineering highlight cards & specs
-    │   ├── footer.ts        # 3-column navigation & developer credits
-    │   ├── hero.ts          # Hero spec ribbon, terminal logs, and mock profile data
-    │   ├── how-it-works.ts  # 5-stage automated pipeline steps
-    │   ├── navigation.ts    # Navbar navigation links & CTAs
-    │   ├── requirements.ts  # System specs & Google One verification guidelines
-    │   ├── support.ts       # Buy Me a Coffee & GCash funding details
-    │   └── why-automate.ts  # Manual vs Automated comparison matrix
+    │   ├── index.astro          # Assembles all sections inside Layout
+    │   └── 404.astro            # Dedicated accessible 404 error page
+    ├── constants/               # Strictly typed content models (kebab-case)
+    │   ├── browsers.ts          # Multi-browser tiers, discovery cascade sequence
+    │   ├── dither-cta.ts        # Pre-footer dither CTA section headline, copy, and guarantees
+    │   ├── faq.ts               # Frequently asked questions & answers
+    │   ├── features.ts          # 6 engineering highlight cards & specs
+    │   ├── footer.ts            # 3-column navigation & developer credits
+    │   ├── hero.ts              # Hero spec ribbon, terminal logs, and mock profile data
+    │   ├── how-it-works.ts      # 5-stage automated pipeline steps
+    │   ├── navigation.ts        # Navbar navigation links & CTAs
+    │   ├── requirements.ts      # System specs & Google One verification guidelines
+    │   ├── support.ts           # Buy Me a Coffee & GCash funding details
+    │   └── why-automate.ts      # Manual vs Automated comparison matrix
     └── components/
-        ├── icons/           # Bespoke brand SVG icons (GithubIcon, WindowsIcon)
-        ├── Navbar.astro     # Sticky navbar, mobile drawer with Escape key listener, CTA
-        ├── Hero.astro       # Headline, spec ribbon, CTAs, interactive Mockup preview
-        ├── WhyAutomate.astro# Comparison matrix (Manual Educational Gateway vs Automated Flow)
-        ├── HowItWorks.astro # 5-stage automated provisioning pipeline rail
-        ├── Features.astro   # 6 engineering cards (multi-browser cascade, F12 diagnostics, etc.)
-        ├── Browsers.astro   # 4-engine browser grid (Edge, Chrome, Brave, Opera/Vivaldi)
-        ├── Requirements.astro # Split-pane specs table & $0.00 billing verification notice
-        ├── Support.astro    # Unified Buy Me a Coffee & GCash QR code bento
-        ├── FAQ.astro        # Interactive details/summary accordion
-        └── Footer.astro     # 3-column footer, legal disclaimer, status badges
+        ├── icons/               # Bespoke brand SVG icons (GithubIcon, WindowsIcon)
+        ├── Navbar.astro         # Sticky navbar, mobile drawer with Escape key listener, CTA
+        ├── Hero.astro           # Headline, spec ribbon, CTAs, desktop UI preview mockup
+        ├── WhyAutomate.astro    # Comparison matrix (Manual Educational Gateway vs Automated Flow)
+        ├── HowItWorks.astro     # 5-stage automated provisioning pipeline rail
+        ├── Features.astro       # 6 engineering cards (multi-browser cascade, F12 diagnostics, etc.)
+        ├── Browsers.astro       # 4-engine browser grid (Edge, Chrome, Brave, Opera/Vivaldi)
+        ├── Requirements.astro   # Split-pane specs table & $0.00 billing verification notice
+        ├── Support.astro        # Unified Buy Me a Coffee & GCash QR code bento
+        ├── FAQ.astro            # Interactive details/summary accordion
+        ├── DitherCta.astro      # Retro WebGL Bayer dither CTA banner with prominent tilted 3D hero logo
+        └── Footer.astro         # 3-column footer, legal disclaimer, status badges
 ```
 
 ---
@@ -96,7 +99,9 @@ gemini-ai-plus-claimer-app/
 
 ### 1. Modern De-Slopped Design System & Typed Constants Architecture
 
-- **Dynamic Scroll-Responsive Pill Navbar**: Symmetrically aligned floating navbar that contracts into an elevated dock on scroll with concentric nested corner radii ($R_{\text{outer}} = 20\text{px}$, $R_{\text{inner}} = 12\text{px}$), smoothly gliding navigation tabs to the edge with tight $8\text{px}$ insets while desktop actions collapse without flicker.
+- **Engraved Surface System & Tactile Pop Buttons**: High-fidelity multi-layer optical depth system inspired by modern desktop tools (`--shadow-engraved`, `--shadow-engraved-primary`, `.btn-engraved-primary`, `.btn-engraved-secondary`, `.card-engraved`). Features a 1px outer incision cut (`#040812`), drop shadow, ambient cyan brand glow, top specular line, 1px inner perimeter stroke, diffuse luminous white inner glow (`rgba(255, 255, 255, 0.24)`), and deep primary sky floor depth (`rgba(2, 132, 199, 0.5)`). Built-in focus preservation ensures buttons retain 100% of their 3D engraved depth when opening new tabs or refocusing.
+- **Configurable WebGL Dither CTA & Tilted Hero Icon**: Standalone WebGL Bayer-8 halftone spotlight shader (`DitherCta.astro`) supporting customizable `position`, `radius`, and `intensity` props with seamless visual integration into the footer. Showcases the official 3D glassmorphic application icon scaled up (up to 128px) with a dynamic `-rotate-6` tilt, multi-layer ambient cyan backlight bloom, and realistic contact drop shadow without any clumsy box borders.
+- **Dynamic Scroll-Responsive Pill Navbar**: Symmetrically aligned floating navbar that contracts into an elevated dock on scroll with concentric nested corner radii ($R_{\text{outer}} = 20\text{px}$, $R_{\text{inner}} = 12\text{px}$), smoothly gliding navigation tabs to the edge with tight $8\text{px}$ insets while desktop actions collapse without flicker. Scoped strictly to the root home route to prevent erroneous active highlights on the 404 page.
 - **Decoupled Component Architecture**: Component styling and client interactivity are cleanly isolated into dedicated stylesheets (`src/styles/navbar.css`) and modular TypeScript scripts (`src/scripts/navbar.ts`), eliminating inline code bloat and leveraging Vite's compilation and minification pipeline.
 - **Mobile Touch & Viewport Precision**: Configured `touch-action: manipulation;` and 16px minimum touch targets across all interactive buttons, completely preventing 300ms double-tap delays and unwanted iOS Safari focus zoom gestures.
 - **Lucide Icon Integration**: Powered by `@lucide/astro` with uniform stroke widths and accessible SVG labeling across all UI components.

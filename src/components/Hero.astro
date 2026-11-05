@@ -58,7 +58,7 @@ const GUARANTEE_ICONS = {
 					href={CONFIG.LATEST_RELEASE_URL}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="direct-download-link w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-lg bg-sky-700 hover:bg-sky-600 text-white font-semibold text-sm sm:text-base transition-all duration-150 border border-sky-500/30 shadow-lg shadow-sky-950/40 focus:outline-none focus:ring-2 focus:ring-sky-400"
+					class="direct-download-link btn-engraved-primary w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-3.5 rounded-xl font-semibold text-sm sm:text-base"
 				>
 					<!-- Windows Logo -->
 					<WindowsIcon class="w-5 h-5 fill-current shrink-0" />
@@ -110,9 +110,14 @@ const GUARANTEE_ICONS = {
 							width="16"
 							height="16"
 						/>
-						<span class="text-xs font-mono font-medium text-slate-300 truncate">
+						<span class="text-xs font-mono font-medium text-slate-300 truncate flex items-center gap-2">
 							<span class="sm:hidden">Google AI Plus Portal</span>
 							<span class="hidden sm:inline">Google AI Plus (1-Year Access) Portal</span>
+							<span
+								class="text-[10px] font-mono font-semibold text-slate-400 bg-slate-800/90 border border-slate-700/80 px-2 py-0.5 rounded-full shrink-0"
+							>
+								UI Preview
+							</span>
 						</span>
 					</div>
 					<div
@@ -184,12 +189,11 @@ const GUARANTEE_ICONS = {
 								Reset Fields
 							</span>
 						</div>
-						<a
-							href="#support"
-							class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 hover:text-white text-xs font-semibold transition-colors"
+						<span
+							class="inline-flex items-center px-4 py-2.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold cursor-default select-none"
 						>
 							Support Dev
-						</a>
+						</span>
 					</div>
 
 					<!-- Visual Stepper Bar -->
@@ -263,19 +267,19 @@ const GUARANTEE_ICONS = {
 					class="px-4 sm:px-6 py-2.5 bg-slate-950 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400"
 				>
 					<div
-						class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap"
+						class="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap cursor-default"
 					>
 						<span>Developed by <span class="text-slate-300 font-medium">@nmrisrl11</span></span>
 						<span>&bull;</span>
-						<a href={CONFIG.REPO_URL} class="text-slate-400 hover:text-slate-200 transition-colors">About</a>
+						<span>About</span>
 						<span>&bull;</span>
-						<a href={CONFIG.BMC_URL} class="text-slate-400 hover:text-amber-300 transition-colors">Buy Me a Coffee</a>
+						<span>Buy Me a Coffee</span>
 					</div>
 					<span class="font-mono text-slate-400 text-[10px] shrink-0">{CONFIG.VERSION}</span>
 				</div>
 			</div>
 			<p class="text-center text-xs text-slate-400 mt-3 font-mono">
-				Interactive desktop preview of the portable Windows utility application.
+				Visual interface preview &bull; Download the portable Windows utility above to run locally on your PC.
 			</p>
 		</div>
 	</div>

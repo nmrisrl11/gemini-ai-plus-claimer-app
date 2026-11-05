@@ -50,6 +50,10 @@ The landing page web hub is engineered for maximum performance, strict accessibi
 
 - **CSS-First Architecture**: Configured via `@tailwindcss/vite` plugin in `astro.config.mjs`. Theme variables and custom utilities reside in `src/styles/global.css`.
 - **Design Tokens**: Dark slate palette (`slate-950` `#090d16` background, `slate-900` cards, `slate-800` borders, `sky-400` primary accents, `emerald-400` live status indicators).
+- **Engraved Depth & Surface System**: Reusable Tailwind v4 `@theme` tokens inspired by modern desktop productivity apps:
+  - `--shadow-engraved`: Neutral dark elements (cards, secondary buttons, tabs) featuring a 1px outer incision cut (`rgba(0,0,0,0.85)`), subtle drop shadow, 1px top specular highlight (`rgba(255,255,255,0.14)`), and 1px inner perimeter stroke.
+  - `--shadow-engraved-primary`: High-pop 7-layer optical depth system for primary CTAs: 1px outer groove cut (`#040812`), drop shadow, ambient cyan brand glow, 1px top specular line (`rgba(255,255,255,0.45)`), 1px inner perimeter stroke, diffuse luminous white inner glow (`rgba(255,255,255,0.24)`), and vibrant primary bottom sky depth (`rgba(2,132,199,0.5)`).
+  - Utility Classes: `.btn-engraved-primary`, `.btn-engraved-secondary`, and `.card-engraved`.
 - **Global Reset & Gutters**: `src/styles/global.css` specifies `scrollbar-gutter: stable; overflow-y: scroll;` to prevent layout shifts when navigating between routes.
 
 ### 2.3 Vector Iconography Standards
@@ -110,6 +114,7 @@ gemini-ai-plus-claimer-app/
     │   ├── global.css         # Global styles, scrollbar styling, terminal blinking cursor
     │   └── navbar.css         # Dynamic floating pill navbar transitions & concentric radii
     ├── scripts/
+    │   ├── dither-canvas.ts   # WebGL Bayer dither canvas background (dithercn style, 0% idle CPU via IntersectionObserver)
     │   └── navbar.ts          # Interactive navbar controller (drawer toggle, hysteresis, scrollspy)
     ├── layouts/
     │   └── Layout.astro       # Universal root layout (SEO meta, OpenGraph, JSON-LD, analytics)
@@ -118,6 +123,7 @@ gemini-ai-plus-claimer-app/
     │   └── 404.astro          # Dedicated accessible 404 error page
     ├── constants/             # Strictly typed content models (kebab-case)
     │   ├── browsers.ts        # Browser discovery tiers (T01–T04), engine details, cascade steps
+    │   ├── dither-cta.ts      # Pre-footer dither CTA section headline, copy, and guarantees
     │   ├── faq.ts             # FAQ items with markdown support & answer paragraphs
     │   ├── features.ts        # 6 engineering cards and technical specifications
     │   ├── footer.ts          # 3-column footer navigation links & developer profiles
@@ -132,7 +138,7 @@ gemini-ai-plus-claimer-app/
         │   ├── GithubIcon.astro
         │   └── WindowsIcon.astro
         ├── Navbar.astro       # Responsive sticky header with mobile drawer & Escape listener
-        ├── Hero.astro         # Hero headline, CTA buttons, spec ribbon, interactive Mockup preview
+        ├── Hero.astro         # Hero headline, CTA buttons, spec ribbon, desktop UI preview mockup
         ├── WhyAutomate.astro  # Problem vs Solution comparison matrix table
         ├── HowItWorks.astro   # 5-stage automated provisioning pipeline rail
         ├── Features.astro     # 6 engineering highlight cards with spec metadata
@@ -140,6 +146,7 @@ gemini-ai-plus-claimer-app/
         ├── Requirements.astro # System specs table & $0.00 billing verification notice
         ├── Support.astro      # Unified Buy Me a Coffee & GCash developer appreciation bento
         ├── FAQ.astro          # Interactive details/summary accordion questions
+        ├── DitherCta.astro    # Retro WebGL Bayer dither CTA banner with floating official logo and primary Windows download action
         └── Footer.astro       # 3-column navigation, legal disclaimers, status badges
 ```
 
@@ -160,7 +167,7 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
   - **Flicker-Free Hysteresis Deadband**: Enters scrolled state at $50\text{px}$ and returns to top state at $20\text{px}$, preventing boundary chatter.
   - **Concentric Nested Radius Formula**: $R_{\text{outer}} = 20\text{px}$, inset $= 8\text{px}$, inner radius $R_{\text{inner}} = 12\text{px}$ ($20 - 8 = 12$) across logo box, segmented nav track, and mobile button for symmetrical UI alignment.
 - **Brand Identity**: Logo tile with subtle scale transition.
-- **Desktop Navigation**: Links driven by `src/constants/navigation.ts`.
+- **Desktop Navigation**: Links driven by `src/constants/navigation.ts`. Active section indicators and scrollspy observers are strictly scoped to the home page root route (`pathname === "/"`), ensuring navigation links never erroneously show active pill states on the 404 page.
 - **Direct Download CTA**: Desktop-visible button pointing to `CONFIG.DIRECT_DOWNLOAD_URL`.
 - **Mobile Menu & Touch Optimization**:
   - Header structured with `flex flex-col items-center` ensuring the mobile drawer vertically stacks directly below the navbar pill.
@@ -173,7 +180,7 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
 - **Spec Ribbon**: Single unified container with `divide-x divide-slate-800` displaying `Windows 10 / 11 64-bit`, `v1.0.1 Portable`, and `100% Local Execution`.
 - **Headline**: High-clarity value proposition with no hype or spam.
 - **CTAs**: Primary Sky-600 download button and secondary GitHub Repository link.
-- **Interactive Mockup**: Full visual preview of the portable desktop utility with simulated demographic form (`<span>` tags for field descriptors to prevent a11y violations), step indicator rail, and live terminal readout.
+- **Desktop UI Preview Showcase**: Full visual interface preview of the portable desktop utility with simulated demographic form (`<span>` tags for field descriptors to prevent a11y violations), step indicator rail, and live terminal readout.
 
 ### 3. Comparison Matrix (`WhyAutomate.astro` + `src/constants/why-automate.ts`)
 
@@ -211,7 +218,23 @@ All sections adhere to a restrained, dark slate engineering aesthetic (`slate-95
 - Semantic `<details>` and `<summary>` accordions styled in a single unified container with `divide-y divide-slate-800/80`.
 - Numbered index headers (`01`, `02`, `...`) and CSS rotation on the chevron icon (`group-open:rotate-180`). Note: do not duplicate rotation in CSS classes to avoid 360° rotation bugs.
 
-### 10. Footer (`Footer.astro` + `src/constants/footer.ts`)
+### 10. Dither Call To Action (`DitherCta.astro` + `src/constants/dither-cta.ts` + `src/scripts/dither-canvas.ts`)
+
+- High-impact closing CTA section positioned between `<FAQ />` and `<Footer />`.
+- **Seamless Footer Integration**: Footer top border is removed and padding is balanced on the home page so the Dither matrix and Footer visually merge into a unified bottom region.
+- **Configurable Shader Props**: Accepts optional `position` (`"top" | "bottom" | "center"`), `radius`, and `intensity` props passed down to the canvas as `data-*` attributes for flexible spotlight origin and intensity control.
+- **dithercn-Inspired WebGL Bayer Dither Background**:
+  - Implements a 4x4 Bayer ordered dither matrix shader rendering a breathing cyan halo against dark slate (`#090d16`).
+  - **Zero-Dependency Native WebGL**: Runs natively in TypeScript without third-party canvas or shader runtime dependencies.
+  - **Battery & Performance Optimized**: Utilizes `IntersectionObserver` to pause animation when scrolled out of view (0% idle CPU/GPU consumption).
+  - **Full Accessibility & Reduced Motion**: Detects `prefers-reduced-motion: reduce` to render a single static frame without animation loops; canvas is marked `aria-hidden="true"` and `pointer-events-none`.
+- **Pure Tilted 3D Hero Logo**:
+  - Showcases the official 3D glassmorphic application icon scaled up (up to 128px) with a dynamic `-rotate-6` tilt, `draggable="false"`, and `select-none`.
+  - Outer background container box, artificial borders, and rings were eliminated so the icon floats directly over the dither field with ambient cyan backlight bloom and realistic contact drop shadows.
+- **Conversion Copywriting & Micro-Guarantees**:
+  - High-visibility primary download CTA styled with `.btn-engraved-primary` (`Download for Windows (64-bit)`), changelog link, and key local execution guarantee pills.
+
+### 11. Footer (`Footer.astro` + `src/constants/footer.ts`)
 
 - 3-column navigation grid: `Product`, `Resources & Code`, and `Developer & Support`.
 - Comprehensive legal disclaimer and non-affiliation notice.
@@ -271,7 +294,7 @@ export const CONFIG = {
 5. **Color Contrast (SC 1.4.3)**:
    All typography against `#090d16` (slate-950) uses `#94a3b8` (slate-400, 7.58:1) or lighter, exceeding WCAG AAA requirements.
 6. **Scoped Focus Rings & Container Outline Isolation (SC 2.4.7)**:
-   Focus indicators (`outline: 2px solid #38bdf8`) are explicitly scoped to interactive elements (`a`, `button`, `input`, `select`, etc.). Container landmarks and programmatic focus targets (`main`, `header`, `body`, `html`, `[tabindex="-1"]`) strictly reset `outline: none; box-shadow: none;` to prevent viewport-spanning horizontal outline leakage when focus is restored via <kbd>Esc</kbd> or anchor skip links.
+   Focus indicators (`outline: 2px solid #38bdf8`) are explicitly scoped to interactive elements (`a:focus-visible`, `button:focus-visible`, `input:focus-visible`, `select:focus-visible`, etc.). Non-keyboard pointer focus (`:focus:not(:focus-visible)`) strictly resets `outline: none;` without stripping `box-shadow`, ensuring custom engraved surface depth (`--shadow-engraved-primary`) remains 100% intact after clicking external links and returning from newly opened browser tabs. Container landmarks and programmatic focus targets (`main`, `header`, `body`, `html`, `[tabindex="-1"]`) strictly reset `outline: none; box-shadow: none;` to prevent viewport-spanning horizontal outline leakage when focus is restored via <kbd>Esc</kbd> or anchor skip links.
 7. **Touch Action & Zoom Prevention (SC 2.5.1 / 2.5.2)**:
    Global `touch-action: manipulation;` disables the 300ms double-tap delay and double-tap zoom gestures. All touch targets maintain a minimum 16px equivalent font-size to prevent mobile Safari auto-focus zooming.
 

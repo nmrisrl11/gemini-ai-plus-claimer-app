@@ -3,13 +3,25 @@ import { ArrowUp as ArrowUpIcon, ExternalLink as ExternalLinkIcon } from "@lucid
 import { CONFIG } from "../config";
 import { FOOTER_COLUMNS } from "../constants/footer";
 
+interface Props {
+	withBorder?: boolean;
+	pt?: string;
+}
+
+const { withBorder, pt } = Astro.props;
 const isHome = Astro.url.pathname === "/" || Astro.url.pathname === "/index.html";
 const prefix = isHome ? "" : "/";
+const showBorder = withBorder ?? !isHome;
+const topPadding = pt ?? (isHome ? "pt-0" : "pt-16");
 ---
 
 <footer
 	role="contentinfo"
-	class="bg-slate-950 border-t border-slate-800 text-slate-400 text-xs pt-16 pb-12"
+	class:list={[
+		"bg-slate-950 text-slate-400 text-xs pb-12",
+		topPadding,
+		showBorder ? "border-t border-slate-800" : "border-t-0",
+	]}
 >
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 		<!-- Top Section: Brand Overview (Left) + Multi-Column Navigation (Right) -->
@@ -107,8 +119,10 @@ const prefix = isHome ? "" : "/";
 			</div>
 			<div class="flex items-center gap-4">
 				<a
-					href="#main-content"
+					href="#"
+					id="back-to-top"
 					class="inline-flex items-center gap-1.5 text-slate-400 hover:text-sky-300 transition-colors"
+					aria-label="Back to top of page"
 				>
 					<span>Back to top</span>
 					<ArrowUpIcon class="w-3.5 h-3.5" />
